@@ -45,10 +45,9 @@ function setDateTimeToday(dateid) {
     document.getElementById(dateid).setAttribute("max", today);
 }
 
-// Install input filters.
+// Activando funciones
 setInputFilter(document.getElementById("dni"), function (value) {
     return /^-?\d*$/.test(value);
 }, "Tiene valores numericos");
-
 setDateTimeToday("emision")
 setDateTimeToday("nacimiento")
