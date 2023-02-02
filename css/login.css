@@ -1,7 +1,16 @@
+html{
+  background-color: #6fa8dc;
+}
+
 .h2{
   text-align: center;
 }
 
-.container {
+#formulario {
   background-color: #34ebd9;
+}
+
+#logo_peru{
+  width: 50px;
+  height: 50px;
 }

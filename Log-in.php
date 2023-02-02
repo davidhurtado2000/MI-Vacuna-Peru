@@ -12,8 +12,16 @@
 
 </head>
 
-<body style="padding-top: 15%;">
-  <div class="container border border-dark rounded" style="width: 30%; padding-bottom: 15px;">
+
+<header class="container">
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand">Mi Vacuna Peru <img src="img/peru.png" alt="Responsive image" id="logo_peru"></a>
+    <img src="img/logo_minsa.png" class="img-fluid" alt="Responsive image">
+  </nav>
+</header>
+
+<body style="background-color: transparent;">
+  <div class="container border border-dark rounded" id="formulario" style="width: 500px; padding-bottom: 15px;">
     <p class="h2">Ingresar sus datos para su verificacion</p>
     <div class="row">
       <form action="#">
@@ -33,15 +41,15 @@
           <input type="date" class="form-control" id="nacimiento" required>
         </div>
         <br>
-        
+
         <div class="container d-flex justify-content-center align-items-center">
-          <div class="button"> 
+          <div class="button">
             <button type="submit" class="btn btn-primary" value="Submit">Ingresar</button>
           </div>
         </div>
 
         <div class="container d-flex justify-content-center align-items-center">
-          <div class="nonuser"> 
+          <div class="nonuser">
             <label for="nonuser">No tienes cuenta?</label>
             <a href="#">Registrate aqui</a>
           </div>
