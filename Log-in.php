@@ -33,6 +33,8 @@
         </div>
         <br>
         <button type="submit" class="btn btn-primary" value="Submit">Ingresar</button>
+        <label for="no-cuenta">No tienes cuenta?</label>
+        <a href="#">Registrate aqui</a>
 
       </form>
     </div>
