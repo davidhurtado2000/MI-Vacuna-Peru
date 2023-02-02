@@ -9,11 +9,12 @@
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-  
+
 </head>
 
 <body style="padding-top: 15%;">
-  <div class="container" style="width: 30%;">
+  <div class="container border border-dark rounded" style="width: 30%; padding-bottom: 15px;">
+    <p class="h2">Ingresar sus datos para su verificacion</p>
     <div class="row">
       <form action="#">
         <div class="form-group">
@@ -32,9 +33,19 @@
           <input type="date" class="form-control" id="nacimiento" required>
         </div>
         <br>
-        <button type="submit" class="btn btn-primary" value="Submit">Ingresar</button>
-        <label for="no-cuenta">No tienes cuenta?</label>
-        <a href="#">Registrate aqui</a>
+        
+        <div class="container d-flex justify-content-center align-items-center">
+          <div class="button"> 
+            <button type="submit" class="btn btn-primary" value="Submit">Ingresar</button>
+          </div>
+        </div>
+
+        <div class="container d-flex justify-content-center align-items-center">
+          <div class="nonuser"> 
+            <label for="nonuser">No tienes cuenta?</label>
+            <a href="#">Registrate aqui</a>
+          </div>
+        </div>
 
       </form>
     </div>
