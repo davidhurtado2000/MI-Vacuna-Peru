@@ -4,6 +4,7 @@
 <head>
   <title>Mi Vacuna Peru</title>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="css/login.css" type="text/css" rel="stylesheet" media="">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -13,7 +14,7 @@
 </head>
 
 
-<header class="container" id="navegador">
+<header class="container-fluid" id="navegador">
   <nav class="navbar navbar-light bg-light">
     <p class="h1">Mi Vacuna Peru <img src="img/peru.png" alt="Responsive image" id="logo_peru"></p>
     <img src="img/logo_minsa.png" class="img-fluid" alt="Responsive image" id="minsa">
@@ -21,8 +22,12 @@
 </header>
 
 <body style="background-color: transparent;">
-  <div class="container border border-dark " id="formulario">
-    <p class="h2">Ingresar sus datos para su verificacion</p>
+
+
+  <div class="container-fluid	 border border-dark " id="formulario">
+    <div class="jumbotron text-center">
+      <h2>Ingresar sus datos para su verificacion</h2>
+    </div>
     <div class="row">
       <form action="#">
         <div class="form-group border-bottom border-dark">
@@ -64,8 +69,9 @@
   <script type="text/javascript" src="js/login.js"></script>
 </body>
 
-<footer>
-
+<footer class="container-fluid text-center">
+  <p>© 2023 Copyright</p>
 </footer>
+
 
 </html>
