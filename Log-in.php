@@ -13,10 +13,10 @@
 </head>
 
 
-<header class="container">
+<header class="container" id="navegador">
   <nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand">Mi Vacuna Peru <img src="img/peru.png" alt="Responsive image" id="logo_peru"></a>
-    <img src="img/logo_minsa.png" class="img-fluid" alt="Responsive image">
+    <p class="h1">Mi Vacuna Peru <img src="img/peru.png" alt="Responsive image" id="logo_peru"></p>
+    <img src="img/logo_minsa.png" class="img-fluid" alt="Responsive image" id="minsa">
   </nav>
 </header>
 
@@ -25,20 +25,22 @@
     <p class="h2">Ingresar sus datos para su verificacion</p>
     <div class="row">
       <form action="#">
-        <div class="form-group">
+        <div class="form-group border-bottom border-dark">
           <label for="dni">DNI</label>
-          <input type="text" class="form-control" placeholder="Ingresar su DNI" minlength="8" id="dni" name="dni"
-            maxlength="8" required>
+          <img src="img/dni.png" alt="Responsive image" id="iconos"><input type="text" class="form-control border-0"
+            placeholder="Ingresar su DNI" minlength="8" id="dni" name="dni" maxlength="8" required>
         </div>
 
-        <div class="form-group">
+        <div class="form-group border-bottom border-dark">
           <label for="fch-emision">Fecha de Emision</label>
-          <input type="date" class="form-control" id="emision" required>
+          <img src="img/fechaemision.png" alt="Responsive image" id="iconos"><input type="date"
+            class="form-control border-0" id="emision" required>
         </div>
 
-        <div class="form-group">
+        <div class="form-group border-bottom border-dark">
           <label for="fch-nacimiento">Fecha de Nacimiento</label>
-          <input type="date" class="form-control" id="nacimiento" required>
+          <img src="img/nacimiento.png" alt="Responsive image" id="iconos"> <input type="date"
+            class="form-control border-0" id="nacimiento" required>
         </div>
         <br>
 
@@ -61,5 +63,9 @@
 
   <script type="text/javascript" src="js/login.js"></script>
 </body>
+
+<footer>
+
+</footer>
 
 </html>
