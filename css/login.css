@@ -16,6 +16,9 @@ header{
 
 #formulario {
   background-color: white;
+  width: 30%; 
+  padding-bottom: 15px;
+  border-radius: 30px;
 }
 
 #iconos{

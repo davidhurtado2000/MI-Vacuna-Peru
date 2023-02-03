@@ -21,7 +21,7 @@
 </header>
 
 <body style="background-color: transparent;">
-  <div class="container border border-dark rounded" id="formulario" style="width: 500px; padding-bottom: 15px;">
+  <div class="container border border-dark " id="formulario">
     <p class="h2">Ingresar sus datos para su verificacion</p>
     <div class="row">
       <form action="#">
