@@ -14,17 +14,25 @@
 </head>
 
 
-<header class="container-fluid" id="navegador">
-  <nav class="navbar navbar-light bg-light">
-    <p class="h1">Mi Vacuna Peru <img src="img/peru.png" alt="Responsive image" id="logo_peru"></p>
-    <img src="img/logo_minsa.png" class="img-fluid" alt="Responsive image" id="minsa">
-  </nav>
+<header>
+  <div class="container-fluid" style="background-color: white;">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="float-start">
+                    <p class="h1">Mi Vacuna Peru <img src="img/peru.png" alt="Responsive image" id="logo_peru"></p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="float-end">
+                    <img src="img/logo_minsa.png" class="img-fluid" alt="Responsive image" id="minsa">
+                    </div>
+                </div>
+            </div>
 </header>
 
 <body style="background-color: transparent;">
 
-
-  <div class="container-fluid	 border border-dark " id="formulario">
+  <div class="container-fluid	 mt-3 border border-dark " id="formulario">
     <div class="jumbotron text-center">
       <h2>Ingresar sus datos para su verificacion</h2>
     </div>

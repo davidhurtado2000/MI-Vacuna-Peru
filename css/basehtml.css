@@ -1,5 +1,5 @@
 html {
-    background-color: #20598f;
+    background-color: #6fa8dc;
 }
 
 header {
@@ -18,4 +18,8 @@ footer {
 
 #minsa {
     width: 300px;
+}
+
+#navegador{
+    background-color: white;
 }
