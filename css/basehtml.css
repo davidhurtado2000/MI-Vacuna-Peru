@@ -16,6 +16,11 @@ footer {
     height: 50px;
 }
 
+#menu_logo {
+    width: 30px;
+    height: 30px;
+}
+
 #minsa {
     width: 300px;
 }
@@ -23,3 +28,14 @@ footer {
 #navegador{
     background-color: white;
 }
+
+div.btn{
+    cursor: pointer; 
+    transition: all 1s;  /* lets make it smooth */
+}
+
+div.change-bgcolor:hover, div.change-bgcolor:active{
+    background: rgb(165, 165, 165);
+    transition: all 1s;
+}
+
