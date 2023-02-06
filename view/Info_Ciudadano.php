@@ -29,9 +29,9 @@
         </div>
 </header>
 
-<body style="background-color: transparent;">
+<body class="d-flex flex-column min-vh-100" style="background-color: transparent;">
 
-    <div class="container-fluid mt-3 px-4 py-4" style="background-color: red;">
+    <div class="container-fluid mt-3 px-4 py-4" >
         <div class="container-fluid pb-4 " style="background-color: #ffe599;">
             <div class="row">
                 <div class="col-lg-6">
@@ -83,8 +83,8 @@
 
 </body>
 
-<footer style="background-color: white;">
-
+<footer class="mt-auto  text-center">
+  <p>© 2023 Copyright</p>
 </footer>
 
 </html>

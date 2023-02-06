@@ -16,25 +16,25 @@
 
 <header>
   <div class="container-fluid" style="background-color: white;">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="float-start">
-                    <p class="h1">Mi Vacuna Peru <img src="img/peru.png" alt="Responsive image" id="logo_peru"></p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="float-end">
-                    <img src="img/logo_minsa.png" class="img-fluid" alt="Responsive image" id="minsa">
-                    </div>
-                </div>
-            </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="float-start">
+          <p class="h1">Mi Vacuna Peru <img src="img/peru.png" alt="Responsive image" id="logo_peru"></p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="float-end">
+          <img src="img/logo_minsa.png" class="img-fluid" alt="Responsive image" id="minsa">
+        </div>
+      </div>
+    </div>
 </header>
 
-<body style="background-color: transparent;">
+<body class="d-flex flex-column min-vh-100" style="background-color: transparent;">
 
   <div class="container-fluid	 mt-3 border border-dark w-25" id="formulario">
     <div class="jumbotron text-center">
-      <h2>Ingresar sus datos para su verificacion</h2>
+      <p class="h2">Ingresar sus datos</p>
     </div>
     <div class="row">
       <form action="#">
@@ -58,8 +58,10 @@
         <br>
 
         <div class="container d-flex justify-content-center align-items-center">
-          <div class="button">
-            <button type="submit" class="btn btn-primary" value="Submit">Ingresar</button>
+          <div class="btn-group-vertical" style="background-color: white;">
+            <div type="submit" class="btn btn-primary border border-dark" value="Submit">
+              Ingresar
+            </div>
           </div>
         </div>
 
@@ -77,7 +79,7 @@
   <script type="text/javascript" src="js/login.js"></script>
 </body>
 
-<footer class="container-fluid text-center">
+<footer class="mt-auto  text-center">
   <p>© 2023 Copyright</p>
 </footer>
 

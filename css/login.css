@@ -6,26 +6,21 @@ header{
   padding-bottom: 50px;
 }
 
-footer{
+footer {
   padding: 25px;
+  background-color: white;
 }
 
-#nave{
-  background-color: blue;
-}
 
 .form-group{
   padding-top: 5px;
 }
 
 
-#body{
-  background-color: transparent;
-}
 
 #formulario {
   background-color: white;
-  padding-bottom: 15px;
+  border-radius: 30px;
 }
 
 #iconos{
@@ -42,4 +37,12 @@ footer{
   width: 300px;
 }
 
+div.btn{
+  cursor: pointer; 
+  transition: all 1s;  /* lets make it smooth */
+}
 
+div.change-bgcolor:hover, div.change-bgcolor:active{
+  background: rgb(114, 235, 49);
+  transition: all 1s;
+}
