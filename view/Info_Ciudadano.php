@@ -14,7 +14,7 @@
 
 
 <header>
-    <div class="container-fluid" >
+    <div class="container-fluid" style="background-color: white;">
         <div class="row">
             <div class="col-lg-6">
                 <div class="float-start">
@@ -29,7 +29,7 @@
         </div>
 </header>
 
-<body>
+<body style="background-color: transparent;">
 
     <div class="container-fluid mt-3 px-4 py-4" style="background-color: red;">
         <div class="container-fluid pb-4 " style="background-color: #ffe599;">
@@ -83,7 +83,7 @@
 
 </body>
 
-<footer>
+<footer style="background-color: white;">
 
 </footer>
 

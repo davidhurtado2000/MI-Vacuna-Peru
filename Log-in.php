@@ -32,7 +32,7 @@
 
 <body style="background-color: transparent;">
 
-  <div class="container-fluid	 mt-3 border border-dark " id="formulario">
+  <div class="container-fluid	 mt-3 border border-dark w-25" id="formulario">
     <div class="jumbotron text-center">
       <h2>Ingresar sus datos para su verificacion</h2>
     </div>
