@@ -37,7 +37,8 @@
       <p class="h2">Ingresar sus datos</p>
     </div>
     <div class="row">
-      <form action="#">
+
+      <form action="controller/ControllerValidarAccesoPaciente.php" method="post">
         <div class="form-group border-bottom border-dark">
           <label for="dni">DNI</label>
           <img src="img/dni.png" alt="Responsive image" id="iconos"><input type="text" class="form-control border-0"
@@ -47,13 +48,13 @@
         <div class="form-group border-bottom border-dark">
           <label for="fch-emision">Fecha de Emision</label>
           <img src="img/fechaemision.png" alt="Responsive image" id="iconos"><input type="date"
-            class="form-control border-0" id="emision" required>
+            class="form-control border-0" id="emision" name="emision" required>
         </div>
 
         <div class="form-group border-bottom border-dark">
           <label for="fch-nacimiento">Fecha de Nacimiento</label>
           <img src="img/nacimiento.png" alt="Responsive image" id="iconos"> <input type="date"
-            class="form-control border-0" id="nacimiento" required>
+            class="form-control border-0" id="nacimiento" name="nacimiento" required>
         </div>
         <br>
 
