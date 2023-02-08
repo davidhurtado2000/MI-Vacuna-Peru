@@ -82,10 +82,11 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                         <div class="col-md-12 px-4 h-100 border border-dark rounded-0 overflow-auto"
                             style="background-color: white; max-height: 357px;">
                             <div class="container">
-                                <div class="row align-items-center mx-2">
+                                <div class="row align-items-center mx-2 my-4">
                                     <div class="row my-2">
+                                        <div class="h4 text-center">Informacion del Paciente</div>
                                         <div class="col-md-2">
-                                            <div class="col-md-12 text-end">Nombres: </div>
+                                            <div class="col-md-12">Nombres: </div>
                                         </div>
                                         <div class="col-md-10">
                                             <div class="col-md-12 border border-dark" id="contenido_personal"
@@ -96,7 +97,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                     </div>
                                     <div class="row my-2">
                                         <div class="col-md-2">
-                                            <div class="col-md-12 text-end">Apellido Paterno: </div>
+                                            <div class="col-md-12 ">Apellido Paterno: </div>
                                         </div>
                                         <div class="col-md-10">
                                             <div class="col-md-12 border border-dark" id="contenido_personal"
@@ -107,7 +108,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                     </div>
                                     <div class="row my-2">
                                         <div class="col-md-2">
-                                            <div class="col-md-12 text-end">Apellido Materno: </div>
+                                            <div class="col-md-12 ">Apellido Materno: </div>
                                         </div>
                                         <div class="col-md-10">
                                             <div class="col-md-12 border border-dark" id="contenido_personal"
@@ -118,7 +119,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                     </div>
                                     <div class="row my-2">
                                         <div class="col-md-2">
-                                            <div class="col-md-12 text-end">Edad: </div>
+                                            <div class="col-md-12 ">Edad: </div>
                                         </div>
                                         <div class="col-md-10">
                                             <div class="col-md-12 border border-dark" id="contenido_personal"
@@ -129,7 +130,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                     </div>
                                     <div class="row my-2">
                                         <div class="col-md-2">
-                                            <div class="col-md-12 text-end">Direccion: </div>
+                                            <div class="col-md-12">Direccion: </div>
                                         </div>
                                         <div class="col-md-10">
                                             <div class="col-md-12 border border-dark" id="contenido_personal"
