@@ -4,7 +4,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
     header('Location:../Log-in.php?err=3');
 } else {
     date_default_timezone_set('America/Lima');
-    $fechaActual = date('d/m/y h:i:s');
+    $fechaActual = date('d/m/y h:i');
     ?>
     <!DOCTYPE html>
     <html lang="es">
