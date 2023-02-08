@@ -21,7 +21,7 @@ IF($_POST["dni"] == "" || $_POST["emision"] == "" || $_POST["nacimiento"] == "")
         $_SESSION['emision'] = $fila['f_emision'];
         $_SESSION['nacimiento'] = $fila['f_nacimiento'];
 
-        $_SESSION['nom_completo'] = $fila['']. " , " .$fila['apellido_p']." ".$fila['apellido_m'];
+        $_SESSION['nom_completo'] = $fila['nombres']. " , " .$fila['apellido_p']." ".$fila['apellido_m'];
         $_SESSION['nombres'] = $fila['nombres'];
         $_SESSION['a_paterno'] = $fila['apellido_p'];
         $_SESSION['a_materno'] = $fila['apellido_m'];
