@@ -60,20 +60,17 @@
 
         <div class="container d-flex justify-content-center align-items-center">
           <div class="btn-group-vertical" style="background-color: white;">
-            <div type="submit" class="btn btn-primary border border-dark" value="Submit">
-              Ingresar
-            </div>
+            <input type="submit" class="btn btn-primary border border-dark" value="Ingresar">
           </div>
         </div>
+      </form>
 
-        <div class="container d-flex justify-content-center align-items-center">
+      <div class="container d-flex justify-content-center align-items-center">
           <div class="nonuser">
             <label for="nonuser">No tienes cuenta?</label>
             <a href="#">Registrate aqui</a>
           </div>
         </div>
-
-      </form>
     </div>
   </div>
 

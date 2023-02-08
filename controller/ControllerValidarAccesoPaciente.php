@@ -30,6 +30,12 @@ IF($_POST["dni"] == "" || $_POST["emision"] == "" || $_POST["nacimiento"] == "")
 
 
     }
+
+    if(count($data) == 0)
+	    header('Location:../Log-in.php?err=2');
+	else {
+	    header('Location:../view/Info_Ciudadano.php');
+	}
 }
 
 /*

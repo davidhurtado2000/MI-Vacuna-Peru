@@ -1,11 +1,10 @@
 <?php
-use FTP\Connection;
 include_once '../util/ConexionBD.php';
 
 class ModelPaciente{
 
-    public function _constructor(){
-        $con = new Connection();
+    public function __construct(){
+        $con = new Conexion();
     }
 
 
