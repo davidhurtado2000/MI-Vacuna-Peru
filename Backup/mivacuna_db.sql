@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 07, 2023 at 06:14 AM
+-- Generation Time: Feb 08, 2023 at 07:06 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -49,6 +49,13 @@ CREATE TABLE `dni` (
   `f_nacimiento` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `dni`
+--
+
+INSERT INTO `dni` (`dni_id`, `nombres`, `apellido_p`, `apellido_m`, `reniec_id_reniec`, `f_emision`, `f_nacimiento`) VALUES
+('60449003', 'Juan Carlos', 'Tuncar', 'Ruiz', 'REN001', '2018-02-08', '1996-05-15');
+
 -- --------------------------------------------------------
 
 --
@@ -72,8 +79,16 @@ CREATE TABLE `paciente` (
   `dni_dni_id` char(8) NOT NULL,
   `direccion` varchar(50) NOT NULL,
   `correo` varchar(50) NOT NULL,
-  `telefono` decimal(9,0) NOT NULL
+  `telefono` decimal(9,0) NOT NULL,
+  `paciente_foto` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `paciente`
+--
+
+INSERT INTO `paciente` (`id_paciente`, `dni_dni_id`, `direccion`, `correo`, `telefono`, `paciente_foto`) VALUES
+('PC0001', '60449003', 'Av. Peru 15531', 'juanc@gmail.com', '997004985', '');
 
 -- --------------------------------------------------------
 
@@ -95,6 +110,13 @@ CREATE TABLE `pend` (
 CREATE TABLE `reniec` (
   `id_reniec` char(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `reniec`
+--
+
+INSERT INTO `reniec` (`id_reniec`) VALUES
+('REN001');
 
 -- --------------------------------------------------------
 
