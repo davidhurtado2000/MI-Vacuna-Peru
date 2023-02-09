@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2023 at 05:46 PM
+-- Generation Time: Feb 09, 2023 at 06:43 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -171,7 +171,7 @@ CREATE TABLE `r_perso` (
 INSERT INTO `r_perso` (`id_repopersonal`, `r_general_id_repogeneral`, `vacuna_id_vacuna`, `paciente_id_paciente`, `id_vapend`, `id_centromedico`) VALUES
 ('REP001', 'REGR01', 'VAC001', 'PC0001', 'VAPE01', 'CEN001'),
 ('REP002', 'REGR01', 'VAC002', 'PC0001', 'VAPE01', 'CEN001'),
-('REP003', 'REGR01', 'VAC002', 'PC0001', 'VAPE01', 'CEN001');
+('REP003', 'REGR01', 'VAC004', 'PC0001', 'VAPE01', 'CEN001');
 
 -- --------------------------------------------------------
 
@@ -213,7 +213,8 @@ CREATE TABLE `vacuna` (
 
 INSERT INTO `vacuna` (`id_vacuna`, `nombre_Vacuna`, `lote`, `fabricante`, `t_vacuna_id_tipovacuna`, `fecha_vacunacion`, `dosis`) VALUES
 ('VAC001', 'Covid-19', 'abc', 'Phizer', 'VAC001', '2022-02-16', 1),
-('VAC002', 'Covid', 'abc', 'Phizer', 'VAC001', '2022-07-15', 2);
+('VAC002', 'Covid', 'abc', 'Phizer', 'VAC001', '2022-07-15', 2),
+('VAC004', 'Influenza', 'abc', 'Marca', 'VAC001', '2020-02-13', 4);
 
 -- --------------------------------------------------------
 
