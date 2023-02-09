@@ -22,11 +22,13 @@ IF($_POST["dni"] == "" || $_POST["emision"] == "" || $_POST["nacimiento"] == "")
         $_SESSION['nacimiento'] = $fila['f_nacimiento'];
 
         $_SESSION['nom_completo'] = $fila['nombres']. " , " .$fila['apellido_p']." ".$fila['apellido_m'];
+        $_SESSION['ape_completo'] = $fila['apellido_p']." ".$fila['apellido_m'];
         $_SESSION['nombres'] = $fila['nombres'];
         $_SESSION['a_paterno'] = $fila['apellido_p'];
         $_SESSION['a_materno'] = $fila['apellido_m'];
         $_SESSION['edad'] = ageCalculator($fila['f_nacimiento']);
         $_SESSION['direccion'] = $fila['direccion'];
+        
 
 
     }

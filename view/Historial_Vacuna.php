@@ -5,6 +5,9 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 } else {
     date_default_timezone_set('America/Lima');
     $fechaActual = date('d/m/y h:i');
+
+   
+
     ?>
     <!DOCTYPE html>
     <html lang="es">
@@ -18,7 +21,6 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
             integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <input type="hidden" name="apellidos" value="<?php echo "<label>" . $_SESSION["ape_completo"] . "</label>"; ?>">
     </head>
 
 
@@ -63,8 +65,9 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                     <p class="text-wrap">Informacion del Usuario</p>
                                 </div>
                             </a>
-                            <a href="Historial_Vacuna.php" class="btn change-bgcolor border border-dark rounded-0 py-4">
-                            <div type="button">
+
+                            <div type="button" class="btn change-bgcolor border border-dark rounded-0 py-4"
+                                href="Historial_Vacuna.php">
                                 <img src="../img/historial_icon.png" alt="Responsive image" id="menu_logo"
                                     class="float-start">
                                 <p class="text-wrap">Historial de Vacunas</p>
@@ -86,63 +89,49 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                         <div class="col-md-12 px-4 h-100 border border-dark rounded-0 overflow-auto"
                             style="background-color: white; max-height: 357px;">
                             <div class="container">
-                                <div class="row align-items-center mx-2 my-4">
+                                <div class="row align-items-center mx-2 my-4 border border-3 border-dark ">
+                                    <form action="ViewListarHistoriales.php" method="post">
+
+                                    </form>
+
                                     <div class="row my-2">
-                                        <div class="h4 text-center">Informacion del Paciente</div>
-                                        <div class="col-md-2">
-                                            <div class="col-md-12">Nombres: </div>
+                                        <div class="col-md-6">
+                                            <div class="col-md-12">
+                                                <?php echo "<label>Apellidos: " . $_SESSION['ape_completo'] . "</label>"; ?>
+                                            </div>
                                         </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["nombres"] . "</label>"; ?>
+                                        <div class="col-md-6">
+                                            <div class="col-md-12" id="contenido_personal">
+                                                <?php echo "<label>Nombres: " . $_SESSION["nombres"] . "</label>"; ?>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12 ">Apellido Paterno: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["a_paterno"] . "</label>"; ?>
-                                            </div>
-                                        </div>
+                                    <div class="col-sm-12">
+                                        Fecha de nacimiento:
                                     </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12 ">Apellido Materno: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["ape_completo"] . "</label>"; ?>
-                                            </div>
-                                        </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped border border-dark">
+                                            <thead style="background: grey">
+                                                <th scope="col"># de Dosis</th>
+                                                <th scope="col">Vacuna</th>
+                                                <th scope="col">Fecha</th>
+                                                <th scope="col">Lote</th>
+                                                <th scope="col">Centro</th>
+                                            </thead>
+
+                                            <tr>
+                                                <td>Tercera</td>
+                                                <td>COVID</td>
+                                                <td>08/08/22</td>
+                                                <td>ABC</td>
+                                                <td>Ricardo Palma</td>
+                                            </tr>
+
+
+                                        </table>
                                     </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12 ">Edad: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["edad"] . "</label>"; ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12">Direccion: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["direccion"] . "</label>"; ?>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>

@@ -29,12 +29,12 @@ footer {
     background-color: white;
 }
 
-div.btn{
+a.btn{
     cursor: pointer; 
     transition: all 1s;  /* lets make it smooth */
 }
 
-div.change-bgcolor:hover, div.change-bgcolor:active{
+a.change-bgcolor:hover, div.change-bgcolor:active{
     background: rgb(165, 165, 165);
     transition: all 1s;
 }
