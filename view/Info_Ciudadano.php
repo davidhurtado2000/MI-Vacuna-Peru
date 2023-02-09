@@ -45,6 +45,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                     <div class="col-lg-6">
                         <div class="float-start">
                             <?php echo "<label>Paciente: " . $_SESSION["nom_completo"] . "</label>"; ?>
+                            <a href="../controller/ControllerDestruirSesion.php">Cerrar Sesión</a>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -100,6 +101,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                             <div class="col-md-12 border border-dark" id="contenido_personal"
                                                 style="background-color: #dddddd;">
                                                 <?php echo "<label>" . $_SESSION["nombres"] . "</label>"; ?>
+                                                
                                             </div>
                                         </div>
                                     </div>

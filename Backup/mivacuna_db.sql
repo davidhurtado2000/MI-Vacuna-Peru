@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2023 at 07:06 AM
+-- Generation Time: Feb 09, 2023 at 05:46 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -21,7 +21,7 @@ SET time_zone = "+00:00";
 -- Database: `mivacuna_db`
 --
 
--- -------------------------------------------------------
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `c_medico`
@@ -32,6 +32,13 @@ CREATE TABLE `c_medico` (
   `nombre` varchar(40) NOT NULL,
   `direccion` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `c_medico`
+--
+
+INSERT INTO `c_medico` (`id_centromedico`, `nombre`, `direccion`) VALUES
+('CEN001', 'Clinica Ricardo Palma', 'Av. Ricardo Palma 141242');
 
 -- --------------------------------------------------------
 
@@ -101,6 +108,13 @@ CREATE TABLE `pend` (
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `pend`
+--
+
+INSERT INTO `pend` (`id_pendiente`, `estado`) VALUES
+('PEN_01', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -128,6 +142,13 @@ CREATE TABLE `r_general` (
   `id_repogeneral` char(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `r_general`
+--
+
+INSERT INTO `r_general` (`id_repogeneral`) VALUES
+('REGR01');
+
 -- --------------------------------------------------------
 
 --
@@ -139,8 +160,18 @@ CREATE TABLE `r_perso` (
   `r_general_id_repogeneral` char(6) NOT NULL,
   `vacuna_id_vacuna` char(6) NOT NULL,
   `paciente_id_paciente` char(6) NOT NULL,
-  `id_vapend` char(6) NOT NULL
+  `id_vapend` char(6) NOT NULL,
+  `id_centromedico` char(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `r_perso`
+--
+
+INSERT INTO `r_perso` (`id_repopersonal`, `r_general_id_repogeneral`, `vacuna_id_vacuna`, `paciente_id_paciente`, `id_vapend`, `id_centromedico`) VALUES
+('REP001', 'REGR01', 'VAC001', 'PC0001', 'VAPE01', 'CEN001'),
+('REP002', 'REGR01', 'VAC002', 'PC0001', 'VAPE01', 'CEN001'),
+('REP003', 'REGR01', 'VAC002', 'PC0001', 'VAPE01', 'CEN001');
 
 -- --------------------------------------------------------
 
@@ -153,6 +184,13 @@ CREATE TABLE `t_vacuna` (
   `caract` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `t_vacuna`
+--
+
+INSERT INTO `t_vacuna` (`id_tipovacuna`, `caract`) VALUES
+('VAC001', 'Vacuna de tipo covid');
+
 -- --------------------------------------------------------
 
 --
@@ -161,12 +199,21 @@ CREATE TABLE `t_vacuna` (
 
 CREATE TABLE `vacuna` (
   `id_vacuna` char(6) NOT NULL,
-  `nombre` varchar(40) NOT NULL,
+  `nombre_Vacuna` varchar(40) NOT NULL,
   `lote` varchar(6) NOT NULL,
   `fabricante` varchar(50) NOT NULL,
   `t_vacuna_id_tipovacuna` char(6) NOT NULL,
-  `fecha_vacunacion` date NOT NULL
+  `fecha_vacunacion` date NOT NULL,
+  `dosis` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `vacuna`
+--
+
+INSERT INTO `vacuna` (`id_vacuna`, `nombre_Vacuna`, `lote`, `fabricante`, `t_vacuna_id_tipovacuna`, `fecha_vacunacion`, `dosis`) VALUES
+('VAC001', 'Covid-19', 'abc', 'Phizer', 'VAC001', '2022-02-16', 1),
+('VAC002', 'Covid', 'abc', 'Phizer', 'VAC001', '2022-07-15', 2);
 
 -- --------------------------------------------------------
 
@@ -193,6 +240,13 @@ CREATE TABLE `v_pend` (
   `pend_id_pendiente` char(6) NOT NULL,
   `paciente_id_paciente` char(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `v_pend`
+--
+
+INSERT INTO `v_pend` (`id_vapend`, `vacuna_id_vacuna`, `f_estimadas`, `pend_id_pendiente`, `paciente_id_paciente`) VALUES
+('VAPE01', 'VAC001', '2023-02-16', 'PEN_01', 'PC0001');
 
 --
 -- Indexes for dumped tables
@@ -252,7 +306,8 @@ ALTER TABLE `r_perso`
   ADD KEY `r_perso_paciente_fk` (`paciente_id_paciente`),
   ADD KEY `r_perso_r_general_fk` (`r_general_id_repogeneral`),
   ADD KEY `r_perso_v_pend_fk` (`id_vapend`),
-  ADD KEY `r_perso_vacuna_fk` (`vacuna_id_vacuna`);
+  ADD KEY `r_perso_vacuna_fk` (`vacuna_id_vacuna`),
+  ADD KEY `fk_id_centromedico` (`id_centromedico`);
 
 --
 -- Indexes for table `t_vacuna`
@@ -310,6 +365,7 @@ ALTER TABLE `paciente`
 -- Constraints for table `r_perso`
 --
 ALTER TABLE `r_perso`
+  ADD CONSTRAINT `fk_id_centromedico` FOREIGN KEY (`id_centromedico`) REFERENCES `c_medico` (`id_centromedico`),
   ADD CONSTRAINT `r_perso_paciente_fk` FOREIGN KEY (`paciente_id_paciente`) REFERENCES `paciente` (`id_paciente`),
   ADD CONSTRAINT `r_perso_r_general_fk` FOREIGN KEY (`r_general_id_repogeneral`) REFERENCES `r_general` (`id_repogeneral`),
   ADD CONSTRAINT `r_perso_v_pend_fk` FOREIGN KEY (`id_vapend`) REFERENCES `v_pend` (`id_vapend`),
