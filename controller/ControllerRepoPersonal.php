@@ -10,5 +10,14 @@ class ControllerRepoPersonal
          throw $e;
      }	
 	}
+
+    public function ControllerCantidadAños($dni){
+		try{   
+        	$obj=new ModelRepoPersonal();
+        	return $obj->ModelCantidadAños($dni);
+     }catch(Exception $e){
+         throw $e;
+     }	
+	}
 }
 ?>

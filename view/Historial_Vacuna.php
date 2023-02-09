@@ -15,6 +15,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
     include_once "../controller/ControllerRepoPersonal.php";
     $objHistorial = new ControllerRepoPersonal();
     $listar = $objHistorial->ControllerListarVacunas($_SESSION["dni"], $año);
+    $cantidad_años = $objHistorial->ControllerCantidadAños($_SESSION["dni"]);
     //echo var_dump($listar)
 
     ?>
@@ -112,9 +113,14 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                         <label for="años">Selecciona el año:</label>
                                         <select name="año" id="año" onChange="myFunction();">
                                             <option value="" selected>Escoge un año: </option>
-                                            <option value="2023">2023</option>
-                                            <option value="2022">2022</option>
-                                            <option value="2021">2021</option>
+                                            <?php
+                                            foreach ($cantidad_años as $filaaños){
+                                                echo "<option value='$filaaños[Año]'>" . $filaaños['Año'] . "</option>";
+                                            }
+                                            ?>
+
+
+
                                         </select>
                                     </form>
                                     <div class='col-12 h2 text-center'><?php echo "<label>Reporte del año " . $año . "</label>"; ?></div>
