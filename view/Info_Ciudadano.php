@@ -18,7 +18,6 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
             integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <input type="hidden" name="apellidos" value="<?php echo "<label>" . $_SESSION["ape_completo"] . "</label>"; ?>">
     </head>
 
 
@@ -64,22 +63,27 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                 </div>
                             </a>
                             <a href="Historial_Vacuna.php" class="btn change-bgcolor border border-dark rounded-0 py-4">
-                            <div type="button">
-                                <img src="../img/historial_icon.png" alt="Responsive image" id="menu_logo"
-                                    class="float-start">
-                                <p class="text-wrap">Historial de Vacunas</p>
-                            </div>
-                            <div type="button" class="btn change-bgcolor border border-dark rounded-0 py-4">
-                                <img src="../img/pendiente_icon.png" alt="Responsive image" id="menu_logo"
-                                    class="float-start">
-                                <p class="text-wrap">Vacunas Pendientes</p>
+                                <div type="button">
+                                    <img src="../img/historial_icon.png" alt="Responsive image" id="menu_logo"
+                                        class="float-start">
+                                    <p class="text-wrap">Historial de Vacunas</p>
+                                </div>
+                            </a>
+                            <a href="Vacunas_Pendientes.php" class="btn change-bgcolor border border-dark rounded-0 py-4">
+                                <div type="button">
+                                    <img src="../img/pendiente_icon.png" alt="Responsive image" id="menu_logo"
+                                        class="float-start">
+                                    <p class="text-wrap">Vacunas Pendientes</p>
 
-                            </div>
-                            <div type="button" class="btn change-bgcolor border border-dark rounded-0 py-4">
-                                <img src="../img/buscador_icon.png" alt="Responsive image" id="menu_logo"
-                                    class="float-start">
-                                <p class="text-wrap">Buscador de Vacunas</p>
-                            </div>
+                                </div>
+                            </a>
+                            <a href="Buscador_Vacunas.php" class="btn change-bgcolor border border-dark rounded-0 py-4">
+                                <div type="button">
+                                    <img src="../img/buscador_icon.png" alt="Responsive image" id="menu_logo"
+                                        class="float-start">
+                                    <p class="text-wrap">Buscador de Vacunas</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-lg-10">
@@ -117,7 +121,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                         <div class="col-md-10">
                                             <div class="col-md-12 border border-dark" id="contenido_personal"
                                                 style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["ape_completo"] . "</label>"; ?>
+                                                <?php echo "<label>" . $_SESSION["a_materno"] . "</label>"; ?>
                                             </div>
                                         </div>
                                     </div>

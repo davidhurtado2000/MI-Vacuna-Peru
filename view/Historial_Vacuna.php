@@ -6,7 +6,10 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
     date_default_timezone_set('America/Lima');
     $fechaActual = date('d/m/y h:i');
 
-   
+    include_once "../controller/ControllerRepoPersonal.php";
+    $objHistorial = new ControllerRepoPersonal();
+    $listar = $objHistorial->ControllerListarVacunas($_SESSION["dni"], $_POST["año"]);
+    //echo var_dump($listar)
 
     ?>
     <!DOCTYPE html>
@@ -66,35 +69,51 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                 </div>
                             </a>
 
-                            <div type="button" class="btn change-bgcolor border border-dark rounded-0 py-4"
-                                href="Historial_Vacuna.php">
-                                <img src="../img/historial_icon.png" alt="Responsive image" id="menu_logo"
-                                    class="float-start">
-                                <p class="text-wrap">Historial de Vacunas</p>
-                            </div>
-                            <div type="button" class="btn change-bgcolor border border-dark rounded-0 py-4">
-                                <img src="../img/pendiente_icon.png" alt="Responsive image" id="menu_logo"
-                                    class="float-start">
-                                <p class="text-wrap">Vacunas Pendientes</p>
+                            <a href="Historial_Vacuna.php" class="btn change-bgcolor border border-dark rounded-0 py-4">
+                                <div type="button">
+                                    <img src="../img/historial_icon.png" alt="Responsive image" id="menu_logo"
+                                        class="float-start">
+                                    <p class="text-wrap">Historial de Vacunas</p>
+                                </div>
+                            </a>
 
-                            </div>
-                            <div type="button" class="btn change-bgcolor border border-dark rounded-0 py-4">
-                                <img src="../img/buscador_icon.png" alt="Responsive image" id="menu_logo"
-                                    class="float-start">
-                                <p class="text-wrap">Buscador de Vacunas</p>
-                            </div>
+                            <a href="Vacunas_Pendientes.php" class="btn change-bgcolor border border-dark rounded-0 py-4">
+                                <div type="button">
+                                    <img src="../img/pendiente_icon.png" alt="Responsive image" id="menu_logo"
+                                        class="float-start">
+                                    <p class="text-wrap">Vacunas Pendientes</p>
+
+                                </div>
+                            </a>
+
+                            <a href="Buscador_Vacunas.php" class="btn change-bgcolor border border-dark rounded-0 py-4">
+                                <div type="button">
+                                    <img src="../img/buscador_icon.png" alt="Responsive image" id="menu_logo"
+                                        class="float-start">
+                                    <p class="text-wrap">Buscador de Vacunas</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-lg-10">
                         <div class="col-md-12 px-4 h-100 border border-dark rounded-0 overflow-auto"
                             style="background-color: white; max-height: 357px;">
-                            <div class="container">
-                                <div class="row align-items-center mx-2 my-4 border border-3 border-dark ">
-                                    <form action="ViewListarHistoriales.php" method="post">
+                            <div class='container'>
 
+                                <div class="container text-end">
+                                    <form action="Historial_Vacuna.php" id=myForm method=POST>
+                                        <label for="años">Selecciona el año:</label>
+                                        <select name="año" id="año" onChange="myFunction();">
+                                            <option value="" selected>Escoge un año: </option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                        </select>
                                     </form>
-
-                                    <div class="row my-2">
+                                    <div class='col-12 h2 text-center'><?php echo "<label>Reporte del año " . $_POST['año'] . "</label>"; ?></div>
+                                </div>
+                                <div class='row align-items-center mx-2 my-4 border border-3 border-dark'>
+                                    <div class='row my-2'>
                                         <div class="col-md-6">
                                             <div class="col-md-12">
                                                 <?php echo "<label>Apellidos: " . $_SESSION['ape_completo'] . "</label>"; ?>
@@ -107,46 +126,61 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
-                                        Fecha de nacimiento:
+                                        <?php echo "<label>Fecha de Nacimiento: " . $_SESSION["nacimiento"] . "</label>"; ?>
                                     </div>
+                                    <?php
 
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped border border-dark">
-                                            <thead style="background: grey">
-                                                <th scope="col"># de Dosis</th>
-                                                <th scope="col">Vacuna</th>
-                                                <th scope="col">Fecha</th>
-                                                <th scope="col">Lote</th>
-                                                <th scope="col">Centro</th>
-                                            </thead>
+                                    if (empty($listar)) {
+                                        echo "<div class='h2 text-center'>Usted no tiene vacunas registradas este año</div>";
+                                    } else {
 
-                                            <tr>
-                                                <td>Tercera</td>
-                                                <td>COVID</td>
-                                                <td>08/08/22</td>
-                                                <td>ABC</td>
-                                                <td>Ricardo Palma</td>
-                                            </tr>
+                                        foreach ($listar as $fila) {
+                                            echo
+                                                "
+                                            <div class='table-responsive'>
+                                                    <table class='table table-bordered table-striped border border-dark'>
+                                                        <thead style='background: grey'>
+                                                            <th scope='col'># de Dosis</th>
+                                                            <th scope='col'>Vacuna</th>
+                                                            <th scope='col'>Fecha</th>
+                                                            <th scope='col'>Lote</th>
+                                                            <th scope='col'>Centro</th>
+                                                        </thead>";
+
+                                            echo "<tr>";
+                                            echo "<td>" . $fila["dosis"] . "</td>";
+                                            echo "<td>" . $fila["nombre_Vacuna"] . "</td>";
+                                            echo "<td>" . $fila["fecha_vacunacion"] . "</td>";
+                                            echo "<td>" . $fila["lote"] . "</td>";
+                                            echo "<td>" . $fila["nombre"] . "</td>";
+                                            echo "</tr>";
+
+                                            echo "</table>";
+                                            echo "</div>";
 
 
-                                        </table>
-                                    </div>
-
+                                        }
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
         </div>
         </div>
 
-
+        <script>
+            function myFunction() {
+                document.getElementById("myForm").submit();
+            }
+        </script>
 
 
     </body>
-
     <footer class="mt-auto  text-center">
         <p>© 2023 Copyright</p>
     </footer>

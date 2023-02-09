@@ -7,7 +7,6 @@ class ModelPaciente{
         $con = new Conexion();
     }
 
-
     //Metodo de Modelador para Validar el Paciente en el LogIn
     public function _ModelValidarPaciente($dni, $f_emision, $f_nacimiento){
         try{
