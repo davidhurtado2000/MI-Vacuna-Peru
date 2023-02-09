@@ -5,10 +5,16 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 } else {
     date_default_timezone_set('America/Lima');
     $fechaActual = date('d/m/y h:i');
+    if (isset($_POST['año'])) {
+        $año = $_POST["año"];
+    }
+    else{
+        $año = date("Y");
+    }
 
     include_once "../controller/ControllerRepoPersonal.php";
     $objHistorial = new ControllerRepoPersonal();
-    $listar = $objHistorial->ControllerListarVacunas($_SESSION["dni"], $_POST["año"]);
+    $listar = $objHistorial->ControllerListarVacunas($_SESSION["dni"], $año);
     //echo var_dump($listar)
 
     ?>
@@ -110,7 +116,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                             <option value="2021">2021</option>
                                         </select>
                                     </form>
-                                    <div class='col-12 h2 text-center'><?php echo "<label>Reporte del año " . $_POST['año'] . "</label>"; ?></div>
+                                    <div class='col-12 h2 text-center'><?php echo "<label>Reporte del año " . $año . "</label>"; ?></div>
                                 </div>
                                 <div class='row align-items-center mx-2 my-4 border border-3 border-dark'>
                                     <div class='row my-2'>
