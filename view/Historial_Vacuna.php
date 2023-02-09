@@ -7,8 +7,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
     $fechaActual = date('d/m/y h:i');
     if (isset($_POST['año'])) {
         $año = $_POST["año"];
-    }
-    else{
+    } else {
         $año = date("Y");
     }
 
@@ -108,22 +107,24 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                             style="background-color: white; max-height: 357px;">
                             <div class='container'>
 
-                                <div class="container text-end">
+                                <div class="container text-end my-2">
                                     <form action="Historial_Vacuna.php" id=myForm method=POST>
-                                        <label for="años">Selecciona el año:</label>
-                                        <select name="año" id="año" onChange="myFunction();">
-                                            <option value="" selected>Escoge un año: </option>
-                                            <?php
-                                            foreach ($cantidad_años as $filaaños){
-                                                echo "<option value='$filaaños[Año]'>" . $filaaños['Año'] . "</option>";
-                                            }
-                                            ?>
+                                        <label for="años">Selecciona el año:
+                                            <select class="form form-control-sm" size="1" name="año" id="año"
+                                                onChange="myFunction();">
+                                                <option value="" selected>Escoge un año: </option>
+                                                <?php
+                                                foreach ($cantidad_años as $filaaños) {
+                                                    echo "<option value='$filaaños[Año]'>" . $filaaños['Año'] . "</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </label>
 
-
-
-                                        </select>
                                     </form>
-                                    <div class='col-12 h2 text-center'><?php echo "<label>Reporte del año " . $año . "</label>"; ?></div>
+                                    <div class='col-12 h2 text-center'>
+                                        <?php echo "<label>Reporte del año " . $año . "</label>"; ?>
+                                    </div>
                                 </div>
                                 <div class='row align-items-center mx-2 my-4 border border-3 border-dark'>
                                     <div class='row my-2'>
