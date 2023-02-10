@@ -5,17 +5,17 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 } else {
     date_default_timezone_set('America/Lima');
     $fechaActual = date('d/m/y h:i');
-    if (isset($_POST['año'])) {
-        $año = $_POST["año"];
-    } else {
-        $año = date("Y");
+
+    if (isset($_POST['busca'])) {
+        $busqueda = $_POST["busca"];
+    } else{
+        $busqueda = "vacio";
     }
 
-    include_once "../controller/ControllerRepoPersonal.php";
-    $objHistorial = new ControllerRepoPersonal();
-    $listar = $objHistorial->ControllerListarVacunas($_SESSION["dni"], $año);
-    $cantidad_años = $objHistorial->ControllerCantidadAños($_SESSION["dni"]);
-    //echo var_dump($listar)
+    include_once "../controller/ControllerVacunaDispo.php";
+    $objVacunaDispo = new ControllerVacunaDispo();
+    $listar = $objVacunaDispo->ControllerListarVacunasDispo($busqueda);
+
 
     ?>
     <!DOCTYPE html>
@@ -105,96 +105,76 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                     <div class="col-lg-10">
                         <div class="col-md-12 px-4 h-100 border border-dark rounded-0 overflow-auto"
                             style="background-color: white; max-height: 357px;">
-                            <div class='container'>
+                            <div class="container">
+                                <div class="row align-items-center mx-2 my-4 border border-3 border-dark ">
+                                    <div class="row my-2">
+                                    <!-- 
+                                        <form action="Bucador_Vacuna.php" method="POST">
+                                            <input type="text" name="buscadr">
+                                            <input type="submit" value="buscar">
 
-                                <div class="container text-end my-2">
-                                    <form action="Historial_Vacuna.php" id=myForm method=POST>
-                                        <label for="años">Selecciona el año:
-                                            <select class="form form-control-sm" size="1" name="año" id="año"
-                                                onChange="myFunction();">
-                                                <option value="" selected>Escoge un año: </option>
-                                                <?php
-                                                foreach ($cantidad_años as $filaaños) {
-                                                    echo "<option value='$filaaños[Año]'>" . $filaaños['Año'] . "</option>";
-                                                }
-                                                ?>
-                                            </select>
-                                        </label>
+                                        </form>
 
+                                        cambiar la busqueda
+                                    -->
+
+                                    <form action="Buscar_Vacuna.php" method="POST">
+                                        <div class="col-lg-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control rounded" id="busca" name="busca" placeholder="Busqueda" />
+                                            <input type="submit" class="btn btn-outline-primary" ></input>
+                                            </div>
+                                        </div>
                                     </form>
-                                    <div class='col-12 h2 text-center'>
-                                        <?php echo "<label>Reporte del año " . $año . "</label>"; ?>
+                                        
                                     </div>
-                                </div>
-                                <div class='row align-items-center mx-2 my-4 border border-3 border-dark'>
-                                    <div class='row my-2'>
-                                        <div class="col-md-6">
-                                            <div class="col-md-12">
-                                                <?php echo "<label>Apellidos: " . $_SESSION['ape_completo'] . "</label>"; ?>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="col-md-12" id="contenido_personal">
-                                                <?php echo "<label>Nombres: " . $_SESSION["nombres"] . "</label>"; ?>
-                                            </div>
-                                        </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped border border-dark">
+                                            <thead style="background: grey">
+                                                <th scope="col">Vacuna</th>
+                                                <th scope="col">Centro Medico</th>
+                                                <th scope="col">Disponibilidad</th>
+                                                <th scope="col">Direccion</th>
+                                                <th scope="col">Reservas</th>
+                                            </thead>
+<a href=""></a>
+                                            <?php
+                                            
+                                            foreach($listar as $fila){
+                                                if ($fila["disponibilidad"]==1){
+                                                    $dispo = "Si";
+                                                }
+                                                echo "<tr>";
+                                                echo "<td>" . $fila["nombre_Vacuna"] . "</td>";
+                                                echo "<td>" . $fila["nombre"] . "</td>";
+                                                echo "<td>" . $dispo . "</td>";
+                                                echo "<td>" . $fila["direccion"] . "</td>";
+                                                echo "<td>" . "<a href=".$fila["reserva"]." target=”_blank”>".$fila["reserva"]."</a>"."</td>";
+                                                echo "</tr>";
+                                            }
+                                            
+                                            ?>
+
+
+                                        </table>
                                     </div>
-                                    <div class="col-sm-12">
-                                        <?php echo "<label>Fecha de Nacimiento: " . $_SESSION["nacimiento"] . "</label>"; ?>
-                                    </div>
-                                    <?php
 
-                                    if (empty($listar)) {
-                                        echo "<div class='h2 text-center'>Usted no tiene vacunas registradas este año</div>";
-                                    } else {
-
-                                        foreach ($listar as $fila) {
-                                            echo
-                                                "
-                                            <div class='table-responsive'>
-                                                    <table class='table table-bordered table-striped border border-dark'>
-                                                        <thead style='background: grey'>
-                                                            <th scope='col'># de Dosis</th>
-                                                            <th scope='col'>Vacuna</th>
-                                                            <th scope='col'>Fecha</th>
-                                                            <th scope='col'>Lote</th>
-                                                            <th scope='col'>Centro</th>
-                                                        </thead>";
-
-                                            echo "<tr>";
-                                            echo "<td>" . $fila["dosis"] . "</td>";
-                                            echo "<td>" . $fila["nombre_Vacuna"] . "</td>";
-                                            echo "<td>" . $fila["fecha_vacunacion"] . "</td>";
-                                            echo "<td>" . $fila["lote"] . "</td>";
-                                            echo "<td>" . $fila["nombre"] . "</td>";
-                                            echo "</tr>";
-
-                                            echo "</table>";
-                                            echo "</div>";
-
-
-                                        }
-                                    }
-                                    ?>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
         </div>
         </div>
 
-        <script>
-            function myFunction() {
-                document.getElementById("myForm").submit();
-            }
-        </script>
+
 
 
     </body>
+
     <footer class="mt-auto  text-center">
         <p>© 2023 Copyright</p>
     </footer>

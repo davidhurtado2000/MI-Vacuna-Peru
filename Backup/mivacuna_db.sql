@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 09, 2023 at 06:43 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 10-02-2023 a las 07:27:27
+-- Versión del servidor: 8.0.28
+-- Versión de PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,46 +18,47 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `mivacuna_db`
+-- Base de datos: `mivacuna_db`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `c_medico`
+-- Estructura de tabla para la tabla `c_medico`
 --
 
 CREATE TABLE `c_medico` (
-  `id_centromedico` char(6) NOT NULL,
-  `nombre` varchar(40) NOT NULL,
-  `direccion` varchar(40) NOT NULL
+  `id_centromedico` char(6) COLLATE utf8mb4_general_ci NOT NULL,
+  `nombre` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `direccion` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `reserva` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `c_medico`
+-- Volcado de datos para la tabla `c_medico`
 --
 
-INSERT INTO `c_medico` (`id_centromedico`, `nombre`, `direccion`) VALUES
-('CEN001', 'Clinica Ricardo Palma', 'Av. Ricardo Palma 141242');
+INSERT INTO `c_medico` (`id_centromedico`, `nombre`, `direccion`, `reserva`) VALUES
+('CEN001', 'Clinica Ricardo Palma', 'Av. Ricardo Palma 141242', 'https://www.crp.com.pe');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dni`
+-- Estructura de tabla para la tabla `dni`
 --
 
 CREATE TABLE `dni` (
-  `dni_id` char(8) NOT NULL,
-  `nombres` varchar(40) NOT NULL,
-  `apellido_p` varchar(40) NOT NULL,
-  `apellido_m` varchar(40) NOT NULL,
-  `reniec_id_reniec` char(6) NOT NULL,
+  `dni_id` char(8) COLLATE utf8mb4_general_ci NOT NULL,
+  `nombres` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `apellido_p` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `apellido_m` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `reniec_id_reniec` char(6) COLLATE utf8mb4_general_ci NOT NULL,
   `f_emision` date NOT NULL,
   `f_nacimiento` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `dni`
+-- Volcado de datos para la tabla `dni`
 --
 
 INSERT INTO `dni` (`dni_id`, `nombres`, `apellido_p`, `apellido_m`, `reniec_id_reniec`, `f_emision`, `f_nacimiento`) VALUES
@@ -66,32 +67,32 @@ INSERT INTO `dni` (`dni_id`, `nombres`, `apellido_p`, `apellido_m`, `reniec_id_r
 -- --------------------------------------------------------
 
 --
--- Table structure for table `doctor`
+-- Estructura de tabla para la tabla `doctor`
 --
 
 CREATE TABLE `doctor` (
-  `id_doctor` char(6) NOT NULL,
-  `dni_dni_id` char(8) NOT NULL,
-  `c_medico_id_centromedico` char(6) NOT NULL
+  `id_doctor` char(6) COLLATE utf8mb4_general_ci NOT NULL,
+  `dni_dni_id` char(8) COLLATE utf8mb4_general_ci NOT NULL,
+  `c_medico_id_centromedico` char(6) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `paciente`
+-- Estructura de tabla para la tabla `paciente`
 --
 
 CREATE TABLE `paciente` (
-  `id_paciente` char(6) NOT NULL,
-  `dni_dni_id` char(8) NOT NULL,
-  `direccion` varchar(50) NOT NULL,
-  `correo` varchar(50) NOT NULL,
+  `id_paciente` char(6) COLLATE utf8mb4_general_ci NOT NULL,
+  `dni_dni_id` char(8) COLLATE utf8mb4_general_ci NOT NULL,
+  `direccion` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `correo` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `telefono` decimal(9,0) NOT NULL,
-  `paciente_foto` varchar(200) NOT NULL
+  `paciente_foto` varchar(200) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `paciente`
+-- Volcado de datos para la tabla `paciente`
 --
 
 INSERT INTO `paciente` (`id_paciente`, `dni_dni_id`, `direccion`, `correo`, `telefono`, `paciente_foto`) VALUES
@@ -100,16 +101,16 @@ INSERT INTO `paciente` (`id_paciente`, `dni_dni_id`, `direccion`, `correo`, `tel
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pend`
+-- Estructura de tabla para la tabla `pend`
 --
 
 CREATE TABLE `pend` (
-  `id_pendiente` char(6) NOT NULL,
+  `id_pendiente` char(6) COLLATE utf8mb4_general_ci NOT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `pend`
+-- Volcado de datos para la tabla `pend`
 --
 
 INSERT INTO `pend` (`id_pendiente`, `estado`) VALUES
@@ -118,15 +119,15 @@ INSERT INTO `pend` (`id_pendiente`, `estado`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reniec`
+-- Estructura de tabla para la tabla `reniec`
 --
 
 CREATE TABLE `reniec` (
-  `id_reniec` char(6) NOT NULL
+  `id_reniec` char(6) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `reniec`
+-- Volcado de datos para la tabla `reniec`
 --
 
 INSERT INTO `reniec` (`id_reniec`) VALUES
@@ -135,15 +136,15 @@ INSERT INTO `reniec` (`id_reniec`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `r_general`
+-- Estructura de tabla para la tabla `r_general`
 --
 
 CREATE TABLE `r_general` (
-  `id_repogeneral` char(6) NOT NULL
+  `id_repogeneral` char(6) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `r_general`
+-- Volcado de datos para la tabla `r_general`
 --
 
 INSERT INTO `r_general` (`id_repogeneral`) VALUES
@@ -152,20 +153,20 @@ INSERT INTO `r_general` (`id_repogeneral`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `r_perso`
+-- Estructura de tabla para la tabla `r_perso`
 --
 
 CREATE TABLE `r_perso` (
-  `id_repopersonal` char(6) NOT NULL,
-  `r_general_id_repogeneral` char(6) NOT NULL,
-  `vacuna_id_vacuna` char(6) NOT NULL,
-  `paciente_id_paciente` char(6) NOT NULL,
-  `id_vapend` char(6) NOT NULL,
-  `id_centromedico` char(6) NOT NULL
+  `id_repopersonal` char(6) COLLATE utf8mb4_general_ci NOT NULL,
+  `r_general_id_repogeneral` char(6) COLLATE utf8mb4_general_ci NOT NULL,
+  `vacuna_id_vacuna` char(6) COLLATE utf8mb4_general_ci NOT NULL,
+  `paciente_id_paciente` char(6) COLLATE utf8mb4_general_ci NOT NULL,
+  `id_vapend` char(6) COLLATE utf8mb4_general_ci NOT NULL,
+  `id_centromedico` char(6) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `r_perso`
+-- Volcado de datos para la tabla `r_perso`
 --
 
 INSERT INTO `r_perso` (`id_repopersonal`, `r_general_id_repogeneral`, `vacuna_id_vacuna`, `paciente_id_paciente`, `id_vapend`, `id_centromedico`) VALUES
@@ -176,16 +177,16 @@ INSERT INTO `r_perso` (`id_repopersonal`, `r_general_id_repogeneral`, `vacuna_id
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_vacuna`
+-- Estructura de tabla para la tabla `t_vacuna`
 --
 
 CREATE TABLE `t_vacuna` (
-  `id_tipovacuna` char(6) NOT NULL,
-  `caract` varchar(100) NOT NULL
+  `id_tipovacuna` char(6) COLLATE utf8mb4_general_ci NOT NULL,
+  `caract` varchar(100) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `t_vacuna`
+-- Volcado de datos para la tabla `t_vacuna`
 --
 
 INSERT INTO `t_vacuna` (`id_tipovacuna`, `caract`) VALUES
@@ -194,21 +195,21 @@ INSERT INTO `t_vacuna` (`id_tipovacuna`, `caract`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `vacuna`
+-- Estructura de tabla para la tabla `vacuna`
 --
 
 CREATE TABLE `vacuna` (
-  `id_vacuna` char(6) NOT NULL,
-  `nombre_Vacuna` varchar(40) NOT NULL,
-  `lote` varchar(6) NOT NULL,
-  `fabricante` varchar(50) NOT NULL,
-  `t_vacuna_id_tipovacuna` char(6) NOT NULL,
+  `id_vacuna` char(6) COLLATE utf8mb4_general_ci NOT NULL,
+  `nombre_Vacuna` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `lote` varchar(6) COLLATE utf8mb4_general_ci NOT NULL,
+  `fabricante` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `t_vacuna_id_tipovacuna` char(6) COLLATE utf8mb4_general_ci NOT NULL,
   `fecha_vacunacion` date NOT NULL,
-  `dosis` int(11) NOT NULL
+  `dosis` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `vacuna`
+-- Volcado de datos para la tabla `vacuna`
 --
 
 INSERT INTO `vacuna` (`id_vacuna`, `nombre_Vacuna`, `lote`, `fabricante`, `t_vacuna_id_tipovacuna`, `fecha_vacunacion`, `dosis`) VALUES
@@ -219,55 +220,64 @@ INSERT INTO `vacuna` (`id_vacuna`, `nombre_Vacuna`, `lote`, `fabricante`, `t_vac
 -- --------------------------------------------------------
 
 --
--- Table structure for table `v_dispo`
+-- Estructura de tabla para la tabla `v_dispo`
 --
 
 CREATE TABLE `v_dispo` (
-  `vacuna_id_vacuna` char(6) NOT NULL,
-  `c_medico_id_centromedico` char(6) NOT NULL,
-  `disponibilidad` char(1) NOT NULL
+  `vacuna_id_vacuna` char(6) COLLATE utf8mb4_general_ci NOT NULL,
+  `c_medico_id_centromedico` char(6) COLLATE utf8mb4_general_ci NOT NULL,
+  `disponibilidad` char(1) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `v_dispo`
+--
+
+INSERT INTO `v_dispo` (`vacuna_id_vacuna`, `c_medico_id_centromedico`, `disponibilidad`) VALUES
+('VAC001', 'CEN001', '1'),
+('VAC004', 'CEN001', '0'),
+('VAC004', 'CEN001', '1');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `v_pend`
+-- Estructura de tabla para la tabla `v_pend`
 --
 
 CREATE TABLE `v_pend` (
-  `id_vapend` char(6) NOT NULL,
-  `vacuna_id_vacuna` char(6) NOT NULL,
+  `id_vapend` char(6) COLLATE utf8mb4_general_ci NOT NULL,
+  `vacuna_id_vacuna` char(6) COLLATE utf8mb4_general_ci NOT NULL,
   `f_estimadas` date NOT NULL,
-  `pend_id_pendiente` char(6) NOT NULL,
-  `paciente_id_paciente` char(6) NOT NULL
+  `pend_id_pendiente` char(6) COLLATE utf8mb4_general_ci NOT NULL,
+  `paciente_id_paciente` char(6) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `v_pend`
+-- Volcado de datos para la tabla `v_pend`
 --
 
 INSERT INTO `v_pend` (`id_vapend`, `vacuna_id_vacuna`, `f_estimadas`, `pend_id_pendiente`, `paciente_id_paciente`) VALUES
 ('VAPE01', 'VAC001', '2023-02-16', 'PEN_01', 'PC0001');
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `c_medico`
+-- Indices de la tabla `c_medico`
 --
 ALTER TABLE `c_medico`
   ADD PRIMARY KEY (`id_centromedico`);
 
 --
--- Indexes for table `dni`
+-- Indices de la tabla `dni`
 --
 ALTER TABLE `dni`
   ADD PRIMARY KEY (`dni_id`),
   ADD KEY `dni_reniec_fk` (`reniec_id_reniec`);
 
 --
--- Indexes for table `doctor`
+-- Indices de la tabla `doctor`
 --
 ALTER TABLE `doctor`
   ADD PRIMARY KEY (`id_doctor`),
@@ -275,32 +285,32 @@ ALTER TABLE `doctor`
   ADD KEY `doctor_dni_fk` (`dni_dni_id`);
 
 --
--- Indexes for table `paciente`
+-- Indices de la tabla `paciente`
 --
 ALTER TABLE `paciente`
   ADD PRIMARY KEY (`id_paciente`),
   ADD KEY `paciente_dni_fk` (`dni_dni_id`);
 
 --
--- Indexes for table `pend`
+-- Indices de la tabla `pend`
 --
 ALTER TABLE `pend`
   ADD PRIMARY KEY (`id_pendiente`);
 
 --
--- Indexes for table `reniec`
+-- Indices de la tabla `reniec`
 --
 ALTER TABLE `reniec`
   ADD PRIMARY KEY (`id_reniec`);
 
 --
--- Indexes for table `r_general`
+-- Indices de la tabla `r_general`
 --
 ALTER TABLE `r_general`
   ADD PRIMARY KEY (`id_repogeneral`);
 
 --
--- Indexes for table `r_perso`
+-- Indices de la tabla `r_perso`
 --
 ALTER TABLE `r_perso`
   ADD PRIMARY KEY (`id_repopersonal`),
@@ -311,27 +321,27 @@ ALTER TABLE `r_perso`
   ADD KEY `fk_id_centromedico` (`id_centromedico`);
 
 --
--- Indexes for table `t_vacuna`
+-- Indices de la tabla `t_vacuna`
 --
 ALTER TABLE `t_vacuna`
   ADD PRIMARY KEY (`id_tipovacuna`);
 
 --
--- Indexes for table `vacuna`
+-- Indices de la tabla `vacuna`
 --
 ALTER TABLE `vacuna`
   ADD PRIMARY KEY (`id_vacuna`),
   ADD KEY `vacuna_t_vacuna_fk` (`t_vacuna_id_tipovacuna`);
 
 --
--- Indexes for table `v_dispo`
+-- Indices de la tabla `v_dispo`
 --
 ALTER TABLE `v_dispo`
   ADD KEY `v_dispo_c_medico_fk` (`c_medico_id_centromedico`),
   ADD KEY `v_dispo_vacuna_fk` (`vacuna_id_vacuna`);
 
 --
--- Indexes for table `v_pend`
+-- Indices de la tabla `v_pend`
 --
 ALTER TABLE `v_pend`
   ADD PRIMARY KEY (`id_vapend`),
@@ -340,30 +350,30 @@ ALTER TABLE `v_pend`
   ADD KEY `v_pend_vacuna_fk` (`vacuna_id_vacuna`);
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `dni`
+-- Filtros para la tabla `dni`
 --
 ALTER TABLE `dni`
   ADD CONSTRAINT `dni_reniec_fk` FOREIGN KEY (`reniec_id_reniec`) REFERENCES `reniec` (`id_reniec`);
 
 --
--- Constraints for table `doctor`
+-- Filtros para la tabla `doctor`
 --
 ALTER TABLE `doctor`
   ADD CONSTRAINT `doctor_c_medico_fk` FOREIGN KEY (`c_medico_id_centromedico`) REFERENCES `c_medico` (`id_centromedico`),
   ADD CONSTRAINT `doctor_dni_fk` FOREIGN KEY (`dni_dni_id`) REFERENCES `dni` (`dni_id`);
 
 --
--- Constraints for table `paciente`
+-- Filtros para la tabla `paciente`
 --
 ALTER TABLE `paciente`
   ADD CONSTRAINT `paciente_dni_fk` FOREIGN KEY (`dni_dni_id`) REFERENCES `dni` (`dni_id`);
 
 --
--- Constraints for table `r_perso`
+-- Filtros para la tabla `r_perso`
 --
 ALTER TABLE `r_perso`
   ADD CONSTRAINT `fk_id_centromedico` FOREIGN KEY (`id_centromedico`) REFERENCES `c_medico` (`id_centromedico`),
@@ -373,20 +383,20 @@ ALTER TABLE `r_perso`
   ADD CONSTRAINT `r_perso_vacuna_fk` FOREIGN KEY (`vacuna_id_vacuna`) REFERENCES `vacuna` (`id_vacuna`);
 
 --
--- Constraints for table `vacuna`
+-- Filtros para la tabla `vacuna`
 --
 ALTER TABLE `vacuna`
   ADD CONSTRAINT `vacuna_t_vacuna_fk` FOREIGN KEY (`t_vacuna_id_tipovacuna`) REFERENCES `t_vacuna` (`id_tipovacuna`);
 
 --
--- Constraints for table `v_dispo`
+-- Filtros para la tabla `v_dispo`
 --
 ALTER TABLE `v_dispo`
   ADD CONSTRAINT `v_dispo_c_medico_fk` FOREIGN KEY (`c_medico_id_centromedico`) REFERENCES `c_medico` (`id_centromedico`),
   ADD CONSTRAINT `v_dispo_vacuna_fk` FOREIGN KEY (`vacuna_id_vacuna`) REFERENCES `vacuna` (`id_vacuna`);
 
 --
--- Constraints for table `v_pend`
+-- Filtros para la tabla `v_pend`
 --
 ALTER TABLE `v_pend`
   ADD CONSTRAINT `v_pend_paciente_fk` FOREIGN KEY (`paciente_id_paciente`) REFERENCES `paciente` (`id_paciente`),
