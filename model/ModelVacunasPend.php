@@ -28,7 +28,7 @@ class ModelVacunasPend{
             throw $e;
         }    
 
-        } elseif ($filtro == "Arriba"){
+        } elseif ($filtro == "Abajo"){
             try {
                 $obj = Conexion::singleton();
                 $query = $obj->prepare('SELECT vacuna.id_vacuna, vacuna.nombre_Vacuna, dosis_pendiente, f_estimadas, c_medico.nombre 
