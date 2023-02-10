@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-02-2023 a las 07:27:27
+-- Tiempo de generación: 10-02-2023 a las 18:46:40
 -- Versión del servidor: 8.0.28
 -- Versión de PHP: 8.2.0
 
@@ -39,7 +39,8 @@ CREATE TABLE `c_medico` (
 --
 
 INSERT INTO `c_medico` (`id_centromedico`, `nombre`, `direccion`, `reserva`) VALUES
-('CEN001', 'Clinica Ricardo Palma', 'Av. Ricardo Palma 141242', 'https://www.crp.com.pe');
+('CEN001', 'Clinica Ricardo Palma', 'Av. Ricardo Palma 141242', 'https://www.crp.com.pe'),
+('NULL', 'No asignado', 'No asignado', 'No asignado');
 
 -- --------------------------------------------------------
 
@@ -106,7 +107,7 @@ INSERT INTO `paciente` (`id_paciente`, `dni_dni_id`, `direccion`, `correo`, `tel
 
 CREATE TABLE `pend` (
   `id_pendiente` char(6) COLLATE utf8mb4_general_ci NOT NULL,
-  `estado` tinyint(1) NOT NULL
+  `estado` char(1) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -114,7 +115,8 @@ CREATE TABLE `pend` (
 --
 
 INSERT INTO `pend` (`id_pendiente`, `estado`) VALUES
-('PEN_01', 0);
+('PEN_01', '0'),
+('PEN_02', '1');
 
 -- --------------------------------------------------------
 
@@ -249,15 +251,19 @@ CREATE TABLE `v_pend` (
   `vacuna_id_vacuna` char(6) COLLATE utf8mb4_general_ci NOT NULL,
   `f_estimadas` date NOT NULL,
   `pend_id_pendiente` char(6) COLLATE utf8mb4_general_ci NOT NULL,
-  `paciente_id_paciente` char(6) COLLATE utf8mb4_general_ci NOT NULL
+  `paciente_id_paciente` char(6) COLLATE utf8mb4_general_ci NOT NULL,
+  `dosis_pendiente` int NOT NULL,
+  `id_centromedico` char(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `v_pend`
 --
 
-INSERT INTO `v_pend` (`id_vapend`, `vacuna_id_vacuna`, `f_estimadas`, `pend_id_pendiente`, `paciente_id_paciente`) VALUES
-('VAPE01', 'VAC001', '2023-02-16', 'PEN_01', 'PC0001');
+INSERT INTO `v_pend` (`id_vapend`, `vacuna_id_vacuna`, `f_estimadas`, `pend_id_pendiente`, `paciente_id_paciente`, `dosis_pendiente`, `id_centromedico`) VALUES
+('VAPE01', 'VAC001', '2023-02-16', 'PEN_02', 'PC0001', 3, 'NULL'),
+('VAPE02', 'VAC004', '2023-07-07', 'PEN_02', 'PC0001', 6, 'NULL'),
+('VAPE03', 'VAC001', '2024-01-19', 'PEN_02', 'PC0001', 5, 'NULL');
 
 --
 -- Índices para tablas volcadas
@@ -267,7 +273,8 @@ INSERT INTO `v_pend` (`id_vapend`, `vacuna_id_vacuna`, `f_estimadas`, `pend_id_p
 -- Indices de la tabla `c_medico`
 --
 ALTER TABLE `c_medico`
-  ADD PRIMARY KEY (`id_centromedico`);
+  ADD PRIMARY KEY (`id_centromedico`),
+  ADD UNIQUE KEY `id_centromedico` (`id_centromedico`);
 
 --
 -- Indices de la tabla `dni`
@@ -347,7 +354,8 @@ ALTER TABLE `v_pend`
   ADD PRIMARY KEY (`id_vapend`),
   ADD KEY `v_pend_paciente_fk` (`paciente_id_paciente`),
   ADD KEY `v_pend_pend_fk` (`pend_id_pendiente`),
-  ADD KEY `v_pend_vacuna_fk` (`vacuna_id_vacuna`);
+  ADD KEY `v_pend_vacuna_fk` (`vacuna_id_vacuna`),
+  ADD KEY `fk_c_medico` (`id_centromedico`);
 
 --
 -- Restricciones para tablas volcadas
@@ -399,6 +407,7 @@ ALTER TABLE `v_dispo`
 -- Filtros para la tabla `v_pend`
 --
 ALTER TABLE `v_pend`
+  ADD CONSTRAINT `fk_c_medico` FOREIGN KEY (`id_centromedico`) REFERENCES `c_medico` (`id_centromedico`),
   ADD CONSTRAINT `v_pend_paciente_fk` FOREIGN KEY (`paciente_id_paciente`) REFERENCES `paciente` (`id_paciente`),
   ADD CONSTRAINT `v_pend_pend_fk` FOREIGN KEY (`pend_id_pendiente`) REFERENCES `pend` (`id_pendiente`),
   ADD CONSTRAINT `v_pend_vacuna_fk` FOREIGN KEY (`vacuna_id_vacuna`) REFERENCES `vacuna` (`id_vacuna`);

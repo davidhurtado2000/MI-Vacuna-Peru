@@ -52,7 +52,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
     <body class="d-flex flex-column min-vh-100" style="background-color: transparent;">
 
         <div class="container-fluid mt-3 px-4 py-4">
-            <div class="container-fluid pb-4 " style="background-color: #ffe599;">
+            <div class="container-fluid  border border-dark border-2 rounded-2 py-4" style="background-color: #ffe599;">
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="float-start">
@@ -84,7 +84,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                 </div>
                             </a>
 
-                            <a href="Vacunas_Pendientes.php" class="btn change-bgcolor border border-dark rounded-0 py-4">
+                            <a href="Vacuna_Pend.php" class="btn change-bgcolor border border-dark rounded-0 py-4">
                                 <div type="button">
                                     <img src="../img/pendiente_icon.png" alt="Responsive image" id="menu_logo"
                                         class="float-start">

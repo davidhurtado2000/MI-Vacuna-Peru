@@ -5,6 +5,30 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 } else {
     date_default_timezone_set('America/Lima');
     $fechaActual = date('d/m/y h:i');
+
+    if (isset($_POST['busca'])) {
+        $busqueda = $_POST["busca"];
+    } else{
+        $busqueda = "";
+    }
+
+    if (isset($_POST['filtroArriba'])) {
+        $busqueda = $_POST["filtroArriba"];
+        $filtro = "Arriba";
+    } elseif (isset($_POST['filtroAbajo'])){
+        $busqueda =  $_POST["filtroAbajo"];
+        $filtro = "Abajo";
+
+    } else{
+        $filtro = "";
+    }
+
+
+    include_once "../controller/ControllerVacunasPend.php";
+    $objVacunaPend = new ControllerVacunasPend();
+    $listar = $objVacunaPend->ControllerListarVacunasPend($busqueda, $filtro);
+
+
     ?>
     <!DOCTYPE html>
     <html lang="es">
@@ -63,6 +87,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                     <p class="text-wrap">Informacion del Usuario</p>
                                 </div>
                             </a>
+
                             <a href="Historial_Vacuna.php" class="btn change-bgcolor border border-dark rounded-0 py-4">
                                 <div type="button">
                                     <img src="../img/historial_icon.png" alt="Responsive image" id="menu_logo"
@@ -70,6 +95,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                     <p class="text-wrap">Historial de Vacunas</p>
                                 </div>
                             </a>
+
                             <a href="Vacuna_Pend.php" class="btn change-bgcolor border border-dark rounded-0 py-4">
                                 <div type="button">
                                     <img src="../img/pendiente_icon.png" alt="Responsive image" id="menu_logo"
@@ -78,6 +104,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 
                                 </div>
                             </a>
+
                             <a href="Buscar_Vacuna.php" class="btn change-bgcolor border border-dark rounded-0 py-4">
                                 <div type="button">
                                     <img src="../img/buscador_icon.png" alt="Responsive image" id="menu_logo"
@@ -91,64 +118,66 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                         <div class="col-md-12 px-4 h-100 border border-dark rounded-0 overflow-auto"
                             style="background-color: white; max-height: 357px;">
                             <div class="container">
-                                <div class="row align-items-center mx-2 my-4">
+                                <div class="row align-items-center mx-2 my-4 border border-3 border-dark ">
                                     <div class="row my-2">
-                                        <div class="h4 text-center">Informacion del Paciente</div>
-                                        <div class="col-md-2">
-                                            <div class="col-md-12">Nombres: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["nombres"] . "</label>"; ?>
-                                                
+                                    <!-- 
+                                        <form action="Bucador_Vacuna.php" method="POST">
+                                            <input type="text" name="buscadr">
+                                            <input type="submit" value="buscar">
+
+                                        </form>
+
+                                        cambiar la busqueda
+                                    -->
+
+                                    <form action="Vacuna_Pend.php" method="POST">
+                                        <div class="col-lg-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control rounded" id="busca" name="busca" placeholder="Busqueda" />
+                                            <input type="submit" class="btn btn-outline-primary" ></input>
                                             </div>
                                         </div>
+                                    </form>
+                                        
                                     </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12 ">Apellido Paterno: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["a_paterno"] . "</label>"; ?>
-                                            </div>
-                                        </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped border border-dark">
+                                            <thead style="background: grey">
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Vacuna</th>
+                                                <th scope="col"># Dosis</th>
+                                                <th scope="col" >Fecha estimada
+                                                    <form action="Vacuna_Pend.php" method="POST" class="float-end">
+                                                        <input type="hidden" id="filtroArriba"name="filtroArriba" value="<?php echo $busqueda;?>">
+                                                        <input type="submit" value="Asc">
+                                                    </form>
+                                                    <form action="Vacuna_Pend.php" method="POST" class="float-end">
+                                                        <input type="hidden" id="filtroAbajo" name="filtroAbajo" value="<?php echo $busqueda;?>">
+                                                        <input type="submit" value="Des">
+                                                    </form>
+
+                                                </th>
+                                                <th scope="col">Centro</th>
+                                            </thead>
+                                            <?php
+                                            
+                                            foreach($listar as $fila){
+                                                echo "<tr>";
+                                                echo "<td>" . $fila["id_vacuna"] . "</td>";
+                                                echo "<td>" . $fila["nombre_Vacuna"] . "</td>";
+                                                echo "<td>" . $fila["dosis_pendiente"] . "</td>";
+                                                echo "<td>" . $fila["f_estimadas"] . "</td>";
+                                                echo "<td>" . $fila["nombre"] . "</td>";
+                                                echo "</tr>";
+                                            }
+                                            
+                                            ?>
+
+
+                                        </table>
                                     </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12 ">Apellido Materno: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["a_materno"] . "</label>"; ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12 ">Edad: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["edad"] . "</label>"; ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12">Direccion: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["direccion"] . "</label>"; ?>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
