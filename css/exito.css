@@ -1,0 +1,53 @@
+html{
+    background-color: #6fa8dc;
+  }
+  
+  header{
+    padding-bottom: 50px;
+  }
+  
+  footer {
+    padding: 25px;
+    background-color: white;
+  }
+  
+  
+  .form-group{
+    padding-top: 5px;
+  }
+  
+  
+  
+  #formulario {
+    background-color: white;
+    border-radius: 30px;
+  }
+  
+  #iconos{
+    width: 50px;
+    height: 50px;
+  }
+  
+  #logo_peru{
+    width: 50px;
+    height: 50px;
+  }
+  
+  #minsa{
+    width: 300px;
+  }
+
+
+a.btn{
+    cursor: pointer; 
+    transition: all 1s;  /* lets make it smooth */
+}
+
+a.change-bgcolor:hover, div.change-bgcolor:active{
+    background: rgba(3, 232, 240, 0.519);
+    transition: all 1s;
+}
+#menu_logo {
+    width: 30px;
+    height: 30px;
+}

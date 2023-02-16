@@ -51,7 +51,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 
     <body class="d-flex flex-column min-vh-100" style="background-color: transparent;">
 
-        <div class="container-fluid mt-3 px-4 py-4">
+        <div class="container-fluid my-3 px-4 py-4">
             <div class="container-fluid  border border-dark border-2 rounded-2 py-4" style="background-color: #ffe599;">
                 <div class="row">
                     <div class="col-lg-6">

@@ -6,8 +6,11 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
     date_default_timezone_set('America/Lima');
     $fechaActual = date('d/m/y h:i');
 
+    $idpaciente = $_SESSION["dni"];
+
     if (isset($_POST['busca'])) {
         $busqueda = $_POST["busca"];
+        
     } else{
         $busqueda = "";
     }
@@ -26,7 +29,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 
     include_once "../controller/ControllerVacunasPend.php";
     $objVacunaPend = new ControllerVacunasPend();
-    $listar = $objVacunaPend->ControllerListarVacunasPend($busqueda, $filtro);
+    $listar = $objVacunaPend->ControllerListarVacunasPend($idpaciente, $busqueda, $filtro);
 
 
     ?>
@@ -63,7 +66,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 
     <body class="d-flex flex-column min-vh-100" style="background-color: transparent;">
 
-        <div class="container-fluid mt-3 px-4 py-4">
+        <div class="container-fluid my-3 px-4 py-4">
         <div class="container-fluid  border border-dark border-2 rounded-2 py-4" style="background-color: #ffe599;">
                 <div class="row">
                     <div class="col-lg-6">
@@ -164,7 +167,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                             
                                             foreach($listar as $fila){
                                                 echo "<tr>";
-                                                echo "<td>" . $fila["id_vacuna"] . "</td>";
+                                                echo "<td>" . $fila["id_tipovacuna"] . "</td>";
                                                 echo "<td>" . $fila["nombre_Vacuna"] . "</td>";
                                                 echo "<td>" . $fila["dosis_pendiente"] . "</td>";
                                                 echo "<td>" . $fila["f_estimadas"] . "</td>";

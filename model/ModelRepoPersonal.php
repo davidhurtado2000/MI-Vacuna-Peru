@@ -9,14 +9,14 @@ class ModelRepoPersonal{
      public function ModelListarVacunas($dni,$fecha){
         try {
             $obj = Conexion::singleton();
-            $query = $obj->prepare('SELECT vacuna.dosis, vacuna.nombre_Vacuna, vacuna.fecha_vacunacion, vacuna.lote, c_medico.nombre
-            FROM r_perso 
-            INNER JOIN paciente 
-            ON r_perso.paciente_id_paciente = paciente.id_paciente
-            INNER JOIN vacuna 
-            ON r_perso.vacuna_id_vacuna = vacuna.id_vacuna
-            INNER JOIN c_medico 
-            ON r_perso.id_centromedico = c_medico.id_centromedico
+            $query = $obj->prepare('SELECT vacuna.dosis, t_vacuna.nombre_Vacuna, vacuna.fecha_vacunacion, t_vacuna.lote, c_medico.nombre
+            FROM vacuna
+            INNER JOIN t_vacuna
+            ON vacuna.t_vacuna_id_tipovacuna = t_vacuna.id_tipovacuna
+            INNER JOIN paciente
+            ON vacuna.paciente_id_paciente = paciente.id_paciente
+            INNER JOIN c_medico
+            ON vacuna.id_centromedico = c_medico.id_centromedico
             WHERE paciente.dni_dni_id=? and YEAR(vacuna.fecha_vacunacion)=?');
             $query->bindParam(1, $dni);
             $query->bindParam(2, $fecha);
@@ -33,13 +33,13 @@ class ModelRepoPersonal{
         try {
             $obj = Conexion::singleton();
             $query = $obj->prepare('SELECT DISTINCT YEAR(vacuna.fecha_vacunacion) as Año
-            FROM r_perso 
-            INNER JOIN paciente 
-            ON r_perso.paciente_id_paciente = paciente.id_paciente
-            INNER JOIN vacuna 
-            ON r_perso.vacuna_id_vacuna = vacuna.id_vacuna
-            INNER JOIN c_medico 
-            ON r_perso.id_centromedico = c_medico.id_centromedico
+            FROM vacuna 
+            INNER JOIN t_vacuna
+            ON vacuna.t_vacuna_id_tipovacuna = t_vacuna.id_tipovacuna
+            INNER JOIN paciente
+            ON vacuna.paciente_id_paciente = paciente.id_paciente
+            INNER JOIN c_medico
+            ON vacuna.id_centromedico = c_medico.id_centromedico
             WHERE paciente.dni_dni_id=?');
             $query->bindParam(1, $dni);
             $query->execute();

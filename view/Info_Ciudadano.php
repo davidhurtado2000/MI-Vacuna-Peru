@@ -5,6 +5,10 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 } else {
     date_default_timezone_set('America/Lima');
     $fechaActual = date('d/m/y h:i');
+
+
+
+
     ?>
     <!DOCTYPE html>
     <html lang="es">
@@ -39,12 +43,15 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 
     <body class="d-flex flex-column min-vh-100" style="background-color: transparent;">
 
-        <div class="container-fluid mt-3 px-4 py-4">
-        <div class="container-fluid  border border-dark border-2 rounded-2 py-4" style="background-color: #ffe599;">
+        <div class="container-fluid my-3 px-4 py-4">
+            <div class="container-fluid  border border-dark border-2 rounded-2 py-4" style="background-color: #ffe599;">
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="float-start">
-                            <?php echo "<label>Paciente: " . $_SESSION["nom_completo"] . "</label>"; ?>
+                            <?php 
+                             echo '<img src="data:image/png;base64,'.base64_encode($_SESSION['foto_perfil']).'"/>';
+                             echo "<label>". $_SESSION["nom_completo"] . "</label>"; 
+                             ?>
                             <a href="../controller/ControllerDestruirSesion.php">Cerrar Sesión</a>
                         </div>
                     </div>
@@ -101,7 +108,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                             <div class="col-md-12 border border-dark" id="contenido_personal"
                                                 style="background-color: #dddddd;">
                                                 <?php echo "<label>" . $_SESSION["nombres"] . "</label>"; ?>
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -164,7 +171,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 
     </body>
 
-    <footer class="mt-auto  text-center">
+    <footer class="mt-auto  text-center ">
         <p>© 2023 Copyright</p>
     </footer>
 
