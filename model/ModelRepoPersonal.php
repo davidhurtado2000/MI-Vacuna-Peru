@@ -40,7 +40,7 @@ class ModelRepoPersonal{
             ON vacuna.paciente_id_paciente = paciente.id_paciente
             INNER JOIN c_medico
             ON vacuna.id_centromedico = c_medico.id_centromedico
-            WHERE paciente.dni_dni_id=?');
+            WHERE paciente.dni_dni_id=? ORDER BY Año DESC');
             $query->bindParam(1, $dni);
             $query->execute();
             $vector = $query->fetchAll();
