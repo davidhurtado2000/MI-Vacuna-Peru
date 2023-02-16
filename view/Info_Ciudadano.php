@@ -49,7 +49,8 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                     <div class="col-lg-6">
                         <div class="float-start">
                             <?php 
-                             echo '<img src="data:image/png;base64,'.base64_encode($_SESSION['foto_perfil']).'"/>';
+                             echo '<img src="data:image/png;base64,'.base64_encode($_SESSION['foto_perfil']).'" 
+                             style="width:50px; height:50px;" />';
                              echo "<label>". $_SESSION["nom_completo"] . "</label>"; 
                              ?>
                             <a href="../controller/ControllerDestruirSesion.php">Cerrar Sesión</a>
