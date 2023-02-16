@@ -5,7 +5,7 @@
   <title>Mi Vacuna Peru</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="css/login.css" type="text/css" rel="stylesheet" media="">
+  <link href="css/logindoctor.css" type="text/css" rel="stylesheet" media="">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
@@ -39,24 +39,19 @@
     </div>
     <div class="row">
 
-      <form action="controller/ControllerValidarAccesoPaciente.php" method="post">
+      <form action="controller/ControllerValidarAccesoDoctor.php" method="post">
         <div class="form-group border-bottom border-dark">
-          <label for="dni">DNI</label>
+          <label for="dni">Usuario de Doctor</label>
           <img src="img/dni.png" alt="Responsive image" id="iconos"><input type="text" class="form-control border-0"
-            placeholder="Ingresar su DNI" minlength="8" id="dni" name="dni" maxlength="8" required>
+            placeholder="Ingresar su Usuario" id="usa" name="usa" required>
         </div>
 
         <div class="form-group border-bottom border-dark">
-          <label for="fch-emision">Fecha de Emision</label>
-          <img src="img/fechaemision.png" alt="Responsive image" id="iconos"><input type="date"
-            class="form-control border-0" id="emision" name="emision" required>
+          <label for="dni">Contraseña</label>
+          <img src="img/dni.png" alt="Responsive image" id="iconos"><input type="password" class="form-control border-0"
+            placeholder="Ingresar su Contraseña" id="pass" name="pass" required>
         </div>
 
-        <div class="form-group border-bottom border-dark">
-          <label for="fch-nacimiento">Fecha de Nacimiento</label>
-          <img src="img/nacimiento.png" alt="Responsive image" id="iconos"> <input type="date"
-            class="form-control border-0" id="nacimiento" name="nacimiento" required>
-        </div>
         <br>
 
         <div class="container d-flex justify-content-center align-items-center">
@@ -69,7 +64,7 @@
       <div class="container d-flex justify-content-center align-items-center">
           <div class="nonuser">
             <label for="nonuser">No tienes cuenta?</label>
-            <a href="view/RegistroPaciente_Veri1.php">Registrate aqui</a>
+            <a href="view/RegistroDoctor_Veri1.php">Registrate aqui</a>
           </div>
         </div>
     </div>
