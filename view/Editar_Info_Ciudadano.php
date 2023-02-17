@@ -169,6 +169,8 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    
                                     <div class="row my-2">
                                         <div class="col-md-2">
                                             <div class="col-md-12">Telefono: </div>
