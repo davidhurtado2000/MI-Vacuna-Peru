@@ -157,6 +157,17 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row my-2">
+                                        <div class="col-md-2">
+                                            <div class="col-md-12">Foto: </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="col-md-12 border border-dark" id="contenido_personal"
+                                                style="background-color: #dddddd;">
+                                                <?php echo "<label>" . $_SESSION["direccion"] . "</label>"; ?>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
