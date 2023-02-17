@@ -182,7 +182,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                     </div>
                                     
                                     <div class="container d-flex justify-content-center align-items-center">
-                                     <a type="button" href="Editar_Info_Ciudadano.php" class="btn btn-outline-success my-3">Editar Datos </a>
+                                     <a type="button" href="Info_Ciudadano.php" class="btn btn-outline-success my-3">Grabar Datos </a>
                                     </div>
                                     
                                     
