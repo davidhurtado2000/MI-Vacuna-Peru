@@ -53,6 +53,59 @@ class ModelDoctor{
             throw $e;
         } 
     }
+    public function ModelVerificarDoctor2($credenciales){
+        try {
+            $obj = Conexion::singleton();
+            $query = $obj->prepare('SELECT n_colegiado 
+            FROM credenciales
+            WHERE n_colegiado=?');
+            $query->bindParam(1, $credenciales);
+            $query->execute();
+            $vector = $query->fetchAll();
+            $query = null;
+            return $vector;
+        } catch (Exception $e) {
+            throw $e;
+        } 
+    }
+
+    public function ModelInsertarDoctor($dni, $lugar, $credenciales, $usa, $pass, $foto){
+        try{
+
+            $obj = Conexion::singleton();
+            $query = $obj->prepare('SELECT id_doctor FROM doctor ORDER BY id_doctor DESC');
+            $query->execute();
+            $vector = $query->fetch();
+            $query = null;
+            echo substr(implode("", $vector), -6);
+            $id = substr(implode("", $vector), -6);
+            echo $id;
+            $id++;
+
+            $query = $obj->prepare('INSERT INTO doctor VALUES(?,?,?,?,?,?,?)');
+     
+            $query->bindParam(1, $id);
+            $query->bindParam(2, $dni);
+            $query->bindParam(3, $lugar);
+            $query->bindParam(4, $foto);
+            $query->bindParam(5, $credenciales);
+            $query->bindParam(6, $usa);
+            $query->bindParam(7, $pass);
+
+            if ($query) {
+                $status = 'success';
+                $statusMsg = "File uploaded successfully.";
+            } else {
+                $statusMsg = "File upload failed, please try again.";
+            }
+
+            echo $statusMsg, $status;
+     
+            $query->execute();//Ejecuta la consulta SQL
+         }catch(PDOException $e){
+               $e->getMessage();
+         }
+    }
 
    
     

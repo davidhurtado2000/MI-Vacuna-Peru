@@ -1,5 +1,9 @@
 <?php
+session_start();
+if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimiento"] == "" && $_SESSION["nombres"] == "" && $_SESSION["a_paterno"] == "" && $_SESSION["a_materno"] == "") {
+  header('Location:../view/RegistroDoctor_Veri1.php?err=3');
 
+} else {
 
 
 ?>
@@ -39,45 +43,14 @@
 
   <div class="container	 my-3 border border-dark w-50" id="formulario">
     <div class="jumbotron text-center">
-      <p class="h2">Proceso de Verificacion</p>
+      <p class="h2">Verificacion de Crendenciales</p>
     </div>
     <div class="row">
-
-      <form action="../controller/ControllerVerificarDoctor.php" method="post">
+      <form action="../controller/ControllerVerificarDoctor2.php" method="post">
         <div class="form-group border-bottom border-dark">
-          <label for="dni">DNI</label>
+          <label for="credenciales">Numero de Crendenciales</label>
           <img src="../img/dni.png" alt="Responsive image" id="iconos"><input type="text" class="form-control border-0"
-            placeholder="Ingresar su DNI" minlength="8" id="dni" name="dni" maxlength="8" >
-        </div>
-
-        <div class="form-group border-bottom border-dark">
-          <label for="fch-emision">Fecha de Emision</label>
-          <img src="../img/fechaemision.png" alt="Responsive image" id="iconos"><input type="date"
-            class="form-control border-0" id="emision" name="emision" >
-        </div>
-
-        <div class="form-group border-bottom border-dark">
-          <label for="fch-nacimiento">Fecha de Nacimiento</label>
-          <img src="../img/nacimiento.png" alt="Responsive image" id="iconos"> <input type="date"
-            class="form-control border-0" id="nacimiento" name="nacimiento" >
-        </div>
-
-        <div class="form-group border-bottom border-dark">
-          <label for="dni">Nombres</label>
-          <img src="../img/info.png" alt="Responsive image" id="iconos"><input type="text" class="form-control border-0"
-            placeholder="Ingresar sus nombres" id="nombres" name="nombres" >
-        </div>
-
-        <div class="form-group border-bottom border-dark">
-          <label for="dni">Apellido Paterno</label>
-          <img src="../img/info.png" alt="Responsive image" id="iconos"><input type="text" class="form-control border-0"
-            placeholder="Ingresar su apellido paterno" id="a_paterno" name="a_paterno" >
-        </div>
-
-        <div class="form-group border-bottom border-dark">
-          <label for="dni">Apellido Materno</label>
-          <img src="../img/info.png" alt="Responsive image" id="iconos"><input type="text" class="form-control border-0"
-            placeholder="Ingresar su apellido materno"  id="a_materno" name="a_materno" >
+            placeholder="Ingresar su N° de Colegiatura" minlength="6" id="credenciales" name="credenciales" maxlength="6" >
         </div>
 
         <?php
@@ -92,6 +65,7 @@
 
         <div class="container d-flex justify-content-center align-items-center">
           <div class="btn-group-vertical pt-2" style="background-color: white;">
+            <input type="hidden" id="dni" name="dni" value="<?php echo $_SESSION['dni']?>">
             <input type="submit" class="btn btn-primary border border-dark" value="Ingresar">
           </div>
         </div>
@@ -99,12 +73,6 @@
 
       </form>
 
-      <div class="container d-flex justify-content-center align-items-center">
-          <div class="nonuser">
-            <a href="../Log-in_Doctor.php">Regresar</a>
-          </div>
-        </div>
-    </div>
   </div>
 
   <script type="text/javascript" src="js/login.js"></script>
@@ -116,4 +84,6 @@
 
 
 </html>
-
+<?php
+}
+?>

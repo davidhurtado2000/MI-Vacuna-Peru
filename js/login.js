@@ -49,5 +49,8 @@ function setDateTimeToday(dateid) {
 setInputFilter(document.getElementById("dni"), function (value) {
     return /^-?\d*$/.test(value);
 }, "Tiene valores numericos");
+setInputFilter(document.getElementById("credenciales"), function (value) {
+    return /^-?\d*$/.test(value);
+}, "Tiene valores numericos");
 setDateTimeToday("emision")
 setDateTimeToday("nacimiento")
