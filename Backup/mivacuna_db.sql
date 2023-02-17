@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2023 at 06:27 PM
+-- Generation Time: Feb 18, 2023 at 12:03 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -105,6 +105,7 @@ CREATE TABLE `dni` (
 INSERT INTO `dni` (`dni_id`, `nombres`, `apellido_p`, `apellido_m`, `reniec_id_reniec`, `f_emision`, `f_nacimiento`) VALUES
 ('60449001', 'Jose Miguel', 'Hurtado', 'Abanto', 'REN001', '2022-12-01', '2000-02-03'),
 ('60449003', 'Juan Carlos', 'Tuncar', 'Ruiz', 'REN001', '2018-02-08', '1996-05-15'),
+('65223133', 'Nicolas', 'Abanto', 'Cachay', 'REN001', '2018-10-10', '1990-10-10'),
 ('70112005', 'Luis Daniel', 'Diaz', 'Espinoza', 'REN001', '2012-01-01', '1980-01-01'),
 ('70558994', 'Javier Junio', 'Caycho', 'Zamudio', 'REN001', '2018-10-10', '1996-10-10'),
 ('70668994', 'Daniel Luis', 'Valverde', 'Farfan', 'REN001', '2000-10-10', '1980-10-10'),
@@ -154,10 +155,11 @@ CREATE TABLE `paciente` (
 --
 
 INSERT INTO `paciente` (`id_paciente`, `dni_dni_id`, `direccion`, `correo`, `telefono`, `paciente_foto`) VALUES
-('PC0001', '60449003', 'Av. Peru 15531', 'juanc@gmail.com', '997004985', '60449003.png'),
+('PC0001', '60449003', 'Av. Rodrigo Urgarte 2221', 'juancarlos@gmail.com', '997004910', '60449003.gif'),
 ('PC0002', '60449001', 'Jr. Pimentel 2012', 'josemiguel@gmail.com', '997883123', '60449001.png'),
 ('PC0003', '70558994', 'Jr. Pimentel 2000', 'javiercaycho@gmail.com', '997005674', '70558994.png'),
-('PC0004', '70668994', 'Av. Salavery 24122', 'danielluis@gmail.com', '923123333', '70668994.png');
+('PC0004', '70668994', 'Av. Salavery 24122', 'danielluis@gmail.com', '923123333', '70668994.png'),
+('PC0005', '65223133', 'Av. Dueñas 155221', 'nicolascachay@gmail.com', '997005962', '65223133.gif');
 
 -- --------------------------------------------------------
 
@@ -298,10 +300,8 @@ CREATE TABLE `v_dispo` (
 --
 
 INSERT INTO `v_dispo` (`id_tipovacuna`, `c_medico_id_centromedico`, `disponibilidad`) VALUES
-('VAC002', 'CEN001', '1'),
-('VAC002', 'CEN001', '0'),
-('VAC002', 'CEN001', '1'),
-('VAC001', 'NULL', '1');
+('VAC001', 'CEN001', '1'),
+('VAC002', 'CEN001', '1');
 
 -- --------------------------------------------------------
 

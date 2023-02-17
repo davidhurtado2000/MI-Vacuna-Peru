@@ -56,11 +56,10 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="float-start">
-                            <?php
-                            echo '<img src="data:image/png;base64,' . base64_encode($_SESSION['foto_perfil']) . '" 
-                             style="width:50px; height:50px;" />';
-                            echo "<label>" . $_SESSION['titulo'] . ": " . $_SESSION["nom_completo"] . "</label>";
-                            ?>
+                        <?php 
+                             echo "<img src='../img/foto_perfiles/$_SESSION[foto_perfil]' class='mx-2' style='height:40px; width:40px;'>";
+                             echo "<label>".$_SESSION['titulo'].": ".$_SESSION["nom_completo"]. "</label>"; 
+                             ?>
                             <a href="../controller/ControllerDestruirSesionDoctor.php">Cerrar Sesión</a>
                         </div>
                     </div>
