@@ -28,6 +28,9 @@ IF($_POST["dni"] == "" || $_POST["emision"] == "" || $_POST["nacimiento"] == "")
         $_SESSION['a_materno'] = $fila['apellido_m'];
         $_SESSION['edad'] = ageCalculator($fila['f_nacimiento']);
         $_SESSION['direccion'] = $fila['direccion'];
+        $_SESSION['telefono'] = $fila['telefono'];
+        $_SESSION['correo'] = $fila['correo'];
+
 
         $_SESSION['foto_perfil'] = $fila['paciente_foto'];
         

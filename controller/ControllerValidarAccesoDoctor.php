@@ -27,7 +27,7 @@ IF($_POST["usa"] == "" || $_POST["pass"] == ""){
         $_SESSION['a_paterno'] = $fila['apellido_p'];
         $_SESSION['a_materno'] = $fila['apellido_m'];
         $_SESSION['edad'] = ageCalculator($fila['f_nacimiento']);
-        $_SESSION['foto_perfil'] = $fila['paciente_foto'];
+        $_SESSION['foto_perfil'] = $fila['foto_doctor'];
 
         #Credenciales del doctor
         $_SESSION['credenciales'] = $fila['n_colegiado'];

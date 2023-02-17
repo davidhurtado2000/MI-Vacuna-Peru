@@ -8,7 +8,21 @@ $usa = $_POST["usa"];
 $pass = $_POST["pass"];
 $lugar = $_POST["lugar"];
 
-$status = $statusMsg = '';
+$extension = explode(".", $_FILES['fotosubida']['name']);
+$img	=	$dni.".".$extension[1];
+$obj->ControllerInsertarDoctor($dni, $lugar, $credenciales, $usa, $pass, $img);
+$dir_carga = '../img/foto_perfiles/';
+$ruta_nombre_archivo_registrado = $dir_carga . $img; 
+
+if (move_uploaded_file($_FILES['fotosubida']['tmp_name'], $ruta_nombre_archivo_registrado)) {
+    	echo "El fichero es válido y se subió con éxito.\n";
+        header('Location:../controller/ControllerDestruirSesionRegistroDoctor.php');
+} else {
+      echo "Error en la carga de archivos. \n";
+}
+
+
+/*$status = $statusMsg = '';
 if (isset($_POST["submit"])) {
     $status = 'error';
     if (!empty($_FILES["fotosubida"]["name"])) {
@@ -23,21 +37,21 @@ if (isset($_POST["submit"])) {
             $imgContent = addslashes(file_get_contents($image));
 
             // Insert image content into database 
-            $obj->ControllerInsertarDoctor($dni, $lugar, $credenciales, $usa, $pass, $imgContent);
-            header('Location:../controller/ControllerDestruirSesionRegistroDoctor.php');
+            $obj->ControllerInsertarPaciente($dni, $direccion, $correo, $numero, $imgContent);
+            header('Location:../controller/ControllerDestruirSesionRegistro.php');
             
             
 
             
         } else {
             $statusMsg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.';
-            header("Location:../view/RegistroDoctor.php?valor=1");
+            header("Location:../view/RegistroPaciente.php?valor=1");
         }
     } else {
         $statusMsg = 'Please select an image file to upload.';
-        header("Location:../view/RegistroDoctor.php?valor=");
+        header("Location:../view/RegistroPaciente.php?valor=");
     }
 
-}
+}*/
 // Display status message 
 ?>

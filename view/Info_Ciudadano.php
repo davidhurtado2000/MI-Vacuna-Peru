@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimiento"] == "") {
     header('Location:../Log-in.php?err=3');
 } else {
@@ -47,17 +48,17 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
             <div class="container-fluid  border border-dark border-2 rounded-2 py-4" style="background-color: #ffe599;">
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="float-start">
-                            <?php 
-                             echo '<img src="data:image/png;base64,'.base64_encode($_SESSION['foto_perfil']).'" 
-                             style="width:50px; height:50px;" />';
-                             echo "<label>". $_SESSION["nom_completo"] . "</label>"; 
-                             ?>
+                        <div class="float-start my-2">
+                            <?php
+                            echo "<img src='../img/foto_perfiles/$_SESSION[foto_perfil]' class='mx-2' style='height:40px; width:40px;'>";
+                            echo "<a href='#'>Cambiar foto    </a>";
+                            echo "<label>" . $_SESSION["nom_completo"] . "</label>";
+                            ?>
                             <a href="../controller/ControllerDestruirSesion.php">Cerrar Sesión</a>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="float-end">
+                        <div class="float-end my-3">
                             <?php echo "<label>Fecha y Hora Actual: " . $fechaActual . "</label>"; ?>
                         </div>
                     </div>
@@ -159,15 +160,27 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                     </div>
                                     <div class="row my-2">
                                         <div class="col-md-2">
-                                            <div class="col-md-12">Foto: </div>
+                                            <div class="col-md-12">Correo: </div>
                                         </div>
                                         <div class="col-md-10">
                                             <div class="col-md-12 border border-dark" id="contenido_personal"
                                                 style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["direccion"] . "</label>"; ?>
+                                                <?php echo "<label>" . $_SESSION["correo"] . "</label>"; ?>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row my-2">
+                                        <div class="col-md-2">
+                                            <div class="col-md-12">Telefono: </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="col-md-12 border border-dark" id="contenido_personal"
+                                                style="background-color: #dddddd;">
+                                                <?php echo "<label>" . $_SESSION["telefono"] . "</label>"; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>

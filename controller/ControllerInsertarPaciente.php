@@ -7,7 +7,21 @@ $direccion = $_POST["direccion"];
 $correo = $_POST["correo"];
 $numero = $_POST["numero"];
 
-$status = $statusMsg = '';
+$extension = explode(".", $_FILES['fotosubida']['name']);
+$img	=	$dni.".".$extension[1];
+$obj->ControllerInsertarPaciente($dni, $direccion, $correo, $numero, $img);
+$dir_carga = '../img/foto_perfiles/';
+$ruta_nombre_archivo_registrado = $dir_carga . $img; 
+
+if (move_uploaded_file($_FILES['fotosubida']['tmp_name'], $ruta_nombre_archivo_registrado)) {
+    	echo "El fichero es válido y se subió con éxito.\n";
+          header('Location:../controller/ControllerDestruirSesionRegistro.php');
+} else {
+      echo "Error en la carga de archivos. \n";
+}
+
+
+/*$status = $statusMsg = '';
 if (isset($_POST["submit"])) {
     $status = 'error';
     if (!empty($_FILES["fotosubida"]["name"])) {
@@ -37,6 +51,6 @@ if (isset($_POST["submit"])) {
         header("Location:../view/RegistroPaciente.php?valor=");
     }
 
-}
+}*/
 // Display status message 
 ?>
