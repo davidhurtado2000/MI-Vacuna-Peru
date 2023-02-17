@@ -182,7 +182,23 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                             </div>
                                         </div>
                                     </div>
-                                    
+
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Dirección: </label>
+                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese su dirección">                                        
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Correo: </label>
+                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese su email">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Telefono: </label>
+                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese su número de telefono">                                        
+                                    </div>
+ 
+
                                     <div class="container d-flex justify-content-center align-items-center">
                                      <a type="button" href="Info_Ciudadano.php" class="btn btn-outline-success my-3">Grabar Datos </a>
                                     </div>
