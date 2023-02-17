@@ -71,7 +71,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
                                     <p class="text-wrap">Informacion del Doctor</p>
                                 </div>
                             </a>
-                            <a href="#" class="btn change-bgcolor border border-dark rounded-0 py-4">
+                            <a href="Buscar_Paciente.php" class="btn change-bgcolor border border-dark rounded-0 py-4">
                                 <div type="button">
                                     <img src="../img/historial_icon.png" alt="Responsive image" id="menu_logo"
                                         class="float-start">
