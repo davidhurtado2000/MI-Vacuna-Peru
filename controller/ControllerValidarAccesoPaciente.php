@@ -32,7 +32,6 @@ IF($_POST["dni"] == "" || $_POST["emision"] == "" || $_POST["nacimiento"] == "")
         $_SESSION['correo'] = $fila['correo'];
 
 
-        $_SESSION['foto_perfil'] = $fila['paciente_foto'];
         
 
 

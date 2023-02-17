@@ -15,6 +15,10 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
     $objHistorial = new ControllerRepoPersonal();
     $listar = $objHistorial->ControllerListarVacunas($_SESSION["dni"], $año);
     $cantidad_años = $objHistorial->ControllerCantidadAños($_SESSION["dni"]);
+    include "../controller/ControllerPaciente.php";
+    //Crear el objeto para el controlador
+    $obj = new ControllerPaciente();
+    $foto_perfil = $obj->ControllerMostrarFoto($_SESSION["dni"]);
     //echo var_dump($listar)
 
     ?>
@@ -55,13 +59,28 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
         <div class="container-fluid  border border-dark border-2 rounded-2 py-4" style="background-color: #ffe599;">
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="float-start">
-                            <?php echo "<label>Paciente: " . $_SESSION["nom_completo"] . "</label>"; ?>
+                        <div class="float-start my-2">
+                        <?php
+                            foreach ($foto_perfil as $fila) { 
+                                echo "<div class='position-relative' style='width: 70px; height: 70px;'>";
+                                echo "<img src='../img/foto_perfiles/$fila[paciente_foto]' style='height:70px; width:70px;'>";
+                                echo "<div class='position-absolute bottom-0 end-0'style='width: 25px; height: 25px;'>";
+                                        echo "<a href='../view/ModificarFotoPerfil.php' style='text-decoration: none'>";
+                                            echo "<img src='../img/actualizar_foto.gif' class='' style='height:25px; width:25 px;'>";
+                                        echo "</a>";
+                                echo "</div>";
+                            echo "</div>";
+                            
+                                }
+
+                                
+                                echo "<label class='h7'>Paciente: " . $_SESSION["nom_completo"] . "</label>";
+                            ?>
                             <a href="../controller/ControllerDestruirSesion.php">Cerrar Sesión</a>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="float-end">
+                        <div class="float-end my-3">
                             <?php echo "<label>Fecha y Hora Actual: " . $fechaActual . "</label>"; ?>
                         </div>
                     </div>

@@ -6,7 +6,10 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 } else {
     date_default_timezone_set('America/Lima');
     $fechaActual = date('d/m/y h:i');
-
+    include "../controller/ControllerPaciente.php";
+    //Crear el objeto para el controlador
+    $obj = new ControllerPaciente();
+    $foto_perfil = $obj->ControllerMostrarFoto($_SESSION["dni"]);
 
 
 
@@ -50,9 +53,20 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                     <div class="col-lg-6">
                         <div class="float-start my-2">
                             <?php
-                            echo "<img src='../img/foto_perfiles/$_SESSION[foto_perfil]' class='mx-2' style='height:40px; width:40px;'>";
-                            echo "<a href='../view/ModificarFotoPerfil.php'>Cambiar foto    </a>";
-                            echo "<label>" . $_SESSION["nom_completo"] . "</label>";
+                            foreach ($foto_perfil as $fila) { 
+                                echo "<div class='position-relative' style='width: 70px; height: 70px;'>";
+                                echo "<img src='../img/foto_perfiles/$fila[paciente_foto]' style='height:70px; width:70px;'>";
+                                echo "<div class='position-absolute bottom-0 end-0'style='width: 25px; height: 25px;'>";
+                                        echo "<a href='../view/ModificarFotoPerfil.php' style='text-decoration: none'>";
+                                            echo "<img src='../img/actualizar_foto.gif' class='' style='height:25px; width:25 px;'>";
+                                        echo "</a>";
+                                echo "</div>";
+                            echo "</div>";
+                            
+                                }
+
+                                
+                                echo "<label class='h7'>Paciente: " . $_SESSION["nom_completo"] . "</label>";
                             ?>
                             <a href="../controller/ControllerDestruirSesion.php">Cerrar Sesión</a>
                         </div>
@@ -124,9 +138,8 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 
                                         <div class="container d-flex justify-content-center align-items-center">
                                             <div class="btn-group-vertical pt-2" style="background-color: white;">
-                                            <input type="hidden" value="<?php echo $_SESSION['dni']?>" id="dni" name="dni">
-                                            <?php echo $_SESSION['dni']?>
-                                            <?php echo $_SESSION['foto_perfil']?>
+                                                <input type="hidden" value="<?php echo $_SESSION['dni'] ?>" id="dni"
+                                                    name="dni">
                                                 <input type="submit" name="submit"
                                                     class="btn btn-primary border border-dark" value="Actualizar foto">
                                             </div>

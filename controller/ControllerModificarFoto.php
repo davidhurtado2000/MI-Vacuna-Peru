@@ -14,7 +14,7 @@ $ruta_nombre_archivo_registrado = $dir_carga . $img;
 
 if (move_uploaded_file($_FILES['fotosubida']['tmp_name'], $ruta_nombre_archivo_registrado)) {
     	echo "El fichero es válido y se subió con éxito.\n";
-        header('Location:../controller/ControllerRestartSession.php');
+        header('Location:../view/Info_Ciudadano.php');
 } else {
       echo "Error en la carga de archivos. \n";
 }

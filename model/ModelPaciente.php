@@ -100,5 +100,20 @@ class ModelPaciente{
               throw $e;
           }
         }
+
+        public function MostrarFoto($dni){
+            try{   
+                 $obj = Conexion::singleton();
+                 $query = $obj->prepare('select paciente_foto from paciente where dni_dni_id =?');
+          
+                    $query -> bindParam(1, $dni);
+                  $query->execute();//Ejecuta la consulta SQL
+                  $vector = $query->fetchAll();
+                 $query=null;
+                 return $vector;
+              }catch(Exception $e){
+                  throw $e;
+              }
+            }
 }
 ?>

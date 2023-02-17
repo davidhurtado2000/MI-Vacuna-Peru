@@ -5,6 +5,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 
 } else {
 
+
   ?>
   <!DOCTYPE html>
   <html lang="es">
