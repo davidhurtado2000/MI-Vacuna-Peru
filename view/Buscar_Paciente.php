@@ -134,7 +134,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
                                                 echo "<td>" . $fila["dni_dni_id"] . "</td>";
                                                 echo "<td>" . $fila['apellido_p'] . " ," . $fila['apellido_m'] . "</td>";
                                                 echo "<td>" . $fila["nombres"] . "</td>";
-                                                echo "<td> ver historial </td>";
+                                                echo "<td> <a href='#' >ver historial</a> </td>";
                                                 echo "</tr>";
                                             }
 
