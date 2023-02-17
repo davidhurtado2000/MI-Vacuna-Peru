@@ -31,5 +31,14 @@ class ControllerPaciente{
             throw $e;
         }
     }
+
+    public function ControladorModificarFoto($dni, $foto){
+        try{   
+              $obj=new ModelPaciente();
+              return $obj->ModificarFoto($dni, $foto);
+         }catch(Exception $e){
+             throw $e;
+         }  
+      }
 }
 ?>

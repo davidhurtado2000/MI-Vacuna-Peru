@@ -90,5 +90,15 @@ class ModelPaciente{
                $e->getMessage();
          }
     }
+
+    public function ModificarFoto($dni, $foto){
+        try{   
+             $obj = Conexion::singleton();
+             $query = $obj->prepare("update paciente set paciente_foto='".$foto."' where dni_dni_id =".$dni);
+              echo $query->execute();//Ejecuta la consulta SQL
+          }catch(Exception $e){
+              throw $e;
+          }
+        }
 }
 ?>

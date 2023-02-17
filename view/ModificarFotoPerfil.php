@@ -101,86 +101,40 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                             style="background-color: white; max-height: 357px;">
                             <div class="container">
                                 <div class="row align-items-center mx-2 my-4">
-                                    <div class="row my-2">
-                                        <div class="h4 text-center">Informacion del Paciente</div>
-                                        <div class="col-md-2">
-                                            <div class="col-md-12">Nombres: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["nombres"] . "</label>"; ?>
 
+                                    <form action="../controller/ControllerModificarFoto.php" method="post"
+                                        enctype="multipart/form-data">
+
+                                        <div class="form-group border-bottom border-dark">
+                                            <label for="foto">Foto de Perfil</label>
+                                            <input type="hidden" name="MAX_FILE_SIZE" value="30000000">
+                                            <img src="../img/profile_icon.png" alt="Responsive image" id="menu_logo"><input
+                                                type="file" class="form-control border-0" placeholder="Foto"
+                                                name="fotosubida" required>
+
+                                        </div>
+                                        <?php
+                                        if (isset($_GET["valor"])) {
+                                            if ($_GET["valor"] == 1) {
+                                                echo "<label for=formGroupExampleInput2>Solamente se acepta JPG, JPEG, PNG, & GIF para subir.</label>";
+                                            }
+                                        }
+                                        ?>
+
+
+                                        <div class="container d-flex justify-content-center align-items-center">
+                                            <div class="btn-group-vertical pt-2" style="background-color: white;">
+                                            <input type="hidden" value="<?php echo $_SESSION['dni']?>" id="dni" name="dni">
+                                            <?php echo $_SESSION['dni']?>
+                                            <?php echo $_SESSION['foto_perfil']?>
+                                                <input type="submit" name="submit"
+                                                    class="btn btn-primary border border-dark" value="Actualizar foto">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12 ">Apellido Paterno: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["a_paterno"] . "</label>"; ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12 ">Apellido Materno: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["a_materno"] . "</label>"; ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12 ">Edad: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["edad"] . "</label>"; ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12">Direccion: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["direccion"] . "</label>"; ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12">Correo: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["correo"] . "</label>"; ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12">Telefono: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["telefono"] . "</label>"; ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
+
+
+                                    </form>
+
                                 </div>
                             </div>
                         </div>
