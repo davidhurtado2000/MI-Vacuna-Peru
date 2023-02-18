@@ -1,15 +1,18 @@
 <?php
 include_once '../util/ConexionBD.php';
 
-class ModelDoctor{
+class ModelDoctor
+{
 
-    public function __construct(){
+    public function __construct()
+    {
         $con = new Conexion();
     }
 
     //Metodo de Modelador para Validar el Paciente en el LogIn
-    public function _ModelValidarDoctor($usa,$pass){
-        try{
+    public function _ModelValidarDoctor($usa, $pass)
+    {
+        try {
             $obj = Conexion::singleton();
             $query = $obj->prepare('SELECT *
             FROM doctor
@@ -24,11 +27,12 @@ class ModelDoctor{
             $vector = $query->fetchAll();
             $query = null;
             return $vector;
-        } catch(Exception $e){
+        } catch (Exception $e) {
             throw $e;
         }
     }
-    public function ModelVerificarDoctor1($dni,$nombres,$a_paterno,$a_materno,$f_emision,$f_nacimiento){
+    public function ModelVerificarDoctor1($dni, $nombres, $a_paterno, $a_materno, $f_emision, $f_nacimiento)
+    {
         try {
             $obj = Conexion::singleton();
             $query = $obj->prepare('SELECT dni_id, nombres, apellido_p, apellido_m, f_emision, f_nacimiento 
@@ -51,9 +55,10 @@ class ModelDoctor{
             return $vector;
         } catch (Exception $e) {
             throw $e;
-        } 
+        }
     }
-    public function ModelVerificarDoctor2($credenciales){
+    public function ModelVerificarDoctor2($credenciales)
+    {
         try {
             $obj = Conexion::singleton();
             $query = $obj->prepare('SELECT n_colegiado 
@@ -66,48 +71,43 @@ class ModelDoctor{
             return $vector;
         } catch (Exception $e) {
             throw $e;
-        } 
+        }
     }
 
-    public function ModelInsertarDoctor($dni, $lugar, $credenciales, $usa, $pass, $foto){
-        try{
+
+    public function ModelInsertarDoctor($dni, $lugar, $credenciales, $usa, $pass, $foto)
+    {
+        try {
 
             $obj = Conexion::singleton();
-            $query = $obj->prepare('SELECT id_doctor FROM doctor ORDER BY id_doctor DESC');
-            $query->execute();
-            $vector = $query->fetch();
-            $query = null;
-            echo substr(implode("", $vector), -6);
-            $id = substr(implode("", $vector), -6);
-            echo $id;
-            $id++;
+            $query = $obj->prepare('INSERT INTO doctor (dni_dni_id,c_medico_id_centromedico,foto_doctor,n_colegiado,usuario,contraseña) 
+            VALUES(?,?,?,?,?,?)');
 
-            $query = $obj->prepare('INSERT INTO doctor VALUES(?,?,?,?,?,?,?)');
-     
-            $query->bindParam(1, $id);
-            $query->bindParam(2, $dni);
-            $query->bindParam(3, $lugar);
-            $query->bindParam(4, $foto);
-            $query->bindParam(5, $credenciales);
-            $query->bindParam(6, $usa);
-            $query->bindParam(7, $pass);
+            $query->bindParam(1, $dni);
+            $query->bindParam(2, $lugar);
+            $query->bindParam(3, $foto);
+            $query->bindParam(4, $credenciales);
+            $query->bindParam(5, $usa);
+            $query->bindParam(6, $pass);
 
             if ($query) {
                 $status = 'success';
                 $statusMsg = "File uploaded successfully.";
+                echo $statusMsg, $status;
+
             } else {
                 $statusMsg = "File upload failed, please try again.";
-            }
+                echo $statusMsg;
 
-            echo $statusMsg, $status;
-     
-            $query->execute();//Ejecuta la consulta SQL
-         }catch(PDOException $e){
-               $e->getMessage();
-         }
+            }
+            
+            $query->execute(); //Ejecuta la consulta SQL
+        } catch (PDOException $e) {
+            $e->getMessage();
+        }
     }
 
-   
-    
+
+
 }
 ?>

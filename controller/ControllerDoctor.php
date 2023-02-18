@@ -35,7 +35,7 @@ class ControllerDoctor{
         try {
             $obj=new ModelDoctor();
           $obj->ModelInsertarDoctor($dni, $lugar, $credenciales, $usa, $pass, $foto);
-         header("Location:../view/RegistroDoctor.php?valor=1");
+        header("Location:../view/RegistroDoctor.php?valor=1");
         } catch (Exception $e) {
             throw $e;
         }

@@ -50,7 +50,7 @@
         <div class="form-group border-bottom border-dark">
           <label for="fch-emision">Fecha de Emision</label>
           <img src="img/fechaemision.png" alt="Responsive image" id="iconos"><input type="date"
-            class="form-control border-0" id="emision" name="emision" >
+            class="form-control border-0" id="emision" name="emision">
         </div>
 
         <div class="form-group border-bottom border-dark">
