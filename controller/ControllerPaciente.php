@@ -22,6 +22,15 @@ class ControllerPaciente{
         }
     }
 
+    public function ControllerMostrarDatosPaciente2($dni){
+        try {
+            $obj = new ModelPaciente();
+            return $obj->MostrarDatosPaciente2($dni);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
     public function ControllerVerificarPaciente1($dni,$nombres,$a_paterno,$a_materno,$f_emision,$f_nacimiento){
 		try{   
         	$obj=new ModelPaciente();

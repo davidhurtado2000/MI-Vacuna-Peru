@@ -107,6 +107,27 @@ class ModelDoctor
         }
     }
 
+    public function MostrarDatosDoctor($dni,$credenciales)
+    {
+        try {
+            $obj = Conexion::singleton();
+            $query = $obj->prepare('SELECT *
+            FROM doctor
+            INNER JOIN dni ON doctor.dni_dni_id = dni.dni_id
+            INNER JOIN credenciales ON doctor.n_colegiado = credenciales.n_colegiado
+            WHERE dni.dni_id=? AND credenciales.n_colegiado=?');
+
+            $query->bindParam(1, $dni);
+            $query->bindParam(2, $credenciales);
+            $query->execute();
+            $vector = $query->fetchAll();
+            $query = null;
+            return $vector;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
 
 
 }

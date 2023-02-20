@@ -52,6 +52,25 @@ class ModelPaciente
         }
     }
 
+    public function MostrarDatosPaciente2($dni)
+    {
+        try {
+            $obj = Conexion::singleton();
+            $query = $obj->prepare('SELECT *
+            FROM paciente
+            INNER JOIN dni ON paciente.dni_dni_id = dni.dni_id WHERE dni.dni_id=?');
+
+            $query->bindParam(1, $dni);
+
+            $query->execute();
+            $vector = $query->fetchAll();
+            $query = null;
+            return $vector;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
     public function ModelVerificarPaciente1($dni, $nombres, $a_paterno, $a_materno, $f_emision, $f_nacimiento)
     {
         try {

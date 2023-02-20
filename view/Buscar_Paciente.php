@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
+if ($_SESSION["usuario"] == "" && $_SESSION["contraseña" == ""]) {
     header('Location:../Log-in_Doctor.php?err=3');
 } else {
     date_default_timezone_set('America/Lima');
@@ -14,8 +14,11 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
 
     include_once "../controller/ControllerBuscarPaciente.php";
     $objBuscarP = new ControllerBuscarPaciente();
-    $listar = $objBuscarP->ModelListarBuscarPaciente($busqueda);
+    $listarBusquedaPaciente = $objBuscarP->ModelListarBuscarPaciente($busqueda);
 
+    include "../controller/ControllerDoctor.php";
+    $objDatos = new ControllerDoctor();
+    $listarDatos = $objDatos->ControllerMostrarDatosDoctor($_SESSION["dni"], $_SESSION["credenciales"]);
 
     ?>
     <!DOCTYPE html>
@@ -55,21 +58,30 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
             <div class="container-fluid  border border-dark border-2 rounded-2 py-4" style="background-color: #ffe599;">
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="float-start">
-                        <?php 
-                             echo "<img src='../img/foto_perfiles/$_SESSION[foto_perfil]' class='mx-2' style='height:40px; width:40px;'>";
-                             echo "<label>".$_SESSION['titulo'].": ".$_SESSION["nom_completo"]. "</label>"; 
-                             ?>
+                        <div class="float-start my-2">
+                            <?php
+                            foreach ($listarDatos as $fila) {
+                                echo "<div class='position-relative' style='width: 70px; height: 70px;'>";
+                                echo "<img src='../img/foto_perfiles/$fila[foto_doctor]' style='height:70px; width:70px;'>";
+                                echo "<div class='position-absolute bottom-0 end-0'style='width: 25px; height: 25px;'>";
+                                echo "<a href='../view/ModificarFotoPerfilDoctor.php' style='text-decoration: none'>";
+                                echo "<img src='../img/actualizar_foto.gif' class='' style='height:25px; width:25 px;'>";
+                                echo "</a>";
+                                echo "</div>";
+                                echo "</div>";
+                            }
+                            echo "<label class='h7'>Paciente: " . $_SESSION["nom_completo"] . "</label>";
+                            ?>
                             <a href="../controller/ControllerDestruirSesionDoctor.php">Cerrar Sesión</a>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="float-end">
+                        <div class="float-end my-3">
                             <?php echo "<label>Fecha y Hora Actual: " . $fechaActual . "</label>"; ?>
                         </div>
                     </div>
                 </div>
-                <!-- -----------------------------------------------------------------------------------------------------------  -->
+                
                 <div class="row">
                     <div class="col-lg-2">
                         <div class="btn-group-vertical " style="width: 100%; background-color:white;">
@@ -89,6 +101,9 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
 
                         </div>
                     </div>
+
+                    <!-- ------------------------------------------------------------------------------------------------------------->
+
                     <div class="col-lg-10">
                         <div class="col-md-12 px-4 h-100 border border-dark rounded-0 overflow-auto"
                             style="background-color: white; max-height: 357px;">
@@ -96,14 +111,14 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
                                 <div class="row align-items-center mx-2 my-4 border border-3 border-dark ">
                                     <div class="row my-2">
                                         <!-- 
-                                                <form action="Bucador_Vacuna.php" method="POST">
-                                                    <input type="text" name="buscadr">
-                                                    <input type="submit" value="buscar">
+                                                        <form action="Bucador_Vacuna.php" method="POST">
+                                                            <input type="text" name="buscadr">
+                                                            <input type="submit" value="buscar">
 
-                                                </form>
+                                                        </form>
 
-                                                cambiar la busqueda
-                                            -->
+                                                        cambiar la busqueda
+                                                    -->
 
                                         <form action="Buscar_Paciente.php" method="POST">
                                             <div class="col-lg-6">
@@ -125,19 +140,24 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
                                                 <th scope="col">Nombres</th>
                                                 <th scope="col">Historial</th>
                                             </thead>
+
+
+                                            <form action="MostrarHistorialPaciente.php"  method=POST>
                                             <?php
-
-                                            foreach ($listar as $fila) {
-
-                                                echo "<tr>";
+                                            foreach ($listarBusquedaPaciente as $fila) {
+                                                echo "<tr id=".$fila["dni_dni_id"].">";
                                                 echo "<td>" . $fila["dni_dni_id"] . "</td>";
-                                                echo "<td>" . $fila['apellido_p'] . " ," . $fila['apellido_m'] . "</td>";
+                                                echo "<td>" . $fila['apellido_p'] . ", " . $fila['apellido_m'] . "</td>";
                                                 echo "<td>" . $fila["nombres"] . "</td>";
-                                                echo "<td> <a href='#' >ver historial</a> </td>";
+                                                echo "<td> 
+                                                <input type='hidden' value='".$fila["dni_dni_id"]."' id='valor_dni' name='valor_dni'>
+                                                <input type='submit' value='Ver historial del Paciente'> 
+                                                </td>";
                                                 echo "</tr>";
                                             }
 
                                             ?>
+                                            </form>
 
 
                                         </table>
@@ -150,8 +170,6 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
                 </div>
             </div>
         </div>
-        
-
 
 
 

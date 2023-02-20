@@ -15,8 +15,8 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 
     include_once"../controller/ControllerPaciente.php";
     //Crear el objeto para el controlador
-    $objdatos=new ControllerPaciente();
-    $listar = $objdatos->ControllerMostrarDatos($_SESSION["dni"]);
+    $objDatos = new ControllerPaciente();
+    $listarDatos = $objDatos->ControllerMostrarDatosPaciente($_SESSION["dni"], $_SESSION["emision"], $_SESSION["nacimiento"]);
 
 
     ?>
@@ -59,7 +59,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                     <div class="col-lg-6">
                         <div class="float-start my-2">
                             <?php
-                            foreach ($foto_perfil as $fila) {
+                            foreach ($listarDatos as $fila) {
                                 echo "<div class='position-relative' style='width: 70px; height: 70px;'>";
                                 echo "<img src='../img/foto_perfiles/$fila[paciente_foto]' style='height:70px; width:70px;'>";
                                 echo "<div class='position-absolute bottom-0 end-0'style='width: 25px; height: 25px;'>";
@@ -128,7 +128,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 
                                     <form action="../controller/ControllerModificarDatos.php" method="post">
 
-                                    <?php foreach ($listar as $filaDatos) { ?>
+                                    <?php foreach ($listarDatos as $filaDatos) { ?>
 
                                         <div class="row my-2">
                                             <div class="h4 text-center">Actualizacion de datos</div>

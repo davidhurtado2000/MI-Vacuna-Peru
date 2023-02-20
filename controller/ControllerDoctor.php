@@ -41,6 +41,15 @@ class ControllerDoctor{
         }
     }
 
+    public function ControllerMostrarDatosDoctor($dni,$credenciales){
+        try{   
+              $obj=new ModelDoctor();
+              return $obj->MostrarDatosDoctor($dni,$credenciales);
+         }catch(Exception $e){
+             throw $e;
+         }  
+      }
+
    
 }
 ?>
