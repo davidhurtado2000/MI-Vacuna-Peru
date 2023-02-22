@@ -62,7 +62,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                         <div class="float-start my-2">
                             <?php foreach ($listarDatos as $fila) { ?>
                                 <div class='position-relative' style='width: 70px; height: 70px;'>
-                                    <img src='../img/foto_perfiles/<?php echo $fila["paciente_foto"] ?>'
+                                    <img src='../img/foto_perfiles/<?php echo $fila["paciente_foto"] ?>?img '
                                         style='height:70px; width:70px;'>
                                     <div class='position-absolute bottom-0 end-0' style='width: 25px; height: 25px;'>
                                         <a href='../view/ModificarFotoPerfil.php' style='text-decoration: none'>

@@ -53,19 +53,16 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="float-start my-2">
-                            <?php foreach ($listarDatos as $fila) { ?>
+                        <?php foreach ($listarDatos as $fila) { ?>
                                 <div class='position-relative' style='width: 70px; height: 70px;'>
-                                    <img src='../img/foto_perfiles/<?php echo $fila["foto_doctor"] ?>'
-                                        style='height:70px; width:70px;'>
+                                    <img src="../img/foto_perfiles/<?php echo $fila["foto_doctor"]?>?img" style='height:70px; width:70px;'>
                                     <div class='position-absolute bottom-0 end-0' style='width: 25px; height: 25px;'>
                                         <a href='../view/ModificarFotoPerfilDoctor.php' style='text-decoration: none'>
                                             <img src='../img/actualizar_foto.gif' class='' style='height:25px; width:25 px;'>
                                         </a>
                                     </div>
                                 </div>
-                                <label class='h7'>Doctor:
-                                    <?php echo $_SESSION["nom_completo"] ?>
-                                </label>
+                                <label class='h7'>Doctor: <?php echo $_SESSION["nom_completo"]?></label>
 
                             <?php } ?>
                             <a href="../controller/ControllerDestruirSesion.php">Cerrar Sesión</a>
@@ -110,15 +107,20 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                             <input type="hidden" name="MAX_FILE_SIZE" value="30000000">
                                             <img src="../img/profile_icon.png" alt="Responsive image" id="menu_logo"><input
                                                 type="file" class="form-control border-0" placeholder="Foto"
-                                                name="fotosubida" required>
+                                                name="fotosubida" accept=".png,.jpg,.jpeg,.gif"  >
 
                                         </div>
                                         <?php
-                                        if (isset($_GET["valor"])) {
-                                            if ($_GET["valor"] == 1) {
+                                        if (isset($_GET["err"])) {
+                                            if ($_GET["err"] == 1) {
+                                                echo "<label for=formGroupExampleInput2>Datos incompleto, ingrese su foto de perfil</label>";
+                                            }
+                                            if ($_GET["err"] == 2) {
                                                 echo "<label for=formGroupExampleInput2>Solamente se acepta JPG, JPEG, PNG, & GIF para subir.</label>";
+
                                             }
                                         }
+
                                         ?>
 
 
