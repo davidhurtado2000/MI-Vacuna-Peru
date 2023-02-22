@@ -66,19 +66,22 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="float-start my-2">
-                            <?php foreach ($listarDatos as $fila) { ?>
-                                <div class='position-relative' style='width: 70px; height: 70px;'>
-                                <img src="../img/foto_perfiles/<?php echo $fila["foto_doctor"]?>?img" style='height:70px; width:70px;'>
+                                <?php foreach ($listarDatos as $fila) { ?>
+                                    <div class='position-relative' style='width: 70px; height: 70px;'>
+                                        <img src="../img/foto_perfiles/<?php echo $fila["foto_doctor"] ?>?img"
+                                            style='height:70px; width:70px;'>
 
-                                    <div class='position-absolute bottom-0 end-0' style='width: 25px; height: 25px;'>
-                                        <a href='../view/ModificarFotoPerfilDoctor.php' style='text-decoration: none'>
-                                            <img src='../img/actualizar_foto.gif' class='' style='height:25px; width:25 px;'>
-                                        </a>
+                                        <div class='position-absolute bottom-0 end-0' style='width: 25px; height: 25px;'>
+                                            <a href='../view/ModificarFotoPerfilDoctor.php' style='text-decoration: none'>
+                                                <img src='../img/actualizar_foto.gif' class='' style='height:25px; width:25 px;'>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <label class='h7'>Doctor: <?php echo $_SESSION["nom_completo"]?></label>
+                                    <label class='h7'>Doctor:
+                                        <?php echo $_SESSION["nom_completo"] ?>
+                                    </label>
 
-                            <?php } ?>
+                                <?php } ?>
                                 <a href="../controller/ControllerDestruirSesionDoctor.php">Cerrar Sesión</a>
                             </div>
                         </div>
@@ -155,41 +158,48 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                             <div class="col-sm-12">
                                                 <?php echo "<label>Fecha de Nacimiento: " . $filaDatosPaciente["f_nacimiento"] . "</label>"; ?>
                                             </div>
-                                            <?php
 
-                                            if (empty($listar)) {
-                                                echo "<div class='h2 text-center'>El paciente no tiene vacunas registradas este año</div>";
-                                            } else {
-
-                                                echo
-                                                    "
-                                    <div class='table-responsive'>
-                                            <table class='table table-bordered table-striped border border-dark'>
-                                                <thead style='background: grey'>
-                                                    <th scope='col'>Vacuna</th>
-                                                    <th scope='col'># de Dosis</th>
-                                                    <th scope='col'>Fecha</th>
-                                                    <th scope='col'>Lote</th>
-                                                    <th scope='col'>Centro</th>
-                                                </thead>";
-
-                                                foreach ($listar as $fila) {
-
-                                                    echo "<tr>";
-                                                    echo "<td>" . $fila["nombre_Vacuna"] . "</td>";
-                                                    echo "<td>" . $fila["dosis"] . "</td>";
-                                                    echo "<td>" . $fila["fecha_vacunacion"] . "</td>";
-                                                    echo "<td>" . $fila["lote"] . "</td>";
-                                                    echo "<td>" . $fila["nombre"] . "</td>";
-                                                    echo "</tr>";
+                                            <?php if (empty($listar)) { ?>
+                                                <div class='h2 text-center'>El paciente no tiene vacunas registradas este año
+                                                </div>
+                                            <?php } else { ?>
+                                                <div class='table-responsive'>
+                                                    <table class='table table-bordered table-striped border border-dark'>
+                                                        <thead style='background: grey'>
+                                                            <th scope='col'>Vacuna</th>
+                                                            <th scope='col'># de Dosis</th>
+                                                            <th scope='col'>Fecha</th>
+                                                            <th scope='col'>Lote</th>
+                                                            <th scope='col'>Centro</th>
+                                                            <th scope='col'>Acciones</th>
+                                                        </thead>
 
 
 
-                                                }
-                                                echo "</table>";
-                                                echo "</div>";
-                                            }
-                                            ?>
+                                                        </form>
+                                                        <?php
+                                                        foreach ($listar as $fila) {
+                                                            echo "<form action='ModificarDatosVacuna.php' method='post'>";
+                                                            echo "<tr>";
+                                                            echo "<td>" . $fila["nombre_Vacuna"] . "</td>";
+                                                            echo "<td>" . $fila["dosis"] . "</td>";
+                                                            echo "<td>" . $fila["fecha_vacunacion"] . "</td>";
+                                                            echo "<td>" . $fila["lote"] . "</td>";
+                                                            echo "<td>" . $fila["nombre"] . "</td>";
+                                                            echo "<td> 
+                                                            <input type='hidden' value='" . $fila . "' name='result_vacuna[]'>
+                                                            <input type='submit' value='Modificar Vacuna'> 
+                                                            </td>";
+                                                            echo "</tr>";
+                                                            echo "</form>";
+                                                        }
+                                                        ?>
+                                                    </table>
+                                                </div>
+                                            <?php } ?>
+
+
+
                                         </div>
 
                                     <?php } ?>
@@ -200,7 +210,6 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                     </div>
                 </div>
             </div>
-
             </div>
             </div>
 
