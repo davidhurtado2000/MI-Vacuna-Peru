@@ -22,7 +22,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
         include "../controller/ControllerDoctor.php";
         $objDatos = new ControllerDoctor();
         $listarDatos = $objDatos->ControllerMostrarDatosDoctor($_SESSION["dni"], $_SESSION["credenciales"]);
-        
+
 
         include "../controller/ControllerPaciente.php";
         $objPaciente = new ControllerPaciente();
@@ -117,7 +117,9 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                 <div class='container'>
 
                                     <div class="container text-end my-2">
-                                        <form action="Historial_Vacuna.php" id=myForm method=POST>
+                                        <form action="MostrarHistorialPaciente.php" id=myForm method=POST>
+                                            <input type="hidden" value="<?php echo $valor_dni ?>" name="valor_dni"
+                                                id="valor_dni">
                                             <label for="años">Selecciona el año:
                                                 <select class="form form-control-sm" size="1" name="año" id="año"
                                                     onChange="myFunction();">
@@ -135,57 +137,64 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                             <?php echo "<label>Reporte del año " . $año . "</label>"; ?>
                                         </div>
                                     </div>
-                                    <div class='row align-items-center mx-2 my-4 border border-3 border-dark'>
-                                        <div class='row my-2'>
-                                            <div class="col-md-6">
-                                                <div class="col-md-12">
-                                                    <?php echo "<label>Apellidos: " . $_SESSION['ape_completo'] . "</label>"; ?>
+
+                                    <?php foreach ($listarDatosPaciente as $filaDatosPaciente) { ?>
+
+                                        <div class='row align-items-center mx-2 my-4 border border-3 border-dark'>
+                                            <div class='row my-2'>
+                                                <div class="col-md-6">
+                                                    <div class="col-md-12">
+                                                        <?php echo "<label>Apellidos: " . $filaDatosPaciente['apellido_p'] . " " . $filaDatosPaciente['apellido_m'] . "</label>"; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="col-md-12" id="contenido_personal">
+                                                        <?php echo "<label>Nombres: " . $filaDatosPaciente["nombres"] . "</label>"; ?>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="col-md-12" id="contenido_personal">
-                                                    <?php echo "<label>Nombres: " . $_SESSION["nombres"] . "</label>"; ?>
-                                                </div>
+                                            <div class="col-sm-12">
+                                                <?php echo "<label>Fecha de Nacimiento: " . $filaDatosPaciente["f_nacimiento"] . "</label>"; ?>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <?php echo "<label>Fecha de Nacimiento: " . $_SESSION["nacimiento"] . "</label>"; ?>
-                                        </div>
-                                        <?php
+                                            <?php
 
-                                        if (empty($listar)) {
-                                            echo "<div class='h2 text-center'>Usted no tiene vacunas registradas este año</div>";
-                                        } else {
+                                            if (empty($listar)) {
+                                                echo "<div class='h2 text-center'>Usted no tiene vacunas registradas este año</div>";
+                                            } else {
 
-                                            foreach ($listarDatosPaciente as $fila) {
                                                 echo
                                                     "
-                                            <div class='table-responsive'>
-                                                    <table class='table table-bordered table-striped border border-dark'>
-                                                        <thead style='background: grey'>
-                                                            <th scope='col'># de Dosis</th>
-                                                            <th scope='col'>Vacuna</th>
-                                                            <th scope='col'>Fecha</th>
-                                                            <th scope='col'>Lote</th>
-                                                            <th scope='col'>Centro</th>
-                                                        </thead>";
+                                    <div class='table-responsive'>
+                                            <table class='table table-bordered table-striped border border-dark'>
+                                                <thead style='background: grey'>
+                                                    <th scope='col'>Vacuna</th>
+                                                    <th scope='col'># de Dosis</th>
+                                                    <th scope='col'>Fecha</th>
+                                                    <th scope='col'>Lote</th>
+                                                    <th scope='col'>Centro</th>
+                                                </thead>";
 
-                                                echo "<tr>";
-                                                echo "<td>" . $fila["dosis"] . "</td>";
-                                                echo "<td>" . $fila["nombre_Vacuna"] . "</td>";
-                                                echo "<td>" . $fila["fecha_vacunacion"] . "</td>";
-                                                echo "<td>" . $fila["lote"] . "</td>";
-                                                echo "<td>" . $fila["nombre"] . "</td>";
-                                                echo "</tr>";
+                                                foreach ($listar as $fila) {
 
+                                                    echo "<tr>";
+                                                    echo "<td>" . $fila["nombre_Vacuna"] . "</td>";
+                                                    echo "<td>" . $fila["dosis"] . "</td>";
+                                                    echo "<td>" . $fila["fecha_vacunacion"] . "</td>";
+                                                    echo "<td>" . $fila["lote"] . "</td>";
+                                                    echo "<td>" . $fila["nombre"] . "</td>";
+                                                    echo "</tr>";
+
+
+
+                                                }
                                                 echo "</table>";
                                                 echo "</div>";
-
-
                                             }
-                                        }
-                                        ?>
-                                    </div>
+                                            ?>
+                                        </div>
+
+                                    <?php } ?>
+
                                 </div>
                             </div>
                         </div>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION["usuario"] == "" && $_SESSION["contraseña" == ""]) {
+if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
     header('Location:../Log-in_Doctor.php?err=3');
 } else {
     date_default_timezone_set('America/Lima');
@@ -81,7 +81,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña" == ""]) {
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-lg-2">
                         <div class="btn-group-vertical " style="width: 100%; background-color:white;">
@@ -111,14 +111,14 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña" == ""]) {
                                 <div class="row align-items-center mx-2 my-4 border border-3 border-dark ">
                                     <div class="row my-2">
                                         <!-- 
-                                                        <form action="Bucador_Vacuna.php" method="POST">
-                                                            <input type="text" name="buscadr">
-                                                            <input type="submit" value="buscar">
+                                                                <form action="Bucador_Vacuna.php" method="POST">
+                                                                    <input type="text" name="buscadr">
+                                                                    <input type="submit" value="buscar">
 
-                                                        </form>
+                                                                </form>
 
-                                                        cambiar la busqueda
-                                                    -->
+                                                                cambiar la busqueda
+                                                            -->
 
                                         <form action="Buscar_Paciente.php" method="POST">
                                             <div class="col-lg-6">
@@ -142,21 +142,22 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña" == ""]) {
                                             </thead>
 
 
-                                            <form action="MostrarHistorialPaciente.php"  method=POST>
-                                            <?php
-                                            foreach ($listarBusquedaPaciente as $fila) {
-                                                echo "<tr id=".$fila["dni_dni_id"].">";
-                                                echo "<td>" . $fila["dni_dni_id"] . "</td>";
-                                                echo "<td>" . $fila['apellido_p'] . ", " . $fila['apellido_m'] . "</td>";
-                                                echo "<td>" . $fila["nombres"] . "</td>";
-                                                echo "<td> 
-                                                <input type='hidden' value='".$fila["dni_dni_id"]."' id='valor_dni' name='valor_dni'>
+                                            <form action="MostrarHistorialPaciente.php" id='myForm' method=POST>
+                                                <?php
+
+                                                foreach ($listarBusquedaPaciente as $fila) {
+                                                    echo "<tr id=" . $fila["dni_dni_id"] . ">";
+                                                    echo "<td>" . $fila["dni_dni_id"] . "</td>";
+                                                    echo "<td>" . $fila['apellido_p'] . ", " . $fila['apellido_m'] . "</td>";
+                                                    echo "<td>" . $fila["nombres"] . "</td>";
+                                                    echo "<td> 
+                                                <input type='hidden' value='" . $fila["dni_dni_id"] . "' id='valor_dni' name='valor_dni'>
                                                 <input type='submit' value='Ver historial del Paciente'> 
                                                 </td>";
-                                                echo "</tr>";
-                                            }
+                                                    echo "</tr>";
+                                                }
 
-                                            ?>
+                                                ?>
                                             </form>
 
 
@@ -171,7 +172,14 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña" == ""]) {
             </div>
         </div>
 
-
+        <script>
+            function myFunction() {
+                let obtenerColumna = document.getElementById("60449003");
+                let obtenerFila = obtenerColumna.getElementsByTagName("td");
+                document.getElementById("valor_dni").value = obtenerFila[0].innerhtml;
+                document.getElementById("myForm").submit();
+            }
+        </script>
 
     </body>
 

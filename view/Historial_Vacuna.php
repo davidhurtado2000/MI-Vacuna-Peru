@@ -167,32 +167,33 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                         echo "<div class='h2 text-center'>Usted no tiene vacunas registradas este año</div>";
                                     } else {
 
+                                        echo
+                                            "
+                            <div class='table-responsive'>
+                                    <table class='table table-bordered table-striped border border-dark'>
+                                        <thead style='background: grey'>
+                                            <th scope='col'>Vacuna</th>
+                                            <th scope='col'># de Dosis</th>
+                                            <th scope='col'>Fecha</th>
+                                            <th scope='col'>Lote</th>
+                                            <th scope='col'>Centro</th>
+                                        </thead>";
+
                                         foreach ($listar as $fila) {
-                                            echo
-                                                "
-                                            <div class='table-responsive'>
-                                                    <table class='table table-bordered table-striped border border-dark'>
-                                                        <thead style='background: grey'>
-                                                            <th scope='col'># de Dosis</th>
-                                                            <th scope='col'>Vacuna</th>
-                                                            <th scope='col'>Fecha</th>
-                                                            <th scope='col'>Lote</th>
-                                                            <th scope='col'>Centro</th>
-                                                        </thead>";
 
                                             echo "<tr>";
-                                            echo "<td>" . $fila["dosis"] . "</td>";
                                             echo "<td>" . $fila["nombre_Vacuna"] . "</td>";
+                                            echo "<td>" . $fila["dosis"] . "</td>";
                                             echo "<td>" . $fila["fecha_vacunacion"] . "</td>";
                                             echo "<td>" . $fila["lote"] . "</td>";
                                             echo "<td>" . $fila["nombre"] . "</td>";
                                             echo "</tr>";
 
-                                            echo "</table>";
-                                            echo "</div>";
 
 
                                         }
+                                        echo "</table>";
+                                        echo "</div>";
                                     }
                                     ?>
                                 </div>
