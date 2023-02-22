@@ -128,6 +128,17 @@ class ModelDoctor
         }
     }
 
+    public function ModificarFoto($dni, $foto)
+    {
+        try {
+            $obj = Conexion::singleton();
+            $query = $obj->prepare("update doctor set foto_doctor='" . $foto . "' where dni_dni_id =" . $dni);
+            echo $query->execute(); //Ejecuta la consulta SQL
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
 
 
 }

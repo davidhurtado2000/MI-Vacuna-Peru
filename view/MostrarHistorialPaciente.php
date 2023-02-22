@@ -66,19 +66,18 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="float-start my-2">
-                                <?php
-                                foreach ($listarDatos as $fila) {
-                                    echo "<div class='position-relative' style='width: 70px; height: 70px;'>";
-                                    echo "<img src='../img/foto_perfiles/$fila[foto_doctor]' style='height:70px; width:70px;'>";
-                                    echo "<div class='position-absolute bottom-0 end-0'style='width: 25px; height: 25px;'>";
-                                    echo "<a href='../view/ModificarFotoPerfilDoctor.php' style='text-decoration: none'>";
-                                    echo "<img src='../img/actualizar_foto.gif' class='' style='height:25px; width:25 px;'>";
-                                    echo "</a>";
-                                    echo "</div>";
-                                    echo "</div>";
-                                }
-                                echo "<label class='h7'>Paciente: " . $_SESSION["nom_completo"] . "</label>";
-                                ?>
+                            <?php foreach ($listarDatos as $fila) { ?>
+                                <div class='position-relative' style='width: 70px; height: 70px;'>
+                                    <img src='../img/foto_perfiles/<?php echo $fila["foto_doctor"]?>' style='height:70px; width:70px;'>
+                                    <div class='position-absolute bottom-0 end-0' style='width: 25px; height: 25px;'>
+                                        <a href='../view/ModificarFotoPerfilDoctor.php' style='text-decoration: none'>
+                                            <img src='../img/actualizar_foto.gif' class='' style='height:25px; width:25 px;'>
+                                        </a>
+                                    </div>
+                                </div>
+                                <label class='h7'>Doctor: <?php echo $_SESSION["nom_completo"]?></label>
+
+                            <?php } ?>
                                 <a href="../controller/ControllerDestruirSesionDoctor.php">Cerrar Sesión</a>
                             </div>
                         </div>
@@ -158,7 +157,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                             <?php
 
                                             if (empty($listar)) {
-                                                echo "<div class='h2 text-center'>Usted no tiene vacunas registradas este año</div>";
+                                                echo "<div class='h2 text-center'>El paciente no tiene vacunas registradas este año</div>";
                                             } else {
 
                                                 echo

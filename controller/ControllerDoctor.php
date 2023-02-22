@@ -50,6 +50,15 @@ class ControllerDoctor{
          }  
       }
 
+      public function ControladorModificarFotoDoctor($dni, $foto){
+        try{   
+              $obj=new ModelDoctor();
+              return $obj->ModificarFoto($dni, $foto);
+         }catch(Exception $e){
+             throw $e;
+         }  
+      }
+
    
 }
 ?>

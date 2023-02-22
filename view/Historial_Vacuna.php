@@ -55,27 +55,26 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 
     <body class="d-flex flex-column min-vh-100" style="background-color: transparent;">
 
-    <div class="container-fluid my-3 px-4 py-4">
-        <div class="container-fluid  border border-dark border-2 rounded-2 py-4" style="background-color: #ffe599;">
+        <div class="container-fluid my-3 px-4 py-4">
+            <div class="container-fluid  border border-dark border-2 rounded-2 py-4" style="background-color: #ffe599;">
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="float-start my-2">
-                        <?php
-                            foreach ($listarDatos as $fila) { 
-                                echo "<div class='position-relative' style='width: 70px; height: 70px;'>";
-                                echo "<img src='../img/foto_perfiles/$fila[paciente_foto]' style='height:70px; width:70px;'>";
-                                echo "<div class='position-absolute bottom-0 end-0'style='width: 25px; height: 25px;'>";
-                                        echo "<a href='../view/ModificarFotoPerfil.php' style='text-decoration: none'>";
-                                            echo "<img src='../img/actualizar_foto.gif' class='' style='height:25px; width:25 px;'>";
-                                        echo "</a>";
-                                echo "</div>";
-                            echo "</div>";
-                            
-                                }
+                            <?php foreach ($listarDatos as $fila) { ?>
+                                <div class='position-relative' style='width: 70px; height: 70px;'>
+                                    <img src='../img/foto_perfiles/<?php echo $fila["paciente_foto"] ?>'
+                                        style='height:70px; width:70px;'>
+                                    <div class='position-absolute bottom-0 end-0' style='width: 25px; height: 25px;'>
+                                        <a href='../view/ModificarFotoPerfil.php' style='text-decoration: none'>
+                                            <img src='../img/actualizar_foto.gif' class='' style='height:25px; width:25 px;'>
+                                        </a>
+                                    </div>
+                                </div>
+                                <label class='h7'>Paciente:
+                                    <?php echo $_SESSION["nom_completo"] ?>
+                                </label>
 
-                                
-                                echo "<label class='h7'>Paciente: " . $_SESSION["nom_completo"] . "</label>";
-                            ?>
+                            <?php } ?>
                             <a href="../controller/ControllerDestruirSesion.php">Cerrar Sesión</a>
                         </div>
                     </div>

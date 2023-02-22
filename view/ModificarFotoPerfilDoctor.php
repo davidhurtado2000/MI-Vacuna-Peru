@@ -1,24 +1,18 @@
 <?php
 session_start();
-if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
+
+if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimiento"] == "") {
     header('Location:../Log-in_Doctor.php?err=3');
 } else {
     date_default_timezone_set('America/Lima');
     $fechaActual = date('d/m/y h:i');
-
-    if (isset($_POST['busca_p'])) {
-        $busqueda = $_POST["busca_p"];
-    } else {
-        $busqueda = "vacio";
-    }
-
-    include_once "../controller/ControllerBuscarPaciente.php";
-    $objBuscarP = new ControllerBuscarPaciente();
-    $listarBusquedaPaciente = $objBuscarP->ControllerListarBuscarPaciente($busqueda);
-
     include "../controller/ControllerDoctor.php";
+    //Crear el objeto para el controlador
     $objDatos = new ControllerDoctor();
     $listarDatos = $objDatos->ControllerMostrarDatosDoctor($_SESSION["dni"], $_SESSION["credenciales"]);
+
+
+
 
     ?>
     <!DOCTYPE html>
@@ -74,7 +68,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                 </label>
 
                             <?php } ?>
-                            <a href="../controller/ControllerDestruirSesionDoctor.php">Cerrar Sesión</a>
+                            <a href="../controller/ControllerDestruirSesion.php">Cerrar Sesión</a>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -83,7 +77,6 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-lg-2">
                         <div class="btn-group-vertical " style="width: 100%; background-color:white;">
@@ -103,68 +96,43 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
 
                         </div>
                     </div>
-
-                    <!-- ------------------------------------------------------------------------------------------------------------->
-
                     <div class="col-lg-10">
                         <div class="col-md-12 px-4 h-100 border border-dark rounded-0 overflow-auto"
                             style="background-color: white; max-height: 357px;">
                             <div class="container">
-                                <div class="row align-items-center mx-2 my-4 border border-3 border-dark ">
-                                    <div class="row my-2">
-                                        <!-- 
-                                                                    <form action="Bucador_Vacuna.php" method="POST">
-                                                                        <input type="text" name="buscadr">
-                                                                        <input type="submit" value="buscar">
+                                <div class="row align-items-center mx-2 my-4">
 
-                                                                    </form>
+                                    <form action="../controller/ControllerModificarFotoDoctor.php" method="post"
+                                        enctype="multipart/form-data">
 
-                                                                    cambiar la busqueda
-                                                                -->
+                                        <div class="form-group border-bottom border-dark">
+                                            <label for="foto">Foto de Perfil</label>
+                                            <input type="hidden" name="MAX_FILE_SIZE" value="30000000">
+                                            <img src="../img/profile_icon.png" alt="Responsive image" id="menu_logo"><input
+                                                type="file" class="form-control border-0" placeholder="Foto"
+                                                name="fotosubida" required>
 
-                                        <form action="Buscar_Paciente.php" method="POST">
-                                            <div class="col-lg-6">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control rounded" id="busca_p"
-                                                        name="busca_p" placeholder="Busqueda del Paciente" />
-                                                    <input type="submit" class="btn btn-outline-primary"></input>
-                                                </div>
-                                            </div>
-                                        </form>
-
-                                    </div>
-
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped border border-dark">
-                                            <thead style="background: grey">
-                                                <th scope="col">DNI</th>
-                                                <th scope="col">Apellidos</th>
-                                                <th scope="col">Nombres</th>
-                                                <th scope="col">Historial</th>
-                                            </thead>
-
-
-                                            <?php
-
-                                            foreach ($listarBusquedaPaciente as $fila) {
-                                                echo "<form action='MostrarHistorialPaciente.php' id='myForm' method=POST>";
-                                                echo "<tr id=" . $fila["dni_dni_id"] . ">";
-                                                echo "<td>" . $fila["dni_dni_id"] . "</td>";
-                                                echo "<td>" . $fila['apellido_p'] . ", " . $fila['apellido_m'] . "</td>";
-                                                echo "<td>" . $fila["nombres"] . "</td>";
-                                                echo "<td> 
-                                                <input type='hidden' value='" . $fila["dni_dni_id"] . "' id='valor_dni' name='valor_dni'>
-                                                <input type='submit' value='Ver historial del Paciente'> 
-                                                </td>";
-                                                echo "</tr>";
-                                                echo "</form>";
+                                        </div>
+                                        <?php
+                                        if (isset($_GET["valor"])) {
+                                            if ($_GET["valor"] == 1) {
+                                                echo "<label for=formGroupExampleInput2>Solamente se acepta JPG, JPEG, PNG, & GIF para subir.</label>";
                                             }
+                                        }
+                                        ?>
 
-                                            ?>
+
+                                        <div class="container d-flex justify-content-center align-items-center">
+                                            <div class="btn-group-vertical pt-2" style="background-color: white;">
+                                                <input type="hidden" value="<?php echo $_SESSION['dni'] ?>" id="dni"
+                                                    name="dni">
+                                                <input type="submit" name="submit"
+                                                    class="btn btn-primary border border-dark" value="Actualizar foto">
+                                            </div>
+                                        </div>
 
 
-                                        </table>
-                                    </div>
+                                    </form>
 
                                 </div>
                             </div>
@@ -172,16 +140,12 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                     </div>
                 </div>
             </div>
+
+        </div>
         </div>
 
-        <script>
-            function myFunction() {
-                let obtenerColumna = document.getElementById("60449003");
-                let obtenerFila = obtenerColumna.getElementsByTagName("td");
-                document.getElementById("valor_dni").value = obtenerFila[0].innerhtml;
-                document.getElementById("myForm").submit();
-            }
-        </script>
+
+
 
     </body>
 
