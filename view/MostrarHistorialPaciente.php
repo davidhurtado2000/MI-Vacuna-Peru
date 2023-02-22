@@ -6,7 +6,6 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
 
     if (isset($_POST["valor_dni"])) {
         $valor_dni = $_POST["valor_dni"];
-        echo $valor_dni;
         date_default_timezone_set('America/Lima');
         $fechaActual = date('d/m/y h:i');
         if (isset($_POST['año'])) {
