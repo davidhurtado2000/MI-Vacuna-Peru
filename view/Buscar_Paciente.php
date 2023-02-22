@@ -14,7 +14,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
 
     include_once "../controller/ControllerBuscarPaciente.php";
     $objBuscarP = new ControllerBuscarPaciente();
-    $listarBusquedaPaciente = $objBuscarP->ModelListarBuscarPaciente($busqueda);
+    $listarBusquedaPaciente = $objBuscarP->ControllerListarBuscarPaciente($busqueda);
 
     include "../controller/ControllerDoctor.php";
     $objDatos = new ControllerDoctor();
