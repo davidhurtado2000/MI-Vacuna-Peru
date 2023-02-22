@@ -142,10 +142,10 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                             </thead>
 
 
-                                            <form action="MostrarHistorialPaciente.php" id='myForm' method=POST>
                                                 <?php
 
                                                 foreach ($listarBusquedaPaciente as $fila) {
+                                                    echo "<form action='MostrarHistorialPaciente.php' id='myForm' method=POST>";
                                                     echo "<tr id=" . $fila["dni_dni_id"] . ">";
                                                     echo "<td>" . $fila["dni_dni_id"] . "</td>";
                                                     echo "<td>" . $fila['apellido_p'] . ", " . $fila['apellido_m'] . "</td>";
@@ -155,10 +155,10 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                 <input type='submit' value='Ver historial del Paciente'> 
                                                 </td>";
                                                     echo "</tr>";
+                                                    echo "</form>";
                                                 }
 
                                                 ?>
-                                            </form>
 
 
                                         </table>
