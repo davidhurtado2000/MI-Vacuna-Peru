@@ -9,16 +9,17 @@ class ModelVacuna
         $con = new Conexion();
     }
 
-    public function RegistrarVacuna($idvacuna,$fecha_vacu,$dosis,$idpaciente,$id_centromedico){
+    public function RegistrarVacunaPendiente($fecha_estimada,$id_pendiente,$id_paciente,$dosispendiente,$id_centromedicom,$id_vacuna){
         try {
 
             $obj = Conexion::singleton();
-            $query = $obj->prepare('INSERT INTO vacuna VALUES(?,?,?,?,?)');
-            $query->bindParam(1, $idvacuna);
-            $query->bindParam(2, $fecha_vacu);
-            $query->bindParam(3, $dosis);
-            $query->bindParam(4, $idpaciente);
-            $query->bindParam(5, $id_centromedico);
+            $query = $obj->prepare('INSERT INTO v_pend VALUES(?,?,?,?,?,?)');
+            $query->bindParam(1, $fecha_estimada);
+            $query->bindParam(2, $id_pendiente);
+            $query->bindParam(3, $id_paciente);
+            $query->bindParam(4, $dosispendiente);
+            $query->bindParam(5, $id_centromedicom);
+            $query->bindParam(6, $id_vacuna);
 
             $query->execute(); //Ejecuta la consulta SQL
         } catch (Exception $e) {
@@ -32,7 +33,7 @@ class ModelVacuna
             $obj = Conexion::singleton();
             $query = $obj->prepare('SELECT id_tipovacuna, nombre_Vacuna
             FROM t_vacuna 
-            ORDER BY id_tipovacuna ASC');
+            ORDER BY nombre_Vacuna ASC');
             $query->execute();
             $vector = $query->fetchAll();
             $query = null;

@@ -2,10 +2,10 @@
 include_once '../model/ModelVacuna.php';
 class ControllerVacuna{
 
-      public function ControllerRegistrarVacuna($idvacuna,$fecha_vacu,$dosis,$idpaciente,$id_centromedico){
+      public function ControllerRegistrarVacunaPendiente($fecha_estimada,$id_pendiente,$id_paciente,$dosispendiente,$id_centromedicom,$id_vacuna){
         try{   
               $obj=new ModelVacuna();
-              return $obj->RegistrarVacuna($idvacuna,$fecha_vacu,$dosis,$idpaciente,$id_centromedico);
+              return $obj->RegistrarVacunaPendiente($fecha_estimada,$id_pendiente,$id_paciente,$dosispendiente,$id_centromedicom,$id_vacuna);
          }catch(Exception $e){
              throw $e;
          }  
