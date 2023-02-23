@@ -42,5 +42,20 @@ class ModelVacuna
             throw $e;
         }  
     }
+
+    public function ModelMostrarEstadoPendiente(){
+        try {
+            $obj = Conexion::singleton();
+            $query = $obj->prepare('SELECT id_pendiente, significado
+            FROM pend 
+            ORDER BY id_pendiente ASC');
+            $query->execute();
+            $vector = $query->fetchAll();
+            $query = null;
+            return $vector;
+        } catch (Exception $th) {
+            throw $th;
+        }
+    }
 }
 ?>

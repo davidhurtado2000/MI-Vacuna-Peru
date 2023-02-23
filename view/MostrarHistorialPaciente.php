@@ -197,7 +197,11 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                     </table>
                                                 </div>
 
-                                                <div class="col-lg-12 my-3">
+                                               
+
+                                            <?php } ?>
+
+                                            <div class="col-lg-12 my-3">
                                                     <div class="row ">
                                                         <div class="col-md-6">
                                                             <div class="h-100 d-flex align-items-center justify-content-center">
@@ -210,7 +214,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                         <div class="col-md-6">
                                                             <div class="h-100 d-flex align-items-center justify-content-center">
                                                                 <form action="RegistroVacunaPendiente.php" method="post">
-                                                                    <input type="hidden" id="redi_dni" name="redi_dni" value="<?php echo $valor_dni;?>">
+                                                                    <input type="hidden" id="valor_dni" name="valor_dni" value="<?php echo $valor_dni;?>">
                                                                     <input type="submit" class="btn btn-warning"
                                                                         value="Registrar Vacuna Pendiente">
                                                                 </form>
@@ -218,8 +222,6 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                            <?php } ?>
 
 
                                         </div>

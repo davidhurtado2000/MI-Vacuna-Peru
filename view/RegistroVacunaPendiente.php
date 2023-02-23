@@ -4,11 +4,11 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
     header('Location:../Log-in_Doctor.php?err=3');
 } else {
 
-    if (isset($_POST["redi_dni"])) {
-        $valor_dni = $_POST["redi_dni"];
+    if (isset($_POST["valor_dni"])) {
+        $valor_dni = $_POST["valor_dni"];
         date_default_timezone_set('America/Lima');
         $fechaActual = date('d/m/y h:i');
-
+        $fechaMin = date('Y-m-d');
 
         include "../controller/ControllerDoctor.php";
         $objDatos = new ControllerDoctor();
@@ -22,6 +22,11 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
         include_once "../controller/ControllerVacuna.php";
         $objVacuna = new ControllerVacuna();
         $listarVacunas = $objVacuna->ControllerMostrarVacuna();
+        $listarPendiente = $objVacuna->ControllerMostrarEstadoPendiente();
+
+        include_once "../controller/ControllerCentroMedico.php";
+        $objCentro = new ControllerCentroMedico();
+        $listarCentro = $objCentro->ControllerMostrarCentroMedicos();
 
         ?>
         <!DOCTYPE html>
@@ -117,49 +122,122 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
 
                                     <?php foreach ($listarDatosPaciente as $filaDatosPaciente) { ?>
 
-                                        <div class='row align-items-center mx-2 my-4 border border-3 border-dark'>
-                                            <div class='row my-2'>
-                                                <div class="col-md-6">
-                                                    <div class="col-md-12">
-                                                        <?php echo "<label>Apellidos: " . $filaDatosPaciente['apellido_p'] . " " . $filaDatosPaciente['apellido_m'] . "</label>"; ?>
-                                                    </div>
+                                        <div class='row align-items-center mx-2 my-4 border border-3 border-dark overflow-auto'>
+                                            <div class='row my-2 '>
+                                                <div class="col-md-12  d-flex justify-content-center align-items-center my-2">
+                                                    <?php echo "<label> <strong>Registro de Vacunas para el paciente: </strong>" . $filaDatosPaciente['apellido_p'] . " " . $filaDatosPaciente['apellido_m'] . "
+                                                        " . $filaDatosPaciente["nombres"] . "</label>"; ?>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="col-md-12" id="contenido_personal">
-                                                        <?php echo "<label>Nombres: " . $filaDatosPaciente["nombres"] . "</label>"; ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <?php echo "<label>Fecha de Nacimiento: " . $filaDatosPaciente["f_nacimiento"] . "</label>"; ?>
                                             </div>
 
-                                            <form action="ControllerRegistroVacuna.php" method="post">
-                                               
-                                                <div class="form-group border-bottom border-dark">
-                                                    <label for="fch_vacuna">Fecha de Vacunacion</label>
-                                                    <img src="../img/fechaemision.png" alt="Responsive image" id="iconos"><input
-                                                        type="date" class="form-control border-0" id="vacunacion" name="vacunacion"
-                                                        required>
+
+                                            <form action="../controller/ControllerRegistroVacuna.php" method="post">
+                                                <br>
+                                                <div class="form-group row">
+                                                    <label for="fch_vacuna" class="col-sm-4 col-form-label ">Fecha de Vacunacion
+                                                        Recomendado: </label>
+                                                    <div class="col-sm-2">
+                                                        <input type="date" class="form form-control-sm  border border-dark"
+                                                            id="vacunacion" name="vacunacion" min="<?php echo $fechaMin ?>"
+                                                            required>
+                                                    </div>
+
                                                 </div>
-                                                <div class="form-group border-bottom border-dark">
-                                                    <label for="dosis">Dosis</label>
-                                                    <img src="../img/phone_icon.png" alt="Responsive image" id="iconos"><input
-                                                        type="text" class="form-control border-0"
-                                                        placeholder="Ingresar su Numero Telefonico" min="1" id="dosis" name="dosis"
-                                                        required>
+                                                <br>
+                                                <div class="form-group row">
+                                                    <label for="id_tipovacuna" class="col-sm-4 col-form-label">Estado de Vacuna:
+                                                    </label>
+
+                                                    <div class="col-sm-8">
+                                                        <select class="form form-control-sm  border border-dark" size="1"
+                                                            name="estadoVacuna" id="estadoVacuna" required>
+                                                            <option value="" selected>Escoge Estado de Vacuna: </option>
+                                                            <?php
+                                                            foreach ($listarPendiente as $filaEstado) {
+                                                                echo "<option value='$filaEstado[id_pendiente]'>" . $filaEstado['significado'] . "</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+
                                                 </div>
-                                                <label for="id_tipovacuna">Selecciona Vacuna:
-                                                    <select class="form form-control-sm" size="1" name="vacuna" id="vacuna">
-                                                        <option value="" selected>Escoge una Vacuna: </option>
-                                                        <?php
-                                                        foreach ($listarVacunas as $filaVacuna) {
-                                                            echo "<option value='$filaVacuna[id_tipovacuna]'>" . $filaVacuna['nombre_Vacuna'] . "</option>";
+                                                <br>
+                                                <div class="form-group row">
+                                                    <label for="fch_vacuna" class="col-sm-4 col-form-label">Dosis:</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="number" class="form form-control-sm  border border-dark"
+                                                            placeholder="Ingresar su Numero Telefonico" min="1" id="dosis"
+                                                            name="dosis" required>
+                                                    </div>
+
+                                                </div>
+                                                <br>
+                                                <div class="form-group row">
+                                                    <label for="id_tipovacuna" class="col-sm-4 col-form-label ">Selecciona Vacuna:
+                                                    </label>
+
+                                                    <div class="col-sm-8">
+                                                        <select class="form form-control-sm  border border-dark" size="1"
+                                                            name="vacuna" id="vacuna" required>
+                                                            <option value="" selected>Escoge una Vacuna: </option>
+                                                            <?php
+                                                            foreach ($listarVacunas as $filaVacuna) {
+                                                                echo "<option value='$filaVacuna[id_tipovacuna]'>" . $filaVacuna['nombre_Vacuna'] . "</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+                                                <br>
+                                                <div class="form-group row">
+                                                    <label for="id_centromedico" class="col-sm-4 col-form-label">Selecciona el año:
+                                                    </label>
+
+                                                    <div class="col-sm-8">
+                                                        <select class="form form-control-sm  border border-dark" size="1"
+                                                            name="lugar" id="lugar" required>
+                                                            <option value="" selected>Escoge un centro medico: </option>
+                                                            <?php
+                                                            foreach ($listarCentro as $filaCentro) {
+                                                                echo "<option value='$filaCentro[id_centromedico]'>" . $filaCentro['nombre'] . "</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+                                                <br>
+
+
+                                                <div class="container d-flex justify-content-center align-items-center my-2">
+                                                    <div class="btn-group-vertical pt-2" style="background-color: white;">
+                                                        <?php foreach ($listarDatosPaciente as $filaDatosPaciente) { ?>
+                                                            <input type="hidden" value="<?php echo $filaDatosPaciente["id_paciente"] ?>"
+                                                                name="id_paciente">
+                                                        <?php } ?>
+                                                        <input type="submit" value="Registrar Vacuna" name="submit"
+                                                            class="btn btn-success border border-dark">
+                                                    </div>
+                                                    <?php
+
+                                                    if (isset($_GET["err"])) {
+                                                        if ($_GET["err"] == 1) {
+                                                            echo "<label for=formGroupExampleInput2>Datos incompletos, intente nuevamente</label>";
                                                         }
-                                                        ?>
-                                                    </select>
-                                                </label>
-                                                <input type="hidden" value="<?php echo $valor_dni ?>" name="valor_dni">
+                                                    }
+                                                    ?>
+
+                                                </div>
+                                                
+                                            </form>
+
+                                            <form action="MostrarHistorialPaciente.php" method="post">
+                                                    <input type="hidden" value="<?php echo $valor_dni ?>"
+                                                        name="valor_dni">
+                                                    <input type="submit" value="Regresar a Historial" name="submit"
+                                                        class="btn btn-danger border border-dark">
                                             </form>
                                         </div>
 
@@ -193,7 +271,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
         /*   $foto = $_SESSION['foto']; 
         echo "<img src=../img/$_SESSION[foto] height=15 width=15>";*/
     } else {
-        header('Location:../view/Buscar_Paciente.php?err=1');
+        header('Location:../view/MostrarHistorialPaciente.php?err=1');
     }
 }
 

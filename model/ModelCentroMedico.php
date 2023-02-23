@@ -1,5 +1,5 @@
 <?php
-include '../util/ConexionBD.php';
+include_once '../util/ConexionBD.php';
 
 class ModelCentroMedico{
     public function __construct()

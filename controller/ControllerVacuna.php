@@ -19,5 +19,14 @@ class ControllerVacuna{
                  throw $e;
              }  
           }
+
+          public function ControllerMostrarEstadoPendiente(){
+            try{   
+                  $obj=new ModelVacuna();
+                  return $obj->ModelMostrarEstadoPendiente();
+             }catch(Exception $e){
+                 throw $e;
+             }  
+          }
 }
 ?>

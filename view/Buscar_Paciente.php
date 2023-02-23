@@ -20,6 +20,13 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
     $objDatos = new ControllerDoctor();
     $listarDatos = $objDatos->ControllerMostrarDatosDoctor($_SESSION["dni"], $_SESSION["credenciales"]);
 
+
+    if (isset($_GET["success"])) {
+        if ($_GET["success"] == 1) {
+            echo '<script type="text/javascript">alert("La vacuna se registro exitosamente!");</script>';
+        }
+    }
+
     ?>
     <!DOCTYPE html>
     <html lang="es">
@@ -59,9 +66,10 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="float-start my-2">
-                        <?php foreach ($listarDatos as $fila) { ?>
+                            <?php foreach ($listarDatos as $fila) { ?>
                                 <div class='position-relative' style='width: 70px; height: 70px;'>
-                                <img src="../img/foto_perfiles/<?php echo $fila["foto_doctor"]?>?img" style='height:70px; width:70px;'>
+                                    <img src="../img/foto_perfiles/<?php echo $fila["foto_doctor"] ?>?img"
+                                        style='height:70px; width:70px;'>
 
                                     <div class='position-absolute bottom-0 end-0' style='width: 25px; height: 25px;'>
                                         <a href='../view/ModificarFotoPerfilDoctor.php' style='text-decoration: none'>
@@ -69,7 +77,9 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                         </a>
                                     </div>
                                 </div>
-                                <label class='h7'>Doctor: <?php echo $_SESSION["nom_completo"]?></label>
+                                <label class='h7'>Doctor:
+                                    <?php echo $_SESSION["nom_completo"] ?>
+                                </label>
 
                             <?php } ?>
                             <a href="../controller/ControllerDestruirSesionDoctor.php">Cerrar Sesión</a>
@@ -111,14 +121,14 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                 <div class="row align-items-center mx-2 my-4 border border-3 border-dark ">
                                     <div class="row my-2">
                                         <!-- 
-                                                                    <form action="Bucador_Vacuna.php" method="POST">
-                                                                        <input type="text" name="buscadr">
-                                                                        <input type="submit" value="buscar">
+                                                                        <form action="Bucador_Vacuna.php" method="POST">
+                                                                            <input type="text" name="buscadr">
+                                                                            <input type="submit" value="buscar">
 
-                                                                    </form>
+                                                                        </form>
 
-                                                                    cambiar la busqueda
-                                                                -->
+                                                                        cambiar la busqueda
+                                                                    -->
 
                                         <form action="Buscar_Paciente.php" method="POST">
                                             <div class="col-lg-6">
