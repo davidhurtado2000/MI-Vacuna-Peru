@@ -21,6 +21,21 @@ class ModelCentroMedico{
             throw $e;
         }  
     }
+    public function ModelObtenerIDrCentroMedicos($nombre){
+        try {
+            $obj = Conexion::singleton();
+            $query = $obj->prepare('SELECT id_centromedico, nombre
+            FROM c_medico 
+            WHERE nombre=?');
+            $query->bindParam(1,$nombre);
+            $query->execute();
+            $vector = $query->fetchAll();
+            $query = null;
+            return $vector;
+        } catch (Exception $e) {
+            throw $e;
+        }  
+    }
 }
 
 

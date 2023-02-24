@@ -42,5 +42,27 @@ class ControllerVacuna
         }
     }
 
+    public function ControllerModificarVacuna( $t_vacuna_id_tipovacuna, $fecha_vacunacion, $dosis, $id_paciente, $id_centro,
+    $t_vacuna_id_tipovacunaTMP, $fecha_vacunacionTMP, $dosisTMP, $id_pacienteTMP, $id_centroTMP)
+    {
+        try {
+            $obj = new ModelVacuna();
+            return $obj->ModificarVacuna( $t_vacuna_id_tipovacuna, $fecha_vacunacion, $dosis, $id_paciente, $id_centro,
+            $t_vacuna_id_tipovacunaTMP, $fecha_vacunacionTMP, $dosisTMP, $id_pacienteTMP, $id_centroTMP);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function ControllerObtenerIDVacuna($nombre_Vacuna)
+    {
+        try {
+            $obj = new ModelVacuna();
+            return $obj->ModelObtenerIDVacuna($nombre_Vacuna);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
 }
 ?>

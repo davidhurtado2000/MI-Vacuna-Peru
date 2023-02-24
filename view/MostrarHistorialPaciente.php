@@ -179,7 +179,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                         </form>
                                                         <?php
                                                         foreach ($listar as $fila) {
-                                                            echo "<form action='RedireccionarAcciones.php' method='post'>";
+                                                            echo "<form action='Modificar_Vacuna.php' method='post'>";
                                                             echo "<tr>";
                                                             echo "<td>" . $fila["nombre_Vacuna"] . "</td>";
                                                             echo "<td>" . $fila["dosis"] . "</td>";
@@ -187,7 +187,12 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                             echo "<td>" . $fila["lote"] . "</td>";
                                                             echo "<td>" . $fila["nombre"] . "</td>";
                                                             echo "<td> 
-                                                            <input type='hidden' value='" . implode($fila) . "' name='result_vacuna[]'>
+                                                            <input type='hidden' value='" . $valor_dni . "' name='valor_dni'>
+                                                            <input type='hidden' value='" .  $fila["nombre_Vacuna"] . "' name='nombre_Vacuna'>
+                                                            <input type='hidden' value='" .  $fila["dosis"] . "' name='dosis'>
+                                                            <input type='hidden' value='" .  $fila["fecha_vacunacion"] . "' name='fecha_vacunacion'>
+                                                            <input type='hidden' value='" .  $fila["lote"] . "' name='lote'>
+                                                            <input type='hidden' value='" .  $fila["nombre"] . "' name='nombre'>
                                                             <input type='submit' value='Modificar Vacuna'> 
                                                             </td>";
                                                             echo "</tr>";

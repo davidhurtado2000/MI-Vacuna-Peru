@@ -74,5 +74,46 @@ class ModelVacuna
             throw $e;
         }
     }
+
+    public function ModificarVacuna(
+        $t_vacuna_id_tipovacuna, $fecha_vacunacion, $dosis, $id_paciente, $id_centro,
+        $t_vacuna_id_tipovacunaTMP, $fecha_vacunacionTMP, $dosisTMP, $id_pacienteTMP, $id_centroTMP)
+    {
+        try {
+            $obj = Conexion::singleton();
+            $query = $obj->prepare("UPDATE vacuna 
+            SET t_vacuna_id_tipovacuna='" . $t_vacuna_id_tipovacuna . "', fecha_vacunacion='" . $fecha_vacunacion . "'
+            , dosis='" . $dosis . "',  paciente_id_paciente='" . $id_paciente . "', id_centromedico='" . $id_centro . "' 
+
+            WHERE t_vacuna_id_tipovacuna ='" .$t_vacuna_id_tipovacunaTMP."' 
+            AND fecha_vacunacion ='" .$fecha_vacunacionTMP."' 
+            AND dosis ='" .$dosisTMP."' 
+            AND paciente_id_paciente ='" .$id_pacienteTMP."' 
+            AND id_centromedico ='" .$id_centroTMP."'");
+
+            echo $query->execute();
+
+        } catch (Exception $e){
+            throw $e;
+        }
+
+    }
+
+    public function ModelObtenerIDVacuna($nombre_Vacuna){
+        try {
+            $obj = Conexion::singleton();
+            $query = $obj->prepare('SELECT id_tipovacuna, nombre_Vacuna
+            FROM t_vacuna 
+            WHERE nombre_Vacuna=?');
+            $query->bindParam(1,$nombre_Vacuna);
+            $query->execute();
+            $vector = $query->fetchAll();
+            $query = null;
+            return $vector;
+        } catch (Exception $e) {
+            throw $e;
+        }  
+    }
+
 }
 ?>
