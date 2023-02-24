@@ -9,7 +9,7 @@ class ModelRepoPersonal{
      public function ModelListarVacunas($dni,$fecha){
         try {
             $obj = Conexion::singleton();
-            $query = $obj->prepare('SELECT vacuna.dosis, t_vacuna.nombre_Vacuna, vacuna.fecha_vacunacion, t_vacuna.lote, c_medico.nombre
+            $query = $obj->prepare('SELECT t_vacuna.nombre_Vacuna, vacuna.dosis, vacuna.fecha_vacunacion, t_vacuna.lote, c_medico.nombre
             FROM vacuna
             INNER JOIN t_vacuna
             ON vacuna.t_vacuna_id_tipovacuna = t_vacuna.id_tipovacuna

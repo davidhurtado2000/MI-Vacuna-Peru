@@ -187,7 +187,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                             echo "<td>" . $fila["lote"] . "</td>";
                                                             echo "<td>" . $fila["nombre"] . "</td>";
                                                             echo "<td> 
-                                                            <input type='hidden' value='" . $fila . "' name='result_vacuna[]'>
+                                                            <input type='hidden' value='" . implode($fila) . "' name='result_vacuna[]'>
                                                             <input type='submit' value='Modificar Vacuna'> 
                                                             </td>";
                                                             echo "</tr>";

@@ -131,7 +131,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                             </div>
 
 
-                                            <form action="../controller/ControllerRegistroVacuna.php" method="post">
+                                            <form action="../controller/ControllerRegistroVacunaPend.php" method="post">
                                                 <br>
                                                 <div class="form-group row">
                                                     <label for="fch_vacuna" class="col-sm-4 col-form-label ">Fecha de Vacunacion
