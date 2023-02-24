@@ -128,6 +128,8 @@ class ModelDoctor
         }
     }
 
+
+    
     public function ModificarFoto($dni, $foto)
     {
         try {
@@ -139,7 +141,17 @@ class ModelDoctor
         }
     }
 
+    public function ModificarDatosDoctor($dni, $usuario, $contraseña, $sede)
+    {
+        try {
+            $obj = Conexion::singleton();
+            $query = $obj->prepare("UPDATE doctor SET usuario='" . $usuario . "', contraseña='" . $contraseña . "', c_medico_id_centromedico='" . $sede . "' WHERE dni_dni_id ='" .$dni."'");
+            echo $query->execute(); //Ejecuta la consulta SQL
 
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 
 }
 ?>

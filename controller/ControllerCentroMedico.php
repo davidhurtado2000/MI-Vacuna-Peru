@@ -11,6 +11,15 @@ class ControllerCentroMedico
      }	
 	}
 
+    public function ControllerMostrarIDMedico($nombre){
+		try{   
+        	$obj=new ModelCentroMedico();
+        	return $obj->ModelMostrarIdCentroMedico($nombre);
+     }catch(Exception $e){
+         throw $e;
+     }	
+	}
+
     public function ControlleObtenerIDCentroMedicos($nombre){
 		try{   
         	$obj=new ModelCentroMedico();
