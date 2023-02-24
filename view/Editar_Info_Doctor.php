@@ -3,6 +3,7 @@ session_start();
 if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
     header('Location:../Log-in_Doctor.php?err=3');
 } else {
+    $timestamp = microtime();
     date_default_timezone_set('America/Lima');
     $fechaActual = date('d/m/y h:i');
 
@@ -57,7 +58,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
 
                             <?php foreach ($listarDatos as $fila) { ?>
                                 <div class='position-relative' style='width: 70px; height: 70px;'>
-                                    <img src="../img/foto_perfiles/<?php echo $fila["foto_doctor"] ?>?img"
+                                    <img src="../img/foto_perfiles/<?php echo $fila["foto_doctor"] ?>?time=<?php echo $timestamp ?>"
                                         style='height:70px; width:70px;'>
                                     <div class='position-absolute bottom-0 end-0' style='width: 25px; height: 25px;'>
                                         <a href='../view/ModificarFotoPerfilDoctor.php' style='text-decoration: none'>

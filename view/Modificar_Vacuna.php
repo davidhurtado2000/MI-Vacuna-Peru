@@ -4,8 +4,12 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
     header('Location:../Log-in_Doctor.php?err=3');
 } else {
 
-    if (isset($_POST["valor_dni"]) && isset($_POST["nombre_Vacuna"]) && isset($_POST["dosis"]) && isset($_POST["fecha_vacunacion"])
-    && isset($_POST["lote"]) && isset($_POST["nombre"])) {
+    if (
+        isset($_POST["valor_dni"]) && isset($_POST["nombre_Vacuna"]) && isset($_POST["dosis"]) && isset($_POST["fecha_vacunacion"])
+        && isset($_POST["lote"]) && isset($_POST["nombre"])
+    ) {
+        $timestamp = microtime();
+
         $valor_dni = $_POST["valor_dni"];
         $nombre_Vacuna = $_POST["nombre_Vacuna"];
         $dosis = $_POST["dosis"];
@@ -16,10 +20,6 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
         $fechaActual = date('d/m/y h:i');
 
 
-        date_default_timezone_set('America/Lima');
-        $fechaActual = date('d/m/y h:i');
-
-       
         include "../controller/ControllerDoctor.php";
         $objDatos = new ControllerDoctor();
         $listarDatos = $objDatos->ControllerMostrarDatosDoctor($_SESSION["dni"], $_SESSION["credenciales"]);
@@ -78,7 +78,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                             <div class="float-start my-2">
                                 <?php foreach ($listarDatos as $fila) { ?>
                                     <div class='position-relative' style='width: 70px; height: 70px;'>
-                                        <img src="../img/foto_perfiles/<?php echo $fila["foto_doctor"] ?>?img"
+                                        <img src="../img/foto_perfiles/<?php echo $fila["foto_doctor"] ?>?time=<?php echo $timestamp ?> "
                                             style='height:70px; width:70px;'>
 
                                         <div class='position-absolute bottom-0 end-0' style='width: 25px; height: 25px;'>
@@ -156,8 +156,8 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                                 <select class="form form-control-sm  border border-dark" size="1"
                                                                     name="vacuna" id="vacuna" required>
                                                                     <?php foreach ($listarIDVacuna as $IDVacuna) { ?>
-                                                                    <option value="<?php echo $IDVacuna["id_tipovacuna"]; ?>"
-                                                                        selected><?php echo $nombre_Vacuna; ?> </option>
+                                                                        <option value="<?php echo $IDVacuna["id_tipovacuna"]; ?>"
+                                                                            selected><?php echo $nombre_Vacuna; ?> </option>
                                                                     <?php } ?>
                                                                     <?php
                                                                     foreach ($listarVacunas as $filaVacuna) {
@@ -170,18 +170,17 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                         </div>
                                                         <br>
 
-                                                            <div class="form-group row">
-                                                                <label for="fch_vacuna" class="col-sm-4 col-form-label ">Fecha de
-                                                                    Vacunacion
-                                                                    : </label>
-                                                                <div class="col-sm-2">
-                                                                    <input type="date"
-                                                                        value="<?php echo $fecha_vacunacion ?>"
-                                                                        class="form form-control-sm  border border-dark" id="vacunacion"
-                                                                        name="vacunacion" min="<?php echo $fechaMin ?>" required>
-                                                                </div>
-
+                                                        <div class="form-group row">
+                                                            <label for="fch_vacuna" class="col-sm-4 col-form-label ">Fecha de
+                                                                Vacunacion
+                                                                : </label>
+                                                            <div class="col-sm-2">
+                                                                <input type="date" value="<?php echo $fecha_vacunacion ?>"
+                                                                    class="form form-control-sm  border border-dark" id="vacunacion"
+                                                                    name="vacunacion" min="<?php echo $fechaMin ?>" required>
                                                             </div>
+
+                                                        </div>
                                                         <br>
 
                                                         <div class="form-group row">
@@ -194,7 +193,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                             </div>
 
                                                         </div>
-                                                       
+
                                                         <br>
 
                                                         <div class="form-group row">
@@ -205,10 +204,10 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                             <div class="col-sm-8">
                                                                 <select class="form form-control-sm  border border-dark" size="1"
                                                                     name="lugar" id="lugar" required>
-                                                                     <?php foreach ($listarIDCentro as $IDCentro) { ?>
-                                                                    <option value="<?php echo $IDCentro["id_centromedico"]; ?>"
-                                                                        selected><?php echo $nombre; ?></option>
-                                                                        <?php  } ?>
+                                                                    <?php foreach ($listarIDCentro as $IDCentro) { ?>
+                                                                        <option value="<?php echo $IDCentro["id_centromedico"]; ?>"
+                                                                            selected><?php echo $nombre; ?></option>
+                                                                    <?php } ?>
                                                                     <?php
                                                                     foreach ($listarCentro as $filaCentro) {
                                                                         echo "<option value='$filaCentro[id_centromedico]'>" . $filaCentro['nombre'] . "</option>";
@@ -238,8 +237,9 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                                         value="<?php echo $IDCentro["id_centromedico"] ?>"
                                                                         name="id_centroTMP">
                                                                 <?php } ?>
-                                                                
-                                                                <input type="hidden" value="<?php echo $fecha_vacunacion; ?>" name="fecha_vacunacionTMP">
+
+                                                                <input type="hidden" value="<?php echo $fecha_vacunacion; ?>"
+                                                                    name="fecha_vacunacionTMP">
                                                                 <input type="hidden" value="<?php echo $dosis; ?>" name="dosisTMP">
                                                                 <input type="submit" value="Modificar Vacuna" name="submit"
                                                                     class="btn btn-success border border-dark">
@@ -257,14 +257,13 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
 
                                                     <?php } ?>
 
-                                                    <form action="MostrarHistorialPaciente.php" method="post">
-                                                        <input type="hidden" value="<?php echo $valor_dni ?>" name="valor_dni">
-                                                        <input type="submit" value="Regresar a Historial" name="submit"
-                                                            class="btn btn-danger border border-dark">
-                                                    </form>
 
+                                                </form>
 
-
+                                                <form action="MostrarHistorialPaciente.php" method="post">
+                                                    <input type="hidden" value="<?php echo $valor_dni ?>" name="valor_dni">
+                                                    <input type="submit" value="Regresar a Historial" name="submit"
+                                                        class="btn btn-danger border border-dark">
                                                 </form>
 
 

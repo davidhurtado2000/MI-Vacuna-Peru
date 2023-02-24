@@ -3,6 +3,7 @@ session_start();
 if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimiento"] == "") {
     header('Location:../Log-in.php?err=3');
 } else {
+    $timestamp = microtime();
     date_default_timezone_set('America/Lima');
     $fechaActual = date('d/m/y h:i');
     if (isset($_POST['año'])) {
@@ -10,7 +11,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
     } else {
         $año = date("Y");
     }
-
+    
     include_once "../controller/ControllerRepoPersonal.php";
     $objHistorial = new ControllerRepoPersonal();
     $listar = $objHistorial->ControllerListarVacunas($_SESSION["dni"], $año);
@@ -62,7 +63,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                         <div class="float-start my-2">
                             <?php foreach ($listarDatos as $fila) { ?>
                                 <div class='position-relative' style='width: 70px; height: 70px;'>
-                                    <img src='../img/foto_perfiles/<?php echo $fila["paciente_foto"] ?>?img '
+                                    <img src='../img/foto_perfiles/<?php echo $fila["paciente_foto"] ?>?time=<?php echo $timestamp ?> '
                                         style='height:70px; width:70px;'>
                                     <div class='position-absolute bottom-0 end-0' style='width: 25px; height: 25px;'>
                                         <a href='../view/ModificarFotoPerfil.php' style='text-decoration: none'>
@@ -160,41 +161,36 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                     <div class="col-sm-12">
                                         <?php echo "<label>Fecha de Nacimiento: " . $_SESSION["nacimiento"] . "</label>"; ?>
                                     </div>
-                                    <?php
+                                    <?php if (empty($listar)) { ?>
+                                        <div class='h2 text-center'>El paciente no tiene vacunas registradas este año
+                                        </div>
+                                    <?php } else { ?>
+                                        <div class='table-responsive'>
+                                            <table class='table table-bordered table-striped border border-dark'>
+                                                <thead style='background: grey'>
+                                                    <th scope='col'>Vacuna</th>
+                                                    <th scope='col'># de Dosis</th>
+                                                    <th scope='col'>Fecha</th>
+                                                    <th scope='col'>Lote</th>
+                                                    <th scope='col'>Centro</th>
+                                                </thead>
 
-                                    if (empty($listar)) {
-                                        echo "<div class='h2 text-center'>Usted no tiene vacunas registradas este año</div>";
-                                    } else {
+                                                </form>
+                                                <?php
+                                                foreach ($listar as $fila) {
 
-                                        echo
-                                            "
-                            <div class='table-responsive'>
-                                    <table class='table table-bordered table-striped border border-dark'>
-                                        <thead style='background: grey'>
-                                            <th scope='col'>Vacuna</th>
-                                            <th scope='col'># de Dosis</th>
-                                            <th scope='col'>Fecha</th>
-                                            <th scope='col'>Lote</th>
-                                            <th scope='col'>Centro</th>
-                                        </thead>";
-
-                                        foreach ($listar as $fila) {
-
-                                            echo "<tr>";
-                                            echo "<td>" . $fila["nombre_Vacuna"] . "</td>";
-                                            echo "<td>" . $fila["dosis"] . "</td>";
-                                            echo "<td>" . $fila["fecha_vacunacion"] . "</td>";
-                                            echo "<td>" . $fila["lote"] . "</td>";
-                                            echo "<td>" . $fila["nombre"] . "</td>";
-                                            echo "</tr>";
-
-
-
-                                        }
-                                        echo "</table>";
-                                        echo "</div>";
-                                    }
-                                    ?>
+                                                    echo "<tr>";
+                                                    echo "<td>" . $fila["nombre_Vacuna"] . "</td>";
+                                                    echo "<td>" . $fila["dosis"] . "</td>";
+                                                    echo "<td>" . $fila["fecha_vacunacion"] . "</td>";
+                                                    echo "<td>" . $fila["lote"] . "</td>";
+                                                    echo "<td>" . $fila["nombre"] . "</td>";
+                                                    echo "</tr>";
+                                                }
+                                                ?>
+                                            </table>
+                                        </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>

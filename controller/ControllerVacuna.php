@@ -64,5 +64,15 @@ class ControllerVacuna
         }
     }
 
+    public function ControllerEliminarVacuna($t_vacuna_id_tipovacuna, $fecha_vacunacion, $dosis, $id_paciente, $id_centro)
+    {
+        try {
+            $obj = new ModelVacuna();
+            return $obj->EliminarVacuna($t_vacuna_id_tipovacuna, $fecha_vacunacion, $dosis, $id_paciente, $id_centro);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
 }
 ?>

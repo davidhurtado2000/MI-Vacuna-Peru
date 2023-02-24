@@ -4,6 +4,7 @@ session_start();
 if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimiento"] == "") {
     header('Location:../Log-in_Doctor.php?err=3');
 } else {
+    $timestamp = microtime();
     date_default_timezone_set('America/Lima');
     $fechaActual = date('d/m/y h:i');
     include "../controller/ControllerDoctor.php";
@@ -55,7 +56,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                         <div class="float-start my-2">
                         <?php foreach ($listarDatos as $fila) { ?>
                                 <div class='position-relative' style='width: 70px; height: 70px;'>
-                                    <img src="../img/foto_perfiles/<?php echo $fila["foto_doctor"]?>?img" style='height:70px; width:70px;'>
+                                    <img src="../img/foto_perfiles/<?php echo $fila["foto_doctor"]?>?time=<?php echo $timestamp ?> " style='height:70px; width:70px;'>
                                     <div class='position-absolute bottom-0 end-0' style='width: 25px; height: 25px;'>
                                         <a href='../view/ModificarFotoPerfilDoctor.php' style='text-decoration: none'>
                                             <img src='../img/actualizar_foto.gif' class='' style='height:25px; width:25 px;'>

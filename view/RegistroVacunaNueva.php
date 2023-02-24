@@ -3,8 +3,8 @@ session_start();
 if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
     header('Location:../Log-in_Doctor.php?err=3');
 } else {
-
     if (isset($_POST["valor_dni"])) {
+        $timestamp = microtime();
         $valor_dni = $_POST["valor_dni"];
         date_default_timezone_set('America/Lima');
         $fechaActual = date('d/m/y h:i');
@@ -69,7 +69,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                             <div class="float-start my-2">
                                 <?php foreach ($listarDatos as $fila) { ?>
                                     <div class='position-relative' style='width: 70px; height: 70px;'>
-                                        <img src="../img/foto_perfiles/<?php echo $fila["foto_doctor"] ?>?img"
+                                        <img src="../img/foto_perfiles/<?php echo $fila["foto_doctor"] ?>?time=<?php echo $timestamp ?> "
                                             style='height:70px; width:70px;'>
 
                                         <div class='position-absolute bottom-0 end-0' style='width: 25px; height: 25px;'>
@@ -132,7 +132,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
 
 
                                             <form action="../controller/ControllerRegistroVacunaNueva.php" method="post">
-                                                
+
                                                 <br>
                                                 <div class="form-group row">
                                                     <label for="id_tipovacuna" class="col-sm-4 col-form-label ">Selecciona Vacuna:
@@ -175,7 +175,8 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                 <br>
 
                                                 <div class="form-group row">
-                                                    <label for="id_centromedico" class="col-sm-4 col-form-label">Selecciona el centro medico:
+                                                    <label for="id_centromedico" class="col-sm-4 col-form-label">Selecciona el
+                                                        centro medico:
                                                     </label>
 
                                                     <div class="col-sm-8">

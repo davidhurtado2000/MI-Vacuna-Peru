@@ -115,6 +115,7 @@ class ModelDoctor
             FROM doctor
             INNER JOIN dni ON doctor.dni_dni_id = dni.dni_id
             INNER JOIN credenciales ON doctor.n_colegiado = credenciales.n_colegiado
+            INNER JOIN c_medico ON doctor.c_medico_id_centromedico = c_medico.id_centromedico
             WHERE dni.dni_id=? AND credenciales.n_colegiado=?');
 
             $query->bindParam(1, $dni);

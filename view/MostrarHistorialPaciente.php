@@ -171,7 +171,8 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                             <th scope='col'>Fecha</th>
                                                             <th scope='col'>Lote</th>
                                                             <th scope='col'>Centro</th>
-                                                            <th scope='col'>Acciones</th>
+                                                            <th scope='col'>Modificar Vacuna</th>
+                                                            <th scope='col'>Eliminar Vacuna</th>
                                                         </thead>
 
 
@@ -179,7 +180,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                         </form>
                                                         <?php
                                                         foreach ($listar as $fila) {
-                                                            echo "<form action='Modificar_Vacuna.php' method='post'>";
+
                                                             echo "<tr>";
                                                             echo "<td>" . $fila["nombre_Vacuna"] . "</td>";
                                                             echo "<td>" . $fila["dosis"] . "</td>";
@@ -187,47 +188,61 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                             echo "<td>" . $fila["lote"] . "</td>";
                                                             echo "<td>" . $fila["nombre"] . "</td>";
                                                             echo "<td> 
+                                                            <form action='Modificar_Vacuna.php' method='post'>
                                                             <input type='hidden' value='" . $valor_dni . "' name='valor_dni'>
-                                                            <input type='hidden' value='" .  $fila["nombre_Vacuna"] . "' name='nombre_Vacuna'>
-                                                            <input type='hidden' value='" .  $fila["dosis"] . "' name='dosis'>
-                                                            <input type='hidden' value='" .  $fila["fecha_vacunacion"] . "' name='fecha_vacunacion'>
-                                                            <input type='hidden' value='" .  $fila["lote"] . "' name='lote'>
-                                                            <input type='hidden' value='" .  $fila["nombre"] . "' name='nombre'>
+                                                            <input type='hidden' value='" . $fila["nombre_Vacuna"] . "' name='nombre_Vacuna'>
+                                                            <input type='hidden' value='" . $fila["dosis"] . "' name='dosis'>
+                                                            <input type='hidden' value='" . $fila["fecha_vacunacion"] . "' name='fecha_vacunacion'>
+                                                            <input type='hidden' value='" . $fila["lote"] . "' name='lote'>
+                                                            <input type='hidden' value='" . $fila["nombre"] . "' name='nombre'>
                                                             <input type='submit' value='Modificar Vacuna'> 
                                                             </td>";
-                                                            echo "</tr>";
                                                             echo "</form>";
+
+                                                            echo "<td> 
+                                                            <form action='../controller/ControllerEliminarVacuna.php' id='eliminarvacuna' method='post'>
+                                                            <input type='hidden' value='" . $valor_dni . "' name='valor_dni'>
+                                                            <input type='hidden' value='" . $fila["nombre_Vacuna"] . "' name='nombre_Vacuna'>
+                                                            <input type='hidden' value='" . $fila["dosis"] . "' name='dosis'>
+                                                            <input type='hidden' value='" . $fila["fecha_vacunacion"] . "' name='fecha_vacunacion'>
+                                                            <input type='hidden' value='" . $fila["nombre"] . "' name='lugar'>
+                                                            <input type='button' value='Eliminar Vacuna' onClick='popMessage()'> 
+                                                            </td>";
+                                                            echo "</form>";
+                                                            echo "</tr>";
                                                         }
                                                         ?>
                                                     </table>
                                                 </div>
 
-                                               
+
 
                                             <?php } ?>
 
                                             <div class="col-lg-12 my-3">
-                                                    <div class="row ">
-                                                        <div class="col-md-6">
-                                                            <div class="h-100 d-flex align-items-center justify-content-center">
-                                                                <form action="RegistroVacunaNueva.php" method="post">
-                                                                <input type="hidden" id="valor_dni" name="valor_dni" value="<?php echo $valor_dni;?>">
-                                                                    <input type="submit" class="btn btn-success"
-                                                                        value="Registrar Nueva Vacuna">
-                                                                </form>
-                                                            </div>
+                                                <div class="row ">
+                                                    <div class="col-md-6">
+                                                        <div class="h-100 d-flex align-items-center justify-content-center">
+                                                            <form action="RegistroVacunaNueva.php" method="post">
+                                                                <input type="hidden" id="valor_dni" name="valor_dni"
+                                                                    value="<?php echo $valor_dni; ?>">
+                                                                <input type="submit" class="btn btn-success"
+                                                                    value="Registrar Nueva Vacuna">
+                                                            </form>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <div class="h-100 d-flex align-items-center justify-content-center">
-                                                                <form action="RegistroVacunaPendiente.php" method="post">
-                                                                    <input type="hidden" id="valor_dni" name="valor_dni" value="<?php echo $valor_dni;?>">
-                                                                    <input type="submit" class="btn btn-warning"
-                                                                        value="Registrar Vacuna Pendiente">
-                                                                </form>
-                                                            </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="h-100 d-flex align-items-center justify-content-center">
+                                                            <form action="RegistroVacunaPendiente.php" method="post">
+                                                                <input type="hidden" id="valor_dni" name="valor_dni"
+                                                                    value="<?php echo $valor_dni; ?>">
+                                                                <input type="submit" class="btn btn-warning"
+                                                                    value="Registrar Vacuna Pendiente">
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
 
 
                                         </div>
@@ -245,9 +260,16 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
             </div>
 
             <script>
-                function myFunction() {
+                function myFunction(){
                     document.getElementById("myForm").submit();
                 }
+
+                function popMessage() {
+                    if (confirm("Estas seguro que deseas eliminar esta vacuna del historial?")) {
+                        document.getElementById("eliminarvacuna").submit();
+                    }
+                }
+
             </script>
 
 

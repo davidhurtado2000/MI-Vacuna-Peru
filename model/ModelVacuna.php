@@ -115,5 +115,24 @@ class ModelVacuna
         }  
     }
 
+    public function EliminarVacuna($t_vacuna_id_tipovacuna, $fecha_vacunacion, $dosis, $id_paciente, $id_centro)
+    {
+        try {
+            $obj = Conexion::singleton();
+            $query = $obj->prepare("DELETE FROM vacuna 
+            WHERE t_vacuna_id_tipovacuna ='" .$t_vacuna_id_tipovacuna."' 
+            AND fecha_vacunacion ='" .$fecha_vacunacion."' 
+            AND dosis ='" .$dosis."' 
+            AND paciente_id_paciente ='" .$id_paciente."' 
+            AND id_centromedico ='" .$id_centro."'");
+
+            echo $query->execute();
+
+        } catch (Exception $e){
+            throw $e;
+        }
+
+    }
+
 }
 ?>
