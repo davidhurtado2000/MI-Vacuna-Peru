@@ -59,6 +59,14 @@ class ControllerDoctor{
          }  
       }
 
+      public function ControllerModificarDatosDoctor($dni, $usuario, $contraseña, $sede){
+        try{   
+              $obj=new ModelDoctor();
+              return $obj->ModificarDatosDoctor($dni, $usuario, $contraseña, $sede);
+         }catch(Exception $e){
+             throw $e;
+         }  
+      }
    
 }
 ?>

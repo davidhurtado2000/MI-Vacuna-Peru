@@ -232,4 +232,5 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
     /*   $foto = $_SESSION['foto']; 
     echo "<img src=../img/$_SESSION[foto] height=15 width=15>";*/
 }
+}
 ?>

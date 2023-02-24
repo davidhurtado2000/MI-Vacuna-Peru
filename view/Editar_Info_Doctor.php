@@ -1,12 +1,18 @@
 <?php
 session_start();
-if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
+if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
     header('Location:../Log-in_Doctor.php?err=3');
 } else {
     date_default_timezone_set('America/Lima');
     $fechaActual = date('d/m/y h:i');
 
-
+    include "../controller/ControllerDoctor.php";
+    $objDatos = new ControllerDoctor();
+    $listarDatos = $objDatos->ControllerMostrarDatosDoctor($_SESSION["dni"], $_SESSION["credenciales"]);
+    include_once "../controller/ControllerCentroMedico.php";
+    $objCentro = new ControllerCentroMedico();
+    $listarCentro = $objCentro->ControllerMostrarCentroMedicos();
+    $mostarDatoCentro = $objCentro->ControllerMostrarIDMedico($_SESSION["dni"]);
 
 
     ?>
@@ -47,16 +53,31 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
             <div class="container-fluid  border border-dark border-2 rounded-2 py-4" style="background-color: #ffe599;">
                 <div class="row">
                     <div class="col-lg-6">
-                    <div class="float-start my-2">
-                            <?php 
-                             echo "<img src='../img/foto_perfiles/$_SESSION[foto_perfil]' class='mx-2' style='height:40px; width:40px;'>";
-                             echo "<label>".$_SESSION['titulo'].": ".$_SESSION["nom_completo"]. "</label>"; 
-                             ?>
+                        <div class="float-start my-2">
+
+                            <?php foreach ($listarDatos as $fila) { ?>
+                                <div class='position-relative' style='width: 70px; height: 70px;'>
+                                    <img src="../img/foto_perfiles/<?php echo $fila["foto_doctor"] ?>?img"
+                                        style='height:70px; width:70px;'>
+                                    <div class='position-absolute bottom-0 end-0' style='width: 25px; height: 25px;'>
+                                        <a href='../view/ModificarFotoPerfilDoctor.php' style='text-decoration: none'>
+                                            <img src='../img/actualizar_foto.gif' class='' style='height:25px; width:25 px;'>
+                                        </a>
+                                    </div>
+                                </div>
+                                <label class='h7'>Doctor:
+                                    <?php echo $_SESSION["nom_completo"] ?>
+                                </label>
+
+                            <?php } ?>
+
                             <a href="../controller/ControllerDestruirSesionDoctor.php">Cerrar Sesión</a>
+
+
                         </div>
                     </div>
                     <div class="col-lg-6">
-                    <div class="float-end my-3">
+                        <div class="float-end my-3">
                             <?php echo "<label>Fecha y Hora Actual: " . $fechaActual . "</label>"; ?>
                         </div>
                     </div>
@@ -77,7 +98,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
                                     <p class="text-wrap">Buscador del paciente</p>
                                 </div>
                             </a>
-                           
+
                         </div>
                     </div>
                     <div class="col-lg-10">
@@ -85,54 +106,90 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
                             style="background-color: white; max-height: 357px;">
                             <div class="container">
                                 <div class="row align-items-center mx-2 my-4">
-                                    <div class="row my-2">
-                                        <div class="h4 text-center">Informacion del Doctor</div>
 
-                                        <div class="form-group">
-                                        <label for="exampleInputEmail1">Usuario: </label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese su nuevo usuario">                                        
-                                        </div>
+                                    <form action="../controller/ControllerModificarDatosDoctor.php" method="post">
 
-                                        <div class="form-group">
-                                        <label for="exampleInputEmail1">Contraseña: </label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese su nueva contraseña">
-                                        </div>
+                                        <?php foreach ($listarDatos as $filaDatos) { ?>
 
-                                        <div class="form-group">
-                                        <label for="exampleInputEmail1">Sede: </label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese su sede">                                        
-                                        
+                                            <div class="row my-2">
+                                                <div class="h4 text-center">Actualizacion de datos</div>
+                                                <div class="col-md-2">
+                                                    <div class="col-md-12">Usuario: </div>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <input type="text" name="usuario" class="form-control-sm border-dark" 
+                                                        value="<?php echo $filaDatos["usuario"]; ?>" required>
+                                                </div>
+                                            </div>
+                                            <div class="row my-2">
+                                                <div class="col-md-2">
+                                                    <div class="col-md-12 ">Contraseña: </div>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <input type="password" class="form-control-sm border-dark"
+                                                        placeholder="Ingresar su Contraseña" id="contraseña" name="contraseña"
+                                                        required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                            <div class="col-md-2">
+                                                    <div class="col-md-12 ">Centro Medico: </div>
+                                                </div>
+
+                                                <div class="col-sm-8">
+                                                    <select class="form form-control-sm  border border-dark" size="1"
+                                                        name="sede" id="sede" required>
+                                                        <?php foreach ($mostarDatoCentro as $filaCentrotmp) { ?>
+                                                        <option value="" selected><?php echo $filaCentrotmp['nombreClinica']; ?>   </option>
+                                                        <?php  } ?>
+                                                        <?php
+                                                        foreach ($listarCentro as $filaCentro) {
+                                                            echo "<option value='$filaCentro[id_centromedico]'>" . $filaCentro['nombre'] . "</option>";
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <?php ?>
+
+                                            <div class="container d-flex justify-content-center align-items-end">
+                                                <div class="btn-group-vertical pt-2" style="background-color: white;">
+                                                    <input type="hidden" value="<?php echo $_SESSION['dni'] ?>" name="dni">
+                                                    <input type="submit" name="submit"
+                                                        class="btn btn-primary border border-dark" value="Actualizar mis datos">
+                                                </div>
+                                            </div>
+
+                                        </form>
+
+
                                     </div>
-                                    
-
-                                    <div class="container d-flex justify-content-center align-items-center">
-                                     <a type="button" href="Info_Doctor.php" class="btn btn-outline-success my-3">Actualizar </a>
-                                    </div>
-
-                                    
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+            </div>
             </div>
 
-        </div>
-        </div>
 
 
 
+        </body>
 
-    </body>
+        <footer class="mt-auto  text-center ">
+            <p>© 2023 Copyright</p>
+        </footer>
 
-    <footer class="mt-auto  text-center ">
-        <p>© 2023 Copyright</p>
-    </footer>
+        </html>
 
-    </html>
-
-    <?php
-    /*   $foto = $_SESSION['foto']; 
-    echo "<img src=../img/$_SESSION[foto] height=15 width=15>";*/
+        <?php
+                                        /*   $foto = $_SESSION['foto']; 
+                                        echo "<img src=../img/$_SESSION[foto] height=15 width=15>";*/
+                                    }
 }
 ?>
