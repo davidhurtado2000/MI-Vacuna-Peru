@@ -65,26 +65,31 @@ if ($_SESSION["dni"] == "" && $_SESSION["credenciales"] == "") {
           <div class="form-group border-bottom border-dark">
             <label for="correo_elec">Usuario</label>
             <img src="../img/email_icon.png" alt="Responsive image" id="iconos"><input type="text"
-              class="form-control border-0" placeholder="Ingrese su Usuario" id="usa" name="usa" required>
+              class="form-control border-0" placeholder="Ingrese su Usuario" id="usa" name="usa" >
           </div>
 
           <div class="form-group border-bottom border-dark">
             <label for="numero_tele">Contraseña</label>
             <img src="../img/phone_icon.png" alt="Responsive image" id="iconos"><input type="password"
-              class="form-control border-0" placeholder="Ingresar su Contraseña" id="pass" name="pass" required>
+              class="form-control border-0" placeholder="Ingresar su Contraseña" id="pass" name="pass" >
           </div>
 
           <div class="form-group border-bottom border-dark">
             <label for="foto">Foto de Perfil </label>
             <input type="hidden" name="MAX_FILE_SIZE" value="30000000">
             <img src="../img/profile_icon.png" alt="Responsive image" id="iconos"><input type="file"
-              class="form-control border-0" placeholder="Foto" name="fotosubida" required>
+              class="form-control border-0" placeholder="Foto" name="fotosubida" accept=".png,.jpg,.jpeg,.gif"  >
 
           </div>
           <?php
           if (isset($_GET["valor"])) {
             if ($_GET["valor"] == 1) {
               echo "<label for=formGroupExampleInput2>Solamente se acepta JPG, JPEG, PNG, & GIF para subir.</label>";
+            }elseif ($_GET["valor"] == 2){
+              echo "<label for=formGroupExampleInput2>Datos incompletos, intente nuevamente</label>";
+            }elseif ($_GET["valor"] == 3){
+              echo "<label for=formGroupExampleInput2>La contraseña debe ser de almenos 8 caracteres y debe contener al menos una 
+              Mayuscula, Minusculas, Numeros y Simbolos </label>";
             }
           }
           ?>

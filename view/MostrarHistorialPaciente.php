@@ -205,7 +205,8 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                     <div class="row ">
                                                         <div class="col-md-6">
                                                             <div class="h-100 d-flex align-items-center justify-content-center">
-                                                                <form action="">
+                                                                <form action="RegistroVacunaNueva.php" method="post">
+                                                                <input type="hidden" id="valor_dni" name="valor_dni" value="<?php echo $valor_dni;?>">
                                                                     <input type="submit" class="btn btn-success"
                                                                         value="Registrar Nueva Vacuna">
                                                                 </form>

@@ -57,5 +57,22 @@ class ModelVacuna
             throw $th;
         }
     }
+
+    public function ModelResgitrarVacunaNueva($id_tipovacuna,$fecha_vacunacion,$dosis,$id_paciente,$id_centromedico){
+        try {
+            
+            $obj = Conexion::singleton();
+            $query = $obj->prepare('INSERT INTO vacuna VALUES(?,?,?,?,?)');
+            $query->bindParam(1, $id_tipovacuna);
+            $query->bindParam(2, $fecha_vacunacion);
+            $query->bindParam(3, $dosis);
+            $query->bindParam(4, $id_paciente);
+            $query->bindParam(5, $id_centromedico);
+            $query->execute();
+
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 }
 ?>
