@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2023 at 10:30 PM
+-- Generation Time: Feb 25, 2023 at 12:12 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -60,7 +60,8 @@ CREATE TABLE `credenciales` (
 INSERT INTO `credenciales` (`n_colegiado`, `titulo`, `grado`, `universidad`, `especialidad`, `id_colegiomedico`) VALUES
 ('103881', 'Doctor', 'Licenciado', 'Universidad San Marcos', 'Medicina General', 'CM0001'),
 ('104532', 'Doctor', 'Bachiller', 'Universidad Agraria', 'Internista', 'CM0001'),
-('123456', 'Doctor', 'Licenciado', 'Universidad de Lima', 'Medicina General', 'CM0001');
+('123456', 'Doctor', 'Licenciado', 'Universidad de Lima', 'Medicina General', 'CM0001'),
+('143241', 'Doctor', 'Licenciado', 'Universidad Cientifica del Sur', 'Medicina General', 'CM0001');
 
 -- --------------------------------------------------------
 
@@ -110,7 +111,9 @@ INSERT INTO `dni` (`dni_id`, `nombres`, `apellido_p`, `apellido_m`, `reniec_id_r
 ('65223133', 'Nicolas', 'Abanto', 'Cachay', 'REN001', '2018-10-10', '1990-10-10'),
 ('70112005', 'Luis Daniel', 'Diaz', 'Espinoza', 'REN001', '2012-01-01', '1980-01-01'),
 ('70112233', 'Juan', 'Morales', 'Hurtado', 'REN001', '2018-10-10', '1996-10-10'),
+('70114411', 'Jose', 'Hurtado', 'Abanto', 'REN001', '2015-10-10', '2000-10-10'),
 ('70443123', 'Oswaldo', 'Ruiz', 'Carrion', 'REN001', '2018-10-10', '1999-10-10'),
+('70551211', 'Martin', 'Guevarra', 'Ruiz', 'REN001', '2018-10-10', '1970-10-10'),
 ('70558994', 'Javier Junio', 'Caycho', 'Zamudio', 'REN001', '2018-10-10', '1996-10-10'),
 ('70668994', 'Daniel Luis', 'Valverde', 'Farfan', 'REN001', '2000-10-10', '1980-10-10'),
 ('71442231', 'Carlos Javier', 'Bravo', 'Espino', 'REN001', '2015-10-10', '1970-10-10');
