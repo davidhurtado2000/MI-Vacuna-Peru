@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2023 at 10:05 PM
+-- Generation Time: Feb 24, 2023 at 10:30 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -81,6 +81,7 @@ CREATE TABLE `c_medico` (
 
 INSERT INTO `c_medico` (`id_centromedico`, `nombre`, `direccion`, `reserva`) VALUES
 ('CEN001', 'Clinica Ricardo Palma', 'Av. Ricardo Palma 141242', 'https://www.crp.com.pe'),
+('CEN002', 'Clinica San Gabriel', 'Av. la Marina 2955, San Miguel 15087', 'https://www.clinicasangabriel.com.pe'),
 ('NULL', 'No asignado', 'No asignado', 'No asignado');
 
 -- --------------------------------------------------------
@@ -135,9 +136,9 @@ CREATE TABLE `doctor` (
 --
 
 INSERT INTO `doctor` (`id_doctor`, `dni_dni_id`, `c_medico_id_centromedico`, `foto_doctor`, `n_colegiado`, `usuario`, `contraseña`) VALUES
-(1, '71442231', 'CEN001', '71442231.png', '103881', 'carlosdoc123', 'carlosdoc123'),
+(1, '71442231', 'CEN002', '71442231.jpg', '103881', 'CarlosDoc', 'Carlos123'),
 (2, '70112005', 'CEN001', '70112005.png', '123456', 'luis123', 'luis123'),
-(7, '70112233', 'CEN001', '70112233.png', '104532', 'juan123', 'juan123');
+(9, '70112233', 'CEN001', '70112233.png', '104532', 'JuanMorales', 'Juanmorales123!');
 
 -- --------------------------------------------------------
 
@@ -163,7 +164,7 @@ INSERT INTO `paciente` (`id_paciente`, `dni_dni_id`, `direccion`, `correo`, `tel
 ('PC0002', '60449001', 'Jr. Pimentel 2012', 'josemiguel@gmail.com', '997883123', '60449001.png'),
 ('PC0003', '70558994', 'Jr. Pimentel 2000', 'javiercaycho@gmail.com', '997005674', '70558994.png'),
 ('PC0004', '70668994', 'Av. Salavery 24122', 'danielluis@gmail.com', '923123333', '70668994.png'),
-('PC0005', '65223133', 'Av. Dueñas 155221', 'nicolascachay@gmail.com', '997005962', '65223133.gif'),
+('PC0005', '65223133', 'Av. Dueñas 155221', 'nicolascachay@gmail.com', '997005962', '65223133.png'),
 ('PC0006', '70443123', 'Av. Peru 123311', 'oswadoruiz12@gmail.com', '997004236', '70443123.png');
 
 -- --------------------------------------------------------
@@ -174,16 +175,17 @@ INSERT INTO `paciente` (`id_paciente`, `dni_dni_id`, `direccion`, `correo`, `tel
 
 CREATE TABLE `pend` (
   `id_pendiente` char(6) NOT NULL,
-  `estado` char(1) NOT NULL
+  `estado` char(1) NOT NULL,
+  `significado` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pend`
 --
 
-INSERT INTO `pend` (`id_pendiente`, `estado`) VALUES
-('PEN_01', '0'),
-('PEN_02', '1');
+INSERT INTO `pend` (`id_pendiente`, `estado`, `significado`) VALUES
+('PEN_01', '0', 'Estado No Pendiente'),
+('PEN_02', '1', 'Estado Pendiente');
 
 -- --------------------------------------------------------
 
@@ -287,8 +289,9 @@ INSERT INTO `vacuna` (`t_vacuna_id_tipovacuna`, `fecha_vacunacion`, `dosis`, `pa
 ('VAC001', '2022-02-16', 1, 'PC0001', 'CEN001'),
 ('VAC002', '2022-07-15', 2, 'PC0002', 'CEN001'),
 ('VAC001', '2020-02-13', 4, 'PC0003', 'CEN001'),
-('VAC002', '2023-02-06', 1, 'PC0001', 'CEN001'),
-('VAC003', '2023-02-25', 1, 'PC0001', 'CEN001');
+('VAC001', '2021-07-29', 1, 'PC0001', 'CEN002'),
+('VAC002', '2023-02-15', 3, 'PC0001', 'CEN002'),
+('VAC001', '2023-02-21', 1, 'PC0001', 'CEN002');
 
 -- --------------------------------------------------------
 
@@ -317,12 +320,12 @@ INSERT INTO `v_dispo` (`id_tipovacuna`, `c_medico_id_centromedico`, `disponibili
 --
 
 CREATE TABLE `v_pend` (
-  `f_estimadas` date DEFAULT NULL,
-  `pend_id_pendiente` char(6) DEFAULT NULL,
-  `paciente_id_paciente` char(6) DEFAULT NULL,
-  `dosis_pendiente` int(11) DEFAULT NULL,
-  `id_centromedico` char(6) DEFAULT NULL,
-  `id_tipovacuna` char(6) DEFAULT NULL
+  `f_estimadas` date NOT NULL,
+  `pend_id_pendiente` char(6) NOT NULL,
+  `paciente_id_paciente` char(6) NOT NULL,
+  `dosis_pendiente` int(11) NOT NULL,
+  `id_centromedico` char(6) NOT NULL,
+  `id_tipovacuna` char(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -333,7 +336,12 @@ INSERT INTO `v_pend` (`f_estimadas`, `pend_id_pendiente`, `paciente_id_paciente`
 ('2023-02-16', 'PEN_02', 'PC0001', 3, 'NULL', 'VAC001'),
 ('2023-07-07', 'PEN_02', 'PC0002', 6, 'NULL', 'VAC001'),
 ('2024-01-19', 'PEN_02', 'PC0003', 5, 'NULL', 'VAC001'),
-('2022-02-10', 'PEN_02', 'PC0001', 4, 'NULL', 'VAC001');
+('2022-02-10', 'PEN_02', 'PC0001', 4, 'NULL', 'VAC001'),
+('2023-04-08', 'PEN_02', 'PC0001', 3, 'CEN002', 'VAC003'),
+('2023-03-03', 'PEN_02', 'PC0001', 3, 'CEN002', 'VAC003'),
+('2025-06-23', 'PEN_02', 'PC0001', 4, 'CEN002', 'VAC003'),
+('2023-08-30', 'PEN_02', 'PC0002', 2, 'CEN002', 'VAC003'),
+('2023-03-10', 'PEN_02', 'PC0001', 5, 'CEN001', 'VAC002');
 
 --
 -- Indexes for dumped tables
@@ -449,7 +457,7 @@ ALTER TABLE `v_pend`
 -- AUTO_INCREMENT for table `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `id_doctor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_doctor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
@@ -512,8 +520,7 @@ ALTER TABLE `v_pend`
   ADD CONSTRAINT `fk_c_medico` FOREIGN KEY (`id_centromedico`) REFERENCES `c_medico` (`id_centromedico`),
   ADD CONSTRAINT `fk_id_tipovacuna` FOREIGN KEY (`id_tipovacuna`) REFERENCES `t_vacuna` (`id_tipovacuna`),
   ADD CONSTRAINT `v_pend_paciente_fk` FOREIGN KEY (`paciente_id_paciente`) REFERENCES `paciente` (`id_paciente`),
-  ADD CONSTRAINT `v_pend_pend_fk` FOREIGN KEY (`pend_id_pendiente`) REFERENCES `pend` (`id_pendiente`),
-  ADD CONSTRAINT `v_pend_vacuna_fk` FOREIGN KEY (`vacuna_id_vacuna`) REFERENCES `vacuna` (`id_vacuna`);
+  ADD CONSTRAINT `v_pend_pend_fk` FOREIGN KEY (`pend_id_pendiente`) REFERENCES `pend` (`id_pendiente`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
