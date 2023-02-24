@@ -8,7 +8,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
         $valor_dni = $_POST["valor_dni"];
         date_default_timezone_set('America/Lima');
         $fechaActual = date('d/m/y h:i');
-        $fechaMin = date('Y-m-d');
+        $fechaMax = date('Y-m-d');
 
         include "../controller/ControllerDoctor.php";
         $objDatos = new ControllerDoctor();
@@ -131,46 +131,8 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                             </div>
 
 
-                                            <form action="../controller/ControllerRegistroVacunaPend.php" method="post">
-                                                <br>
-                                                <div class="form-group row">
-                                                    <label for="fch_vacuna" class="col-sm-4 col-form-label ">Fecha de Vacunacion
-                                                        Recomendado: </label>
-                                                    <div class="col-sm-2">
-                                                        <input type="date" class="form form-control-sm  border border-dark"
-                                                            id="vacunacion" name="vacunacion" min="<?php echo $fechaMin ?>"
-                                                            required>
-                                                    </div>
-
-                                                </div>
-                                                <br>
-                                                <div class="form-group row">
-                                                    <label for="id_tipovacuna" class="col-sm-4 col-form-label">Estado de Vacuna:
-                                                    </label>
-
-                                                    <div class="col-sm-8">
-                                                        <select class="form form-control-sm  border border-dark" size="1"
-                                                            name="estadoVacuna" id="estadoVacuna" required>
-                                                            <option value="" selected>Escoge Estado de Vacuna: </option>
-                                                            <?php
-                                                            foreach ($listarPendiente as $filaEstado) {
-                                                                echo "<option value='$filaEstado[id_pendiente]'>" . $filaEstado['significado'] . "</option>";
-                                                            }
-                                                            ?>
-                                                        </select>
-                                                    </div>
-
-                                                </div>
-                                                <br>
-                                                <div class="form-group row">
-                                                    <label for="fch_vacuna" class="col-sm-4 col-form-label">Dosis:</label>
-                                                    <div class="col-sm-8">
-                                                        <input type="number" class="form form-control-sm  border border-dark"
-                                                            placeholder="Ingresar el numero de Dosis" min="1" id="dosis"
-                                                            name="dosis" required>
-                                                    </div>
-
-                                                </div>
+                                            <form action="../controller/ControllerRegistroVacunaNueva.php" method="post">
+                                                
                                                 <br>
                                                 <div class="form-group row">
                                                     <label for="id_tipovacuna" class="col-sm-4 col-form-label ">Selecciona Vacuna:
@@ -191,6 +153,28 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                 </div>
                                                 <br>
                                                 <div class="form-group row">
+                                                    <label for="fch_vacuna" class="col-sm-4 col-form-label ">Fecha de Vacunacion:
+                                                    </label>
+                                                    <div class="col-sm-2">
+                                                        <input type="date" class="form form-control-sm  border border-dark"
+                                                            id="vacunacion" name="vacunacion" max="<?php echo $fechaMax ?>"
+                                                            required>
+                                                    </div>
+
+                                                </div>
+                                                <br>
+                                                <div class="form-group row">
+                                                    <label for="fch_vacuna" class="col-sm-4 col-form-label">Dosis:</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="number" class="form form-control-sm  border border-dark"
+                                                            placeholder="Ingresar su Numero Telefonico" min="1" id="dosis"
+                                                            name="dosis" required>
+                                                    </div>
+
+                                                </div>
+                                                <br>
+
+                                                <div class="form-group row">
                                                     <label for="id_centromedico" class="col-sm-4 col-form-label">Selecciona el centro medico:
                                                     </label>
 
@@ -205,7 +189,6 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                             ?>
                                                         </select>
                                                     </div>
-
                                                 </div>
 
                                                 <br>
@@ -230,14 +213,13 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
                                                     ?>
 
                                                 </div>
-                                                
+
                                             </form>
 
                                             <form action="MostrarHistorialPaciente.php" method="post">
-                                                    <input type="hidden" value="<?php echo $valor_dni ?>"
-                                                        name="valor_dni">
-                                                    <input type="submit" value="Regresar a Historial" name="submit"
-                                                        class="btn btn-danger border border-dark">
+                                                <input type="hidden" value="<?php echo $valor_dni ?>" name="valor_dni">
+                                                <input type="submit" value="Regresar a Historial" name="submit"
+                                                    class="btn btn-danger border border-dark">
                                             </form>
                                         </div>
 
