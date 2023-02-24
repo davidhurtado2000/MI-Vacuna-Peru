@@ -186,6 +186,12 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="container d-flex justify-content-center align-items-center">
+                                     <a type="button" href="Editar_Info_Doctor.php" class="btn btn-outline-success my-3">Editar Datos </a>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
