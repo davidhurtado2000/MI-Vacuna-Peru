@@ -101,7 +101,8 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
                                         <div class="form-group">
                                         <label for="exampleInputEmail1">Sede: </label>
                                         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese su sede">                                        
-                                        </div>
+                                        
+                                    </div>
                                     
 
                                     <div class="container d-flex justify-content-center align-items-center">
