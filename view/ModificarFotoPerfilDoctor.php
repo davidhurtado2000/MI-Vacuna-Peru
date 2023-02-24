@@ -2,14 +2,14 @@
 session_start();
 
 if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimiento"] == "") {
-    header('Location:../Log-in.php?err=3');
+    header('Location:../Log-in_Doctor.php?err=3');
 } else {
     date_default_timezone_set('America/Lima');
     $fechaActual = date('d/m/y h:i');
-    include "../controller/ControllerPaciente.php";
+    include "../controller/ControllerDoctor.php";
     //Crear el objeto para el controlador
-    $objDatos = new ControllerPaciente();
-    $listarDatos = $objDatos->ControllerMostrarDatosPaciente($_SESSION["dni"], $_SESSION["emision"], $_SESSION["nacimiento"]);
+    $objDatos = new ControllerDoctor();
+    $listarDatos = $objDatos->ControllerMostrarDatosDoctor($_SESSION["dni"], $_SESSION["credenciales"]);
 
 
 
@@ -22,7 +22,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
         <title>Mi Vacuna Peru</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="../css/basehtml.css" type="text/css" rel="stylesheet" media="">
+        <link href="../css/basehtmldoctor.css" type="text/css" rel="stylesheet" media="">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
             integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
@@ -53,19 +53,16 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="float-start my-2">
-                            <?php foreach ($listarDatos as $fila) { ?>
+                        <?php foreach ($listarDatos as $fila) { ?>
                                 <div class='position-relative' style='width: 70px; height: 70px;'>
-                                    <img src='../img/foto_perfiles/<?php echo $fila["paciente_foto"]?>?img '
-                                        style='height:70px; width:70px;'>
+                                    <img src="../img/foto_perfiles/<?php echo $fila["foto_doctor"]?>?img" style='height:70px; width:70px;'>
                                     <div class='position-absolute bottom-0 end-0' style='width: 25px; height: 25px;'>
-                                        <a href='../view/ModificarFotoPerfil.php' style='text-decoration: none'>
+                                        <a href='../view/ModificarFotoPerfilDoctor.php' style='text-decoration: none'>
                                             <img src='../img/actualizar_foto.gif' class='' style='height:25px; width:25 px;'>
                                         </a>
                                     </div>
                                 </div>
-                                <label class='h7'>Paciente:
-                                    <?php echo $_SESSION["nom_completo"] ?>
-                                </label>
+                                <label class='h7'>Doctor: <?php echo $_SESSION["nom_completo"]?></label>
 
                             <?php } ?>
                             <a href="../controller/ControllerDestruirSesion.php">Cerrar Sesión</a>
@@ -80,34 +77,20 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                 <div class="row">
                     <div class="col-lg-2">
                         <div class="btn-group-vertical " style="width: 100%; background-color:white;">
-                            <a href="Info_Ciudadano.php" class="btn change-bgcolor border border-dark rounded-0 py-4">
+                            <a href="Info_Doctor.php" class="btn change-bgcolor border border-dark rounded-0 py-4">
                                 <div type="button">
                                     <img src="../img/i_icon.png" alt="Responsive image" id="menu_logo" class="float-start">
-                                    <p class="text-wrap">Informacion del Usuario</p>
+                                    <p class="text-wrap">Informacion del Doctor</p>
                                 </div>
                             </a>
-                            <a href="Historial_Vacuna.php" class="btn change-bgcolor border border-dark rounded-0 py-4">
+                            <a href="Buscar_Paciente.php" class="btn change-bgcolor border border-dark rounded-0 py-4">
                                 <div type="button">
                                     <img src="../img/historial_icon.png" alt="Responsive image" id="menu_logo"
                                         class="float-start">
-                                    <p class="text-wrap">Historial de Vacunas</p>
+                                    <p class="text-wrap">Buscador del paciente</p>
                                 </div>
                             </a>
-                            <a href="Vacuna_Pend.php" class="btn change-bgcolor border border-dark rounded-0 py-4">
-                                <div type="button">
-                                    <img src="../img/pendiente_icon.png" alt="Responsive image" id="menu_logo"
-                                        class="float-start">
-                                    <p class="text-wrap">Vacunas Pendientes</p>
 
-                                </div>
-                            </a>
-                            <a href="Buscar_Vacuna.php" class="btn change-bgcolor border border-dark rounded-0 py-4">
-                                <div type="button">
-                                    <img src="../img/buscador_icon.png" alt="Responsive image" id="menu_logo"
-                                        class="float-start">
-                                    <p class="text-wrap">Buscador de Vacunas</p>
-                                </div>
-                            </a>
                         </div>
                     </div>
                     <div class="col-lg-10">
@@ -116,7 +99,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                             <div class="container">
                                 <div class="row align-items-center mx-2 my-4">
 
-                                    <form action="../controller/ControllerModificarFoto.php" method="post"
+                                    <form action="../controller/ControllerModificarFotoDoctor.php" method="post"
                                         enctype="multipart/form-data">
 
                                         <div class="form-group border-bottom border-dark">
@@ -124,7 +107,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                             <input type="hidden" name="MAX_FILE_SIZE" value="30000000">
                                             <img src="../img/profile_icon.png" alt="Responsive image" id="menu_logo"><input
                                                 type="file" class="form-control border-0" placeholder="Foto"
-                                                name="fotosubida" accept=".png,.jpg,.jpeg,.gif" >
+                                                name="fotosubida" accept=".png,.jpg,.jpeg,.gif"  >
 
                                         </div>
                                         <?php
@@ -137,6 +120,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 
                                             }
                                         }
+
                                         ?>
 
 

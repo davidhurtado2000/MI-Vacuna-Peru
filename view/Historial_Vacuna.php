@@ -15,6 +15,10 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
     $objHistorial = new ControllerRepoPersonal();
     $listar = $objHistorial->ControllerListarVacunas($_SESSION["dni"], $año);
     $cantidad_años = $objHistorial->ControllerCantidadAños($_SESSION["dni"]);
+    include "../controller/ControllerPaciente.php";
+    //Crear el objeto para el controlador
+    $obj = new ControllerPaciente();
+    $listarDatos = $obj->ControllerMostrarDatosPaciente($_SESSION["dni"], $_SESSION["emision"], $_SESSION["nacimiento"]);
     //echo var_dump($listar)
 
     ?>
@@ -51,17 +55,31 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 
     <body class="d-flex flex-column min-vh-100" style="background-color: transparent;">
 
-    <div class="container-fluid my-3 px-4 py-4">
-        <div class="container-fluid  border border-dark border-2 rounded-2 py-4" style="background-color: #ffe599;">
+        <div class="container-fluid my-3 px-4 py-4">
+            <div class="container-fluid  border border-dark border-2 rounded-2 py-4" style="background-color: #ffe599;">
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="float-start">
-                            <?php echo "<label>Paciente: " . $_SESSION["nom_completo"] . "</label>"; ?>
+                        <div class="float-start my-2">
+                            <?php foreach ($listarDatos as $fila) { ?>
+                                <div class='position-relative' style='width: 70px; height: 70px;'>
+                                    <img src='../img/foto_perfiles/<?php echo $fila["paciente_foto"] ?>?img '
+                                        style='height:70px; width:70px;'>
+                                    <div class='position-absolute bottom-0 end-0' style='width: 25px; height: 25px;'>
+                                        <a href='../view/ModificarFotoPerfil.php' style='text-decoration: none'>
+                                            <img src='../img/actualizar_foto.gif' class='' style='height:25px; width:25 px;'>
+                                        </a>
+                                    </div>
+                                </div>
+                                <label class='h7'>Paciente:
+                                    <?php echo $_SESSION["nom_completo"] ?>
+                                </label>
+
+                            <?php } ?>
                             <a href="../controller/ControllerDestruirSesion.php">Cerrar Sesión</a>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="float-end">
+                        <div class="float-end my-3">
                             <?php echo "<label>Fecha y Hora Actual: " . $fechaActual . "</label>"; ?>
                         </div>
                     </div>
@@ -148,32 +166,33 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                         echo "<div class='h2 text-center'>Usted no tiene vacunas registradas este año</div>";
                                     } else {
 
+                                        echo
+                                            "
+                            <div class='table-responsive'>
+                                    <table class='table table-bordered table-striped border border-dark'>
+                                        <thead style='background: grey'>
+                                            <th scope='col'>Vacuna</th>
+                                            <th scope='col'># de Dosis</th>
+                                            <th scope='col'>Fecha</th>
+                                            <th scope='col'>Lote</th>
+                                            <th scope='col'>Centro</th>
+                                        </thead>";
+
                                         foreach ($listar as $fila) {
-                                            echo
-                                                "
-                                            <div class='table-responsive'>
-                                                    <table class='table table-bordered table-striped border border-dark'>
-                                                        <thead style='background: grey'>
-                                                            <th scope='col'># de Dosis</th>
-                                                            <th scope='col'>Vacuna</th>
-                                                            <th scope='col'>Fecha</th>
-                                                            <th scope='col'>Lote</th>
-                                                            <th scope='col'>Centro</th>
-                                                        </thead>";
 
                                             echo "<tr>";
-                                            echo "<td>" . $fila["dosis"] . "</td>";
                                             echo "<td>" . $fila["nombre_Vacuna"] . "</td>";
+                                            echo "<td>" . $fila["dosis"] . "</td>";
                                             echo "<td>" . $fila["fecha_vacunacion"] . "</td>";
                                             echo "<td>" . $fila["lote"] . "</td>";
                                             echo "<td>" . $fila["nombre"] . "</td>";
                                             echo "</tr>";
 
-                                            echo "</table>";
-                                            echo "</div>";
 
 
                                         }
+                                        echo "</table>";
+                                        echo "</div>";
                                     }
                                     ?>
                                 </div>

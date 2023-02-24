@@ -14,6 +14,7 @@ class Conexion {
             print "Error!: " . $e->getMessage();
             die();
         }           
+        
     }
     public static function singleton()
     {

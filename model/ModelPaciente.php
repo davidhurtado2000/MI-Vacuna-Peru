@@ -1,15 +1,18 @@
 <?php
 include_once '../util/ConexionBD.php';
 
-class ModelPaciente{
+class ModelPaciente
+{
 
-    public function __construct(){
+    public function __construct()
+    {
         $con = new Conexion();
     }
 
     //Metodo de Modelador para Validar el Paciente en el LogIn
-    public function _ModelValidarPaciente($dni, $f_emision, $f_nacimiento){
-        try{
+    public function _ModelValidarPaciente($dni, $f_emision, $f_nacimiento)
+    {
+        try {
             $obj = Conexion::singleton();
             $query = $obj->prepare('SELECT *
             FROM paciente
@@ -23,12 +26,53 @@ class ModelPaciente{
             $vector = $query->fetchAll();
             $query = null;
             return $vector;
-        } catch(Exception $e){
+        } catch (Exception $e) {
             throw $e;
         }
     }
 
-    public function ModelVerificarPaciente1($dni,$nombres,$a_paterno,$a_materno,$f_emision,$f_nacimiento){
+    public function MostrarDatosPaciente($dni, $f_emision, $f_nacimiento)
+    {
+        try {
+            $obj = Conexion::singleton();
+            $query = $obj->prepare('SELECT *
+            FROM paciente
+            INNER JOIN dni ON paciente.dni_dni_id = dni.dni_id WHERE dni.dni_id=? AND dni.f_emision=? AND dni.f_nacimiento=?');
+
+            $query->bindParam(1, $dni);
+            $query->bindParam(2, $f_emision);
+            $query->bindParam(3, $f_nacimiento);
+
+            $query->execute();
+            $vector = $query->fetchAll();
+            $query = null;
+            return $vector;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function MostrarDatosPaciente2($dni)
+    {
+        try {
+            $obj = Conexion::singleton();
+            $query = $obj->prepare('SELECT *
+            FROM paciente
+            INNER JOIN dni ON paciente.dni_dni_id = dni.dni_id WHERE dni.dni_id=?');
+
+            $query->bindParam(1, $dni);
+
+            $query->execute();
+            $vector = $query->fetchAll();
+            $query = null;
+            return $vector;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function ModelVerificarPaciente1($dni, $nombres, $a_paterno, $a_materno, $f_emision, $f_nacimiento)
+    {
         try {
             $obj = Conexion::singleton();
             $query = $obj->prepare('SELECT dni_id, nombres, apellido_p, apellido_m, f_emision, f_nacimiento 
@@ -51,11 +95,12 @@ class ModelPaciente{
             return $vector;
         } catch (Exception $e) {
             throw $e;
-        } 
+        }
     }
 
-    public function ModelInsertarPaciente($dni, $direccion, $correo, $numero, $foto){
-        try{
+    public function ModelInsertarPaciente($dni, $direccion, $correo, $numero, $foto)
+    {
+        try {
 
             $obj = Conexion::singleton();
             $query = $obj->prepare('SELECT id_paciente FROM paciente ORDER BY id_paciente DESC');
@@ -68,7 +113,7 @@ class ModelPaciente{
             $id++;
 
             $query = $obj->prepare('INSERT INTO paciente VALUES(?,?,?,?,?,?)');
-     
+
             $query->bindParam(1, $id);
             $query->bindParam(2, $dni);
             $query->bindParam(3, $direccion);
@@ -84,21 +129,71 @@ class ModelPaciente{
             }
 
             echo $statusMsg, $status;
-     
-            $query->execute();//Ejecuta la consulta SQL
-         }catch(PDOException $e){
-               $e->getMessage();
-         }
+
+            $query->execute(); //Ejecuta la consulta SQL
+        } catch (PDOException $e) {
+            $e->getMessage();
+        }
     }
 
-    public function ModificarFoto($dni, $foto){
-        try{   
-             $obj = Conexion::singleton();
-             $query = $obj->prepare("update paciente set paciente_foto='".$foto."' where dni_dni_id =".$dni);
-              echo $query->execute();//Ejecuta la consulta SQL
-          }catch(Exception $e){
-              throw $e;
-          }
+    public function ModificarFoto($dni, $foto)
+    {
+        try {
+            $obj = Conexion::singleton();
+            $query = $obj->prepare("update paciente set paciente_foto='" . $foto . "' where dni_dni_id =" . $dni);
+            echo $query->execute(); //Ejecuta la consulta SQL
+        } catch (Exception $e) {
+            throw $e;
         }
+    }
+
+    public function MostrarFoto($dni)
+    {
+        try {
+            $obj = Conexion::singleton();
+            $query = $obj->prepare('select paciente_foto from paciente where dni_dni_id =?');
+
+            $query->bindParam(1, $dni);
+            $query->execute(); //Ejecuta la consulta SQL
+            $vector = $query->fetchAll();
+            $query = null;
+            return $vector;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+
+    public function ModificarDatos($dni, $direccion, $correo, $telefono)
+    {
+        try {
+            $obj = Conexion::singleton();
+            $query = $obj->prepare("UPDATE paciente SET direccion='" . $direccion . "', correo='" . $correo . "', telefono='" . $telefono . "' WHERE dni_dni_id ='" .$dni."'");
+            echo $query->execute(); //Ejecuta la consulta SQL
+
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function MostrarDatos($dni)
+    {
+        try {
+            $obj = Conexion::singleton();
+            $query = $obj->prepare('SELECT * FROM paciente 
+            INNER JOIN dni
+            ON paciente.dni_dni_id=dni.dni_id
+            WHERE dni_dni_id=?');
+            $query->bindParam(1, $dni);
+            $query->execute(); //Ejecuta la consulta SQL
+            $vector = $query->fetchAll();
+            $query = null;
+            return $vector;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+  
 }
 ?>

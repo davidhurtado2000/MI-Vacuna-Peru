@@ -1,12 +1,14 @@
 <?php
 session_start();
-if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
+if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
     header('Location:../Log-in_Doctor.php?err=3');
 } else {
     date_default_timezone_set('America/Lima');
     $fechaActual = date('d/m/y h:i');
 
-
+    include "../controller/ControllerDoctor.php";
+    $objDatos = new ControllerDoctor();
+    $listarDatos = $objDatos->ControllerMostrarDatosDoctor($_SESSION["dni"], $_SESSION["credenciales"]);
 
 
     ?>
@@ -47,16 +49,28 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
             <div class="container-fluid  border border-dark border-2 rounded-2 py-4" style="background-color: #ffe599;">
                 <div class="row">
                     <div class="col-lg-6">
-                    <div class="float-start my-2">
-                            <?php 
-                             echo "<img src='../img/foto_perfiles/$_SESSION[foto_perfil]' class='mx-2' style='height:40px; width:40px;'>";
-                             echo "<label>".$_SESSION['titulo'].": ".$_SESSION["nom_completo"]. "</label>"; 
-                             ?>
+                        <div class="float-start my-2">
+                           
+                        <?php foreach ($listarDatos as $fila) { ?>
+                                <div class='position-relative' style='width: 70px; height: 70px;'>
+                                <img src="../img/foto_perfiles/<?php echo $fila["foto_doctor"]?>?img" style='height:70px; width:70px;'>
+                                    <div class='position-absolute bottom-0 end-0' style='width: 25px; height: 25px;'>
+                                        <a href='../view/ModificarFotoPerfilDoctor.php' style='text-decoration: none'>
+                                            <img src='../img/actualizar_foto.gif' class='' style='height:25px; width:25 px;'>
+                                        </a>
+                                    </div>
+                                </div>
+                                <label class='h7'>Doctor: <?php echo $_SESSION["nom_completo"]?></label>
+
+                            <?php } ?>
+
                             <a href="../controller/ControllerDestruirSesionDoctor.php">Cerrar Sesión</a>
+
+
                         </div>
                     </div>
                     <div class="col-lg-6">
-                    <div class="float-end my-3">
+                        <div class="float-end my-3">
                             <?php echo "<label>Fecha y Hora Actual: " . $fechaActual . "</label>"; ?>
                         </div>
                     </div>
@@ -77,7 +91,7 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
                                     <p class="text-wrap">Buscador del paciente</p>
                                 </div>
                             </a>
-                           
+
                         </div>
                     </div>
                     <div class="col-lg-10">
@@ -85,107 +99,113 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
                             style="background-color: white; max-height: 357px;">
                             <div class="container">
                                 <div class="row align-items-center mx-2 my-4">
-                                    <div class="row my-2">
-                                        <div class="h4 text-center">Informacion del Doctor</div>
-                                        <div class="col-md-2">
-                                            <div class="col-md-12">Nombres: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["nombres"] . "</label>"; ?>
 
+                                    <?php foreach ($listarDatos as $filaDatos) { ?>
+
+                                        <div class="row my-2">
+                                            <div class="h4 text-center">Informacion del Doctor</div>
+                                            <div class="col-md-2">
+                                                <div class="col-md-12">Nombres: </div>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <div class="col-md-12 border border-dark" id="contenido_personal"
+                                                    style="background-color: #dddddd;">
+                                                    <?php echo "<label>" . $filaDatos["nombres"] . "</label>"; ?>
+
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12 ">Apellido Paterno: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["a_paterno"] . "</label>"; ?>
+                                        <div class="row my-2">
+                                            <div class="col-md-2">
+                                                <div class="col-md-12 ">Apellido Paterno: </div>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <div class="col-md-12 border border-dark" id="contenido_personal"
+                                                    style="background-color: #dddddd;">
+                                                    <?php echo "<label>" . $filaDatos["apellido_p"] . "</label>"; ?>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12 ">Apellido Materno: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["a_materno"] . "</label>"; ?>
+                                        <div class="row my-2">
+                                            <div class="col-md-2">
+                                                <div class="col-md-12 ">Apellido Materno: </div>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <div class="col-md-12 border border-dark" id="contenido_personal"
+                                                    style="background-color: #dddddd;">
+                                                    <?php echo "<label>" . $filaDatos["apellido_m"] . "</label>"; ?>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12 ">Edad: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["edad"] . "</label>"; ?>
+                                        <div class="row my-2">
+                                            <div class="col-md-2">
+                                                <div class="col-md-12 ">Edad: </div>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <div class="col-md-12 border border-dark" id="contenido_personal"
+                                                    style="background-color: #dddddd;">
+                                                    <?php echo "<label>" . $_SESSION["edad"] . "</label>"; ?>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12 ">Titulo: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["titulo"] . "</label>"; ?>
+                                        <div class="row my-2">
+                                            <div class="col-md-2">
+                                                <div class="col-md-12 ">Titulo: </div>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <div class="col-md-12 border border-dark" id="contenido_personal"
+                                                    style="background-color: #dddddd;">
+                                                    <?php echo "<label>" . $filaDatos["titulo"] . "</label>"; ?>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12">Grado: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["grado"] . "</label>"; ?>
+                                        <div class="row my-2">
+                                            <div class="col-md-2">
+                                                <div class="col-md-12">Grado: </div>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <div class="col-md-12 border border-dark" id="contenido_personal"
+                                                    style="background-color: #dddddd;">
+                                                    <?php echo "<label>" . $filaDatos["grado"] . "</label>"; ?>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12 ">Especialidad: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["especialidad"] . "</label>"; ?>
+                                        <div class="row my-2">
+                                            <div class="col-md-2">
+                                                <div class="col-md-12 ">Especialidad: </div>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <div class="col-md-12 border border-dark" id="contenido_personal"
+                                                    style="background-color: #dddddd;">
+                                                    <?php echo "<label>" . $filaDatos["especialidad"] . "</label>"; ?>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12 ">Credenciales: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["credenciales"] . "</label>"; ?>
+                                        <div class="row my-2">
+                                            <div class="col-md-2">
+                                                <div class="col-md-12 ">Credenciales: </div>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <div class="col-md-12 border border-dark" id="contenido_personal"
+                                                    style="background-color: #dddddd;">
+                                                    <?php echo "<label>" . $filaDatos["n_colegiado"] . "</label>"; ?>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row my-2">
-                                        <div class="col-md-2">
-                                            <div class="col-md-12 ">Universidad: </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                style="background-color: #dddddd;">
-                                                <?php echo "<label>" . $_SESSION["universidad"] . "</label>"; ?>
+                                        <div class="row my-2">
+                                            <div class="col-md-2">
+                                                <div class="col-md-12 ">Universidad: </div>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <div class="col-md-12 border border-dark" id="contenido_personal"
+                                                    style="background-color: #dddddd;">
+                                                    <?php echo "<label>" . $filaDatos["universidad"] . "</label>"; ?>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+
+                                    <?php } ?>
+
 
                                     <div class="container d-flex justify-content-center align-items-center">
                                      <a type="button" href="Editar_Info_Doctor.php" class="btn btn-outline-success my-3">Editar Datos </a>

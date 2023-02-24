@@ -10,19 +10,19 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
 
     if (isset($_POST['busca'])) {
         $busqueda = $_POST["busca"];
-        
-    } else{
+
+    } else {
         $busqueda = "";
     }
 
     if (isset($_POST['filtroArriba'])) {
         $busqueda = $_POST["filtroArriba"];
         $filtro = "Arriba";
-    } elseif (isset($_POST['filtroAbajo'])){
-        $busqueda =  $_POST["filtroAbajo"];
+    } elseif (isset($_POST['filtroAbajo'])) {
+        $busqueda = $_POST["filtroAbajo"];
         $filtro = "Abajo";
 
-    } else{
+    } else {
         $filtro = "";
     }
 
@@ -30,6 +30,11 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
     include_once "../controller/ControllerVacunasPend.php";
     $objVacunaPend = new ControllerVacunasPend();
     $listar = $objVacunaPend->ControllerListarVacunasPend($idpaciente, $busqueda, $filtro);
+
+    include "../controller/ControllerPaciente.php";
+    //Crear el objeto para el controlador
+    $obj = new ControllerPaciente();
+    $listarDatos = $obj->ControllerMostrarDatosPaciente($_SESSION["dni"], $_SESSION["emision"], $_SESSION["nacimiento"]);
 
 
     ?>
@@ -67,16 +72,30 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
     <body class="d-flex flex-column min-vh-100" style="background-color: transparent;">
 
         <div class="container-fluid my-3 px-4 py-4">
-        <div class="container-fluid  border border-dark border-2 rounded-2 py-4" style="background-color: #ffe599;">
+            <div class="container-fluid  border border-dark border-2 rounded-2 py-4" style="background-color: #ffe599;">
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="float-start">
-                            <?php echo "<label>Paciente: " . $_SESSION["nom_completo"] . "</label>"; ?>
+                        <div class="float-start my-2">
+                            <?php foreach ($listarDatos as $fila) { ?>
+                                <div class='position-relative' style='width: 70px; height: 70px;'>
+                                    <img src='../img/foto_perfiles/<?php echo $fila["paciente_foto"] ?>?img '
+                                        style='height:70px; width:70px;'>
+                                    <div class='position-absolute bottom-0 end-0' style='width: 25px; height: 25px;'>
+                                        <a href='../view/ModificarFotoPerfil.php' style='text-decoration: none'>
+                                            <img src='../img/actualizar_foto.gif' class='' style='height:25px; width:25 px;'>
+                                        </a>
+                                    </div>
+                                </div>
+                                <label class='h7'>Paciente:
+                                    <?php echo $_SESSION["nom_completo"] ?>
+                                </label>
+
+                            <?php } ?>
                             <a href="../controller/ControllerDestruirSesion.php">Cerrar Sesión</a>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="float-end">
+                        <div class="float-end my-3">
                             <?php echo "<label>Fecha y Hora Actual: " . $fechaActual . "</label>"; ?>
                         </div>
                     </div>
@@ -123,25 +142,26 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                             <div class="container">
                                 <div class="row align-items-center mx-2 my-4 border border-3 border-dark ">
                                     <div class="row my-2">
-                                    <!-- 
-                                        <form action="Bucador_Vacuna.php" method="POST">
-                                            <input type="text" name="buscadr">
-                                            <input type="submit" value="buscar">
+                                        <!-- 
+                                            <form action="Bucador_Vacuna.php" method="POST">
+                                                <input type="text" name="buscadr">
+                                                <input type="submit" value="buscar">
 
+                                            </form>
+
+                                            cambiar la busqueda
+                                        -->
+
+                                        <form action="Vacuna_Pend.php" method="POST">
+                                            <div class="col-lg-6">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control rounded" id="busca" name="busca"
+                                                        placeholder="Busqueda" />
+                                                    <input type="submit" class="btn btn-outline-primary"></input>
+                                                </div>
+                                            </div>
                                         </form>
 
-                                        cambiar la busqueda
-                                    -->
-
-                                    <form action="Vacuna_Pend.php" method="POST">
-                                        <div class="col-lg-6">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control rounded" id="busca" name="busca" placeholder="Busqueda" />
-                                            <input type="submit" class="btn btn-outline-primary" ></input>
-                                            </div>
-                                        </div>
-                                    </form>
-                                        
                                     </div>
 
                                     <div class="table-responsive">
@@ -150,13 +170,15 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                                 <th scope="col">ID</th>
                                                 <th scope="col">Vacuna</th>
                                                 <th scope="col"># Dosis</th>
-                                                <th scope="col" >Fecha estimada
+                                                <th scope="col">Fecha estimada
                                                     <form action="Vacuna_Pend.php" method="POST" class="float-end">
-                                                        <input type="hidden" id="filtroArriba"name="filtroArriba" value="<?php echo $busqueda;?>">
+                                                        <input type="hidden" id="filtroArriba" name="filtroArriba"
+                                                            value="<?php echo $busqueda; ?>">
                                                         <input type="submit" value="Asc">
                                                     </form>
                                                     <form action="Vacuna_Pend.php" method="POST" class="float-end">
-                                                        <input type="hidden" id="filtroAbajo" name="filtroAbajo" value="<?php echo $busqueda;?>">
+                                                        <input type="hidden" id="filtroAbajo" name="filtroAbajo"
+                                                            value="<?php echo $busqueda; ?>">
                                                         <input type="submit" value="Des">
                                                     </form>
 
@@ -164,8 +186,8 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                                 <th scope="col">Centro</th>
                                             </thead>
                                             <?php
-                                            
-                                            foreach($listar as $fila){
+
+                                            foreach ($listar as $fila) {
                                                 echo "<tr>";
                                                 echo "<td>" . $fila["id_tipovacuna"] . "</td>";
                                                 echo "<td>" . $fila["nombre_Vacuna"] . "</td>";
@@ -174,7 +196,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                                 echo "<td>" . $fila["nombre"] . "</td>";
                                                 echo "</tr>";
                                             }
-                                            
+
                                             ?>
 
 

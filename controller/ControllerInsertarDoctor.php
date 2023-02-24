@@ -2,14 +2,21 @@
 include_once 'ControllerDoctor.php';
 $obj = new ControllerDoctor();
 
+if ($_POST["dni"]== "" || $_POST["credenciales"]== "" ||$_POST["usa"]== "" ||$_POST["pass"]== "" ||$_POST["lugar"]== ""){
+    header("Location:../view/RegistroDoctor.php?valor=2");
+} else{
+
 $dni = $_POST["dni"];
 $credenciales = $_POST["credenciales"];
 $usa = $_POST["usa"];
 $pass = $_POST["pass"];
 $lugar = $_POST["lugar"];
 
+
 $extension = explode(".", $_FILES['fotosubida']['name']);
 $img	=	$dni.".".$extension[1];
+echo $usa,$pass,$lugar,$img;
+
 $obj->ControllerInsertarDoctor($dni, $lugar, $credenciales, $usa, $pass, $img);
 $dir_carga = '../img/foto_perfiles/';
 $ruta_nombre_archivo_registrado = $dir_carga . $img; 
@@ -21,6 +28,7 @@ if (move_uploaded_file($_FILES['fotosubida']['tmp_name'], $ruta_nombre_archivo_r
       echo "Error en la carga de archivos. \n";
 }
 
+}
 
 /*$status = $statusMsg = '';
 if (isset($_POST["submit"])) {

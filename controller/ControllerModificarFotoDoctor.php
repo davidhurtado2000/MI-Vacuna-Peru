@@ -1,6 +1,6 @@
 <?php
-include_once 'ControllerPaciente.php';
-$obj = new ControllerPaciente();
+include_once 'ControllerDoctor.php';
+$obj = new ControllerDoctor();
 
 if (isset($_POST['submit']) && !empty($_FILES["fotosubida"]["name"])) {
     $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
@@ -14,17 +14,17 @@ if (isset($_POST['submit']) && !empty($_FILES["fotosubida"]["name"])) {
 
     if (in_array($tipoarchivo, $allowTypes)) {
         if (move_uploaded_file($_FILES['fotosubida']['tmp_name'], $ruta_nombre_archivo_registrado)) {
-            $obj->ControladorModificarFoto($dni, $img);
-            header('Location:../view/Info_Ciudadano.php');
+            $obj->ControladorModificarFotoDoctor($dni, $img);
+            header('Location:../view/Info_Doctor.php');
         } else {
             echo "Error en la carga de archivos. \n";
         }
     } else {
-        header('Location:../view/ModificarFotoPerfil.php?err=2');
+        header('Location:../view/ModificarFotoPerfilDoctor.php?err=2');
     }
 
 } else {
-    header('Location:../view/ModificarFotoPerfil.php?err=1');
+    header('Location:../view/ModificarFotoPerfilDoctor.php?err=1');
 }
 
 ?>

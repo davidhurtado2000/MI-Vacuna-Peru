@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
+if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"] == "") {
     header('Location:../Log-in_Doctor.php?err=3');
 } else {
     date_default_timezone_set('America/Lima');
@@ -14,8 +14,18 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
 
     include_once "../controller/ControllerBuscarPaciente.php";
     $objBuscarP = new ControllerBuscarPaciente();
-    $listar = $objBuscarP->ModelListarBuscarPaciente($busqueda);
+    $listarBusquedaPaciente = $objBuscarP->ControllerListarBuscarPaciente($busqueda);
 
+    include "../controller/ControllerDoctor.php";
+    $objDatos = new ControllerDoctor();
+    $listarDatos = $objDatos->ControllerMostrarDatosDoctor($_SESSION["dni"], $_SESSION["credenciales"]);
+
+
+    if (isset($_GET["success"])) {
+        if ($_GET["success"] == 1) {
+            echo '<script type="text/javascript">alert("La vacuna se registro exitosamente!");</script>';
+        }
+    }
 
     ?>
     <!DOCTYPE html>
@@ -55,22 +65,33 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
             <div class="container-fluid  border border-dark border-2 rounded-2 py-4" style="background-color: #ffe599;">
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="float-start">
-                            <?php
-                            echo '<img src="data:image/png;base64,' . base64_encode($_SESSION['foto_perfil']) . '" 
-                             style="width:50px; height:50px;" />';
-                            echo "<label>" . $_SESSION['titulo'] . ": " . $_SESSION["nom_completo"] . "</label>";
-                            ?>
+                        <div class="float-start my-2">
+                            <?php foreach ($listarDatos as $fila) { ?>
+                                <div class='position-relative' style='width: 70px; height: 70px;'>
+                                    <img src="../img/foto_perfiles/<?php echo $fila["foto_doctor"] ?>?img"
+                                        style='height:70px; width:70px;'>
+
+                                    <div class='position-absolute bottom-0 end-0' style='width: 25px; height: 25px;'>
+                                        <a href='../view/ModificarFotoPerfilDoctor.php' style='text-decoration: none'>
+                                            <img src='../img/actualizar_foto.gif' class='' style='height:25px; width:25 px;'>
+                                        </a>
+                                    </div>
+                                </div>
+                                <label class='h7'>Doctor:
+                                    <?php echo $_SESSION["nom_completo"] ?>
+                                </label>
+
+                            <?php } ?>
                             <a href="../controller/ControllerDestruirSesionDoctor.php">Cerrar Sesión</a>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="float-end">
+                        <div class="float-end my-3">
                             <?php echo "<label>Fecha y Hora Actual: " . $fechaActual . "</label>"; ?>
                         </div>
                     </div>
                 </div>
-                <!-- -----------------------------------------------------------------------------------------------------------  -->
+
                 <div class="row">
                     <div class="col-lg-2">
                         <div class="btn-group-vertical " style="width: 100%; background-color:white;">
@@ -90,6 +111,9 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
 
                         </div>
                     </div>
+
+                    <!-- ------------------------------------------------------------------------------------------------------------->
+
                     <div class="col-lg-10">
                         <div class="col-md-12 px-4 h-100 border border-dark rounded-0 overflow-auto"
                             style="background-color: white; max-height: 357px;">
@@ -97,14 +121,14 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
                                 <div class="row align-items-center mx-2 my-4 border border-3 border-dark ">
                                     <div class="row my-2">
                                         <!-- 
-                                                <form action="Bucador_Vacuna.php" method="POST">
-                                                    <input type="text" name="buscadr">
-                                                    <input type="submit" value="buscar">
+                                                                        <form action="Bucador_Vacuna.php" method="POST">
+                                                                            <input type="text" name="buscadr">
+                                                                            <input type="submit" value="buscar">
 
-                                                </form>
+                                                                        </form>
 
-                                                cambiar la busqueda
-                                            -->
+                                                                        cambiar la busqueda
+                                                                    -->
 
                                         <form action="Buscar_Paciente.php" method="POST">
                                             <div class="col-lg-6">
@@ -126,16 +150,22 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
                                                 <th scope="col">Nombres</th>
                                                 <th scope="col">Historial</th>
                                             </thead>
+
+
                                             <?php
 
-                                            foreach ($listar as $fila) {
-
-                                                echo "<tr>";
+                                            foreach ($listarBusquedaPaciente as $fila) {
+                                                echo "<form action='MostrarHistorialPaciente.php' id='myForm' method=POST>";
+                                                echo "<tr id=" . $fila["dni_dni_id"] . ">";
                                                 echo "<td>" . $fila["dni_dni_id"] . "</td>";
-                                                echo "<td>" . $fila['apellido_p'] . " ," . $fila['apellido_m'] . "</td>";
+                                                echo "<td>" . $fila['apellido_p'] . ", " . $fila['apellido_m'] . "</td>";
                                                 echo "<td>" . $fila["nombres"] . "</td>";
-                                                echo "<td> <a href='#' >ver historial</a> </td>";
+                                                echo "<td> 
+                                                <input type='hidden' value='" . $fila["dni_dni_id"] . "' id='valor_dni' name='valor_dni'>
+                                                <input type='submit' value='Ver historial del Paciente'> 
+                                                </td>";
                                                 echo "</tr>";
+                                                echo "</form>";
                                             }
 
                                             ?>
@@ -151,10 +181,15 @@ if ($_SESSION["usuario"] == "" && $_SESSION["contraseña"]) {
                 </div>
             </div>
         </div>
-        
 
-
-
+        <script>
+            function myFunction() {
+                let obtenerColumna = document.getElementById("60449003");
+                let obtenerFila = obtenerColumna.getElementsByTagName("td");
+                document.getElementById("valor_dni").value = obtenerFila[0].innerhtml;
+                document.getElementById("myForm").submit();
+            }
+        </script>
 
     </body>
 

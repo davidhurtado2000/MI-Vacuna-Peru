@@ -52,5 +52,6 @@ setInputFilter(document.getElementById("dni"), function (value) {
 setInputFilter(document.getElementById("credenciales"), function (value) {
     return /^-?\d*$/.test(value);
 }, "Tiene valores numericos");
-setDateTimeToday("emision")
-setDateTimeToday("nacimiento")
+
+setDateTimeToday("emision");
+setDateTimeToday("nacimiento");

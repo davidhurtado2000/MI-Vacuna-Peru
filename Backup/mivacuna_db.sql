@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2023 at 06:27 PM
+-- Generation Time: Feb 22, 2023 at 10:05 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -59,6 +59,7 @@ CREATE TABLE `credenciales` (
 
 INSERT INTO `credenciales` (`n_colegiado`, `titulo`, `grado`, `universidad`, `especialidad`, `id_colegiomedico`) VALUES
 ('103881', 'Doctor', 'Licenciado', 'Universidad San Marcos', 'Medicina General', 'CM0001'),
+('104532', 'Doctor', 'Bachiller', 'Universidad Agraria', 'Internista', 'CM0001'),
 ('123456', 'Doctor', 'Licenciado', 'Universidad de Lima', 'Medicina General', 'CM0001');
 
 -- --------------------------------------------------------
@@ -105,7 +106,10 @@ CREATE TABLE `dni` (
 INSERT INTO `dni` (`dni_id`, `nombres`, `apellido_p`, `apellido_m`, `reniec_id_reniec`, `f_emision`, `f_nacimiento`) VALUES
 ('60449001', 'Jose Miguel', 'Hurtado', 'Abanto', 'REN001', '2022-12-01', '2000-02-03'),
 ('60449003', 'Juan Carlos', 'Tuncar', 'Ruiz', 'REN001', '2018-02-08', '1996-05-15'),
+('65223133', 'Nicolas', 'Abanto', 'Cachay', 'REN001', '2018-10-10', '1990-10-10'),
 ('70112005', 'Luis Daniel', 'Diaz', 'Espinoza', 'REN001', '2012-01-01', '1980-01-01'),
+('70112233', 'Juan', 'Morales', 'Hurtado', 'REN001', '2018-10-10', '1996-10-10'),
+('70443123', 'Oswaldo', 'Ruiz', 'Carrion', 'REN001', '2018-10-10', '1999-10-10'),
 ('70558994', 'Javier Junio', 'Caycho', 'Zamudio', 'REN001', '2018-10-10', '1996-10-10'),
 ('70668994', 'Daniel Luis', 'Valverde', 'Farfan', 'REN001', '2000-10-10', '1980-10-10'),
 ('71442231', 'Carlos Javier', 'Bravo', 'Espino', 'REN001', '2015-10-10', '1970-10-10');
@@ -117,7 +121,7 @@ INSERT INTO `dni` (`dni_id`, `nombres`, `apellido_p`, `apellido_m`, `reniec_id_r
 --
 
 CREATE TABLE `doctor` (
-  `id_doctor` char(6) NOT NULL,
+  `id_doctor` int(11) NOT NULL,
   `dni_dni_id` char(8) NOT NULL,
   `c_medico_id_centromedico` char(6) NOT NULL,
   `foto_doctor` varchar(1000) NOT NULL,
@@ -131,8 +135,9 @@ CREATE TABLE `doctor` (
 --
 
 INSERT INTO `doctor` (`id_doctor`, `dni_dni_id`, `c_medico_id_centromedico`, `foto_doctor`, `n_colegiado`, `usuario`, `contraseña`) VALUES
-('DC0001', '71442231', 'CEN001', '71442231.png', '103881', 'carlosdoc123', 'carlosdoc123'),
-('DC0002', '70112005', 'CEN001', '70112005.png', '123456', 'luis123', 'luis123');
+(1, '71442231', 'CEN001', '71442231.png', '103881', 'carlosdoc123', 'carlosdoc123'),
+(2, '70112005', 'CEN001', '70112005.png', '123456', 'luis123', 'luis123'),
+(7, '70112233', 'CEN001', '70112233.png', '104532', 'juan123', 'juan123');
 
 -- --------------------------------------------------------
 
@@ -154,10 +159,12 @@ CREATE TABLE `paciente` (
 --
 
 INSERT INTO `paciente` (`id_paciente`, `dni_dni_id`, `direccion`, `correo`, `telefono`, `paciente_foto`) VALUES
-('PC0001', '60449003', 'Av. Peru 15531', 'juanc@gmail.com', '997004985', '60449003.png'),
+('PC0001', '60449003', 'Av. Rodrigo Urgarte 2221', 'juancarlos@gmail.com', '997004910', '60449003.png'),
 ('PC0002', '60449001', 'Jr. Pimentel 2012', 'josemiguel@gmail.com', '997883123', '60449001.png'),
 ('PC0003', '70558994', 'Jr. Pimentel 2000', 'javiercaycho@gmail.com', '997005674', '70558994.png'),
-('PC0004', '70668994', 'Av. Salavery 24122', 'danielluis@gmail.com', '923123333', '70668994.png');
+('PC0004', '70668994', 'Av. Salavery 24122', 'danielluis@gmail.com', '923123333', '70668994.png'),
+('PC0005', '65223133', 'Av. Dueñas 155221', 'nicolascachay@gmail.com', '997005962', '65223133.gif'),
+('PC0006', '70443123', 'Av. Peru 123311', 'oswadoruiz12@gmail.com', '997004236', '70443123.png');
 
 -- --------------------------------------------------------
 
@@ -255,7 +262,8 @@ CREATE TABLE `t_vacuna` (
 
 INSERT INTO `t_vacuna` (`id_tipovacuna`, `caract`, `nombre_Vacuna`, `lote`, `fabricante`) VALUES
 ('VAC001', 'Vacuna de tipo covid', 'Covid-19', 'ABC-00', 'Phizer'),
-('VAC002', 'Vacuna de Influenza', 'Influenza', 'ABC-02', 'Marca');
+('VAC002', 'Vacuna de Influenza', 'Influenza', 'ABC-02', 'Marca'),
+('VAC003', 'Vacuna de Hepatitis', 'Hepatits B', 'HEP203', 'Damirep');
 
 -- --------------------------------------------------------
 
@@ -279,7 +287,8 @@ INSERT INTO `vacuna` (`t_vacuna_id_tipovacuna`, `fecha_vacunacion`, `dosis`, `pa
 ('VAC001', '2022-02-16', 1, 'PC0001', 'CEN001'),
 ('VAC002', '2022-07-15', 2, 'PC0002', 'CEN001'),
 ('VAC001', '2020-02-13', 4, 'PC0003', 'CEN001'),
-('VAC002', '2023-02-06', 1, 'PC0001', 'CEN001');
+('VAC002', '2023-02-06', 1, 'PC0001', 'CEN001'),
+('VAC003', '2023-02-25', 1, 'PC0001', 'CEN001');
 
 -- --------------------------------------------------------
 
@@ -298,10 +307,8 @@ CREATE TABLE `v_dispo` (
 --
 
 INSERT INTO `v_dispo` (`id_tipovacuna`, `c_medico_id_centromedico`, `disponibilidad`) VALUES
-('VAC002', 'CEN001', '1'),
-('VAC002', 'CEN001', '0'),
-('VAC002', 'CEN001', '1'),
-('VAC001', 'NULL', '1');
+('VAC001', 'CEN001', '1'),
+('VAC002', 'CEN001', '1');
 
 -- --------------------------------------------------------
 
@@ -433,6 +440,16 @@ ALTER TABLE `v_pend`
   ADD KEY `v_pend_pend_fk` (`pend_id_pendiente`),
   ADD KEY `fk_c_medico` (`id_centromedico`),
   ADD KEY `fk_id_tipovacuna` (`id_tipovacuna`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `doctor`
+--
+ALTER TABLE `doctor`
+  MODIFY `id_doctor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

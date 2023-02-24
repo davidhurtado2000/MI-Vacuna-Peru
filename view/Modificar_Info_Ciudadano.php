@@ -8,11 +8,15 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
     $fechaActual = date('d/m/y h:i');
 
     include "../controller/ControllerPaciente.php";
+    //Crear el objeto para el controlador
+    $obj = new ControllerPaciente();
+    $foto_perfil = $obj->ControllerMostrarFoto($_SESSION["dni"]);
 
 
+    include_once"../controller/ControllerPaciente.php";
+    //Crear el objeto para el controlador
     $objDatos = new ControllerPaciente();
     $listarDatos = $objDatos->ControllerMostrarDatosPaciente($_SESSION["dni"], $_SESSION["emision"], $_SESSION["nacimiento"]);
-
 
 
     ?>
@@ -54,7 +58,7 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="float-start my-2">
-                            <!--?php
+                            <?php
                             foreach ($listarDatos as $fila) {
                                 echo "<div class='position-relative' style='width: 70px; height: 70px;'>";
                                 echo "<img src='../img/foto_perfiles/$fila[paciente_foto]' style='height:70px; width:70px;'>";
@@ -64,24 +68,13 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                 echo "</a>";
                                 echo "</div>";
                                 echo "</div>";
+
                             }
 
 
                             echo "<label class='h7'>Paciente: " . $_SESSION["nom_completo"] . "</label>";
-                            ?-->
+                            ?>
 
-                            <?php foreach ($listarDatos as $fila) { ?>
-                                <div class='position-relative' style='width: 70px; height: 70px;'>
-                                    <img src='../img/foto_perfiles/<?php echo $fila["paciente_foto"]?>?img ' style='height:70px; width:70px;'>
-                                    <div class='position-absolute bottom-0 end-0' style='width: 25px; height: 25px;'>
-                                        <a href='../view/ModificarFotoPerfil.php' style='text-decoration: none'>
-                                            <img src='../img/actualizar_foto.gif' class='' style='height:25px; width:25 px;'>
-                                        </a>
-                                    </div>
-                                </div>
-                                <label class='h7'>Paciente: <?php echo $_SESSION["nom_completo"]?></label>
-
-                            <?php } ?>
 
 
 
@@ -133,18 +126,17 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                             <div class="container">
                                 <div class="row align-items-center mx-2 my-4">
 
+                                    <form action="../controller/ControllerModificarDatos.php" method="post">
+
                                     <?php foreach ($listarDatos as $filaDatos) { ?>
+
                                         <div class="row my-2">
-                                            <div class="h4 text-center">Informacion del Paciente</div>
+                                            <div class="h4 text-center">Actualizacion de datos</div>
                                             <div class="col-md-2">
                                                 <div class="col-md-12">Nombres: </div>
                                             </div>
                                             <div class="col-md-10">
-                                                <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                    style="background-color: #dddddd;">
-                                                    <?php echo "<label>" . $filaDatos["nombres"] . "</label>"; ?>
-
-                                                </div>
+                                                <input type="text" name="nombres" value="<?php echo $filaDatos["nombres"]; ?>" disabled>
                                             </div>
                                         </div>
                                         <div class="row my-2">
@@ -152,10 +144,8 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                                 <div class="col-md-12 ">Apellido Paterno: </div>
                                             </div>
                                             <div class="col-md-10">
-                                                <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                    style="background-color: #dddddd;">
-                                                    <?php echo "<label>" . $filaDatos["apellido_p"] . "</label>"; ?>
-                                                </div>
+                                                <input type="text" name="apellidos_p"
+                                                    value="<?php echo $filaDatos["apellido_p"]; ?>" disabled>
                                             </div>
                                         </div>
                                         <div class="row my-2">
@@ -163,62 +153,60 @@ if ($_SESSION["dni"] == "" && $_SESSION["emision"] == "" && $_SESSION["nacimient
                                                 <div class="col-md-12 ">Apellido Materno: </div>
                                             </div>
                                             <div class="col-md-10">
-                                                <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                    style="background-color: #dddddd;">
-                                                    <?php echo "<label>" . $filaDatos["apellido_m"] . "</label>"; ?>
-                                                </div>
+                                                <input type="text" name="apellido_m"
+                                                    value="<?php echo $filaDatos["apellido_m"]; ?>" disabled>
                                             </div>
                                         </div>
                                         <div class="row my-2">
                                             <div class="col-md-2">
-                                                <div class="col-md-12 ">Edad: </div>
+                                                <div class="col-md-12 ">Fecha de Nacimiento: </div>
                                             </div>
                                             <div class="col-md-10">
-                                                <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                    style="background-color: #dddddd;">
-                                                    <?php echo "<label>" . $_SESSION["edad"] . "</label>"; ?>
-                                                </div>
+                                                <input type="text" name="f_nacimiento" value="<?php echo $filaDatos["f_nacimiento"]; ?>"
+                                                    disabled>
                                             </div>
                                         </div>
                                         <div class="row my-2">
                                             <div class="col-md-2">
-                                                <div class="col-md-12">Direccion: </div>
+                                                <div class="col-md-12 ">Direccion: </div>
                                             </div>
                                             <div class="col-md-10">
-                                                <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                    style="background-color: #dddddd;">
-                                                    <?php echo "<label>" . $filaDatos["direccion"] . "</label>"; ?>
-                                                </div>
+                                                <input type="text" name="direccion"
+                                                    value="<?php echo $filaDatos["direccion"]; ?>" required>
                                             </div>
                                         </div>
                                         <div class="row my-2">
                                             <div class="col-md-2">
-                                                <div class="col-md-12">Correo: </div>
+                                                <div class="col-md-12 ">Correo: </div>
                                             </div>
                                             <div class="col-md-10">
-                                                <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                    style="background-color: #dddddd;">
-                                                    <?php echo "<label>" . $filaDatos["correo"] . "</label>"; ?>
-                                                </div>
+                                                <input type="text" name="correo"
+                                                    value="<?php echo $filaDatos["correo"]; ?>" required>
                                             </div>
                                         </div>
                                         <div class="row my-2">
                                             <div class="col-md-2">
-                                                <div class="col-md-12">Telefono: </div>
+                                                <div class="col-md-12 ">Telefono: </div>
                                             </div>
                                             <div class="col-md-10">
-                                                <div class="col-md-12 border border-dark" id="contenido_personal"
-                                                    style="background-color: #dddddd;">
-                                                    <?php echo "<label>" . $filaDatos["telefono"] . "</label>"; ?>
-                                                </div>
+                                                <input type="text" name="telefono"
+                                                    value="<?php echo $filaDatos["telefono"]; ?>" required>
                                             </div>
                                         </div>
-                                    <?php } ?>
-                                </div>
 
-                                <div class="container d-flex justify-content-center align-items-center">
-                                    <a type="button" href="Modificar_Info_Ciudadano.php"
-                                        class="btn btn-outline-success my-3">Actualizar mis datos </a>
+                                        <?php  ?>  
+
+                                        <div class="container d-flex justify-content-center align-items-end">
+                                            <div class="btn-group-vertical pt-2" style="background-color: white;">
+                                            <input type="hidden" value="<?php echo $_SESSION['dni']?>" name="dni">
+                                                <input type="submit" name="submit"
+                                                    class="btn btn-primary border border-dark" value="Actualizar mis datos">
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+
                                 </div>
                             </div>
                         </div>

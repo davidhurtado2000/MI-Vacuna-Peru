@@ -71,11 +71,11 @@ if ($_SESSION["dni"] == "" && $_SESSION["credenciales"] == "") {
           <div class="form-group border-bottom border-dark">
             <label for="numero_tele">Contraseña</label>
             <img src="../img/phone_icon.png" alt="Responsive image" id="iconos"><input type="password"
-              class="form-control border-0" placeholder="Ingresar su Contraseña" id="pass" name="usa" required>
+              class="form-control border-0" placeholder="Ingresar su Contraseña" id="pass" name="pass" required>
           </div>
 
           <div class="form-group border-bottom border-dark">
-            <label for="foto">Foto de Perfil</label>
+            <label for="foto">Foto de Perfil </label>
             <input type="hidden" name="MAX_FILE_SIZE" value="30000000">
             <img src="../img/profile_icon.png" alt="Responsive image" id="iconos"><input type="file"
               class="form-control border-0" placeholder="Foto" name="fotosubida" required>
@@ -94,6 +94,8 @@ if ($_SESSION["dni"] == "" && $_SESSION["credenciales"] == "") {
             <div class="btn-group-vertical pt-2" style="background-color: white;">
               <input type="hidden" name="dni" id="dni" value="<?php echo $_SESSION['dni'] ?>">
               <input type="hidden" name="credenciales" id="credenciales" value="<?php echo $_SESSION['credenciales'] ?>">
+              <?php  echo $_SESSION['dni'] ?>
+              <?php  echo $_SESSION['credenciales'] ?>
               <input type="submit" name="submit" class="btn btn-primary border border-dark" value="Ingresar">
             </div>
           </div>
